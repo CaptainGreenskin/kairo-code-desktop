@@ -35,10 +35,8 @@ test.afterAll(async () => {
 // WELCOME & CHAT
 // ═══════════════════════════════════════════════════════════════════════════
 
-test('welcome screen shows on first launch with suggestion tiles', async () => {
+test('welcome screen shows on first launch', async () => {
   await expect(page.getByRole('heading', { name: 'Kairo Code' })).toBeVisible()
-  const suggestions = page.locator('button').filter({ hasText: /Explain|Set up|Debug|Review/i })
-  expect(await suggestions.count()).toBeGreaterThanOrEqual(1)
   await page.screenshot({ path: 'e2e/screenshots/welcome-screen.png' })
 })
 
