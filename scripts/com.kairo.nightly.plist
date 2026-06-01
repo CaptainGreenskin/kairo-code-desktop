@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd agent: run the kairo-code-desktop nightly verification.
+
+  Install (per-user):
+    cp scripts/com.kairo.nightly.plist ~/Library/LaunchAgents/
+    launchctl load -w ~/Library/LaunchAgents/com.kairo.nightly.plist
+
+  Run once now (smoke):
+    launchctl start com.kairo.nightly
+
+  Inspect / remove:
+    launchctl list | grep com.kairo.nightly
+    launchctl unload -w ~/Library/LaunchAgents/com.kairo.nightly.plist
+
+  Logs land in the repo's logs/ (per-run, timestamped) plus the stdout/err below.
+  Note: live GLM-5.1 steps read creds from the repo .env. The Mac must be awake
+  at the scheduled time (launchd skips missed runs unless the machine is on).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.kairo.nightly</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/liulihan/IdeaProjects/sre/claude/kairo-code-desktop/scripts/nightly.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/liulihan/IdeaProjects/sre/claude/kairo-code-desktop</string>
+
+  <!-- launchd starts with a minimal PATH; add the nvm node bin so npm/npx resolve. -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/Users/liulihan/.nvm/versions/node/v24.13.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <!-- 02:17 local — off the :00 mark. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>2</integer>
+    <key>Minute</key>
+    <integer>17</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/liulihan/IdeaProjects/sre/claude/kairo-code-desktop/logs/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/liulihan/IdeaProjects/sre/claude/kairo-code-desktop/logs/launchd.err.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

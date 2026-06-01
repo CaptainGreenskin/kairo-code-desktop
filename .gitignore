@@ -1,0 +1,11 @@
+node_modules
+out
+dist
+.env
+.env.*
+*.log
+.DS_Store
+logs
+test-results
+playwright-report
+e2e/screenshots

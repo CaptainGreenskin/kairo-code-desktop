@@ -1,0 +1,56 @@
+appId: com.kairo.code-desktop
+productName: Kairo Code
+copyright: Copyright © 2024 Kairo
+directories:
+  buildResources: resources
+  output: dist
+# electron-vite bundles main/preload sources together with the @kairo/* packages
+# (and their transitive deps such as openai/zod/@anthropic-ai), so the packaged
+# app only needs the contents of `out/`. We deliberately exclude node_modules
+# to keep the artifact small.
+files:
+  - out/**/*
+  - "!node_modules/**/*"
+asar: true
+mac:
+  target:
+    - target: dmg
+      arch: [universal]
+  category: public.app-category.developer-tools
+  icon: resources/icon.icns
+  entitlements: resources/entitlements.mac.plist
+  entitlementsInherit: resources/entitlements.mac.plist
+  hardenedRuntime: true
+  gatekeeperAssess: false
+dmg:
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+win:
+  target:
+    - target: nsis
+      arch: [x64, arm64]
+  icon: resources/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+linux:
+  target:
+    - target: AppImage
+      arch: [x64, arm64]
+    - target: deb
+      arch: [x64, arm64]
+  category: Development
+  icon: resources/icons
+  desktop:
+    StartupWMClass: kairo-code-desktop
+publish:
+  - provider: github
+    owner: kairo-code
+    repo: kairo-code-desktop

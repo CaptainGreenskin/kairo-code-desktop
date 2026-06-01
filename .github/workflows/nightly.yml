@@ -1,0 +1,61 @@
+name: nightly
+
+# Runs the full gate nightly, including the real-LLM (智谱 GLM-5.1) crew tests.
+# Electron needs a display on Linux, so GUI steps run under xvfb.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   GLM_API_KEY    — 智谱 coding-plan key (format {id}.{secret})
+#   GLM_BASE_URL   — https://open.bigmodel.cn/api/coding/paas/v4
+#   GLM_MODEL      — glm-5.1
+#
+# Note: this repo currently lives outside git. Push it to a GitHub repo to
+# activate this workflow; until then use `npm run nightly` locally (cron/launchd).
+
+on:
+  schedule:
+    - cron: '17 18 * * *' # 02:17 Asia/Shanghai (18:17 UTC) — off the :00 mark
+  workflow_dispatch: {}
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: kairo-code-desktop
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # The desktop app depends on the local kairo-ts workspace (file: deps).
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Typecheck + unit tests + build
+        run: npm run verify
+
+      - name: Deterministic E2E (xvfb)
+        run: xvfb-run -a npx playwright test
+
+      - name: Live GLM-5.1 provider + crew E2E (xvfb)
+        env:
+          RUN_LIVE_LLM: '1'
+          OPENAI_API_KEY: ${{ secrets.GLM_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.GLM_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.GLM_MODEL }}
+        run: |
+          npx vitest run src/main/provider.live.test.ts
+          xvfb-run -a npx playwright test e2e/crew-live.e2e.ts
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-artifacts
+          path: |
+            kairo-code-desktop/test-results
+            kairo-code-desktop/e2e/screenshots
+          retention-days: 7
