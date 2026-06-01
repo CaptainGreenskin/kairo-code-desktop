@@ -984,8 +984,11 @@ export function registerSubagentTool(
   factory: SubagentFactory,
   getContext?: () => { sessionId: string; turnId: string }
 ): void {
-  const { agentTypeDescriptions } = require('../shared/agent-types') as typeof import('../shared/agent-types')
-  const typeList = agentTypeDescriptions()
+  const typeList = [
+    '- "explore": Fast read-only search/scan. For finding files, grepping, listing dirs, checking git.',
+    '- "analyze": Deep code analysis. For tracing call chains, understanding architecture, investigating bugs.',
+    '- "worker": Can read AND write files, run commands. Only for tasks requiring modifications.'
+  ].join('\n')
   const definition: ToolDefinition = {
     name: 'spawn_subagent',
     description:
