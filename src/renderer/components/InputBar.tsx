@@ -412,7 +412,7 @@ export function InputBar(): JSX.Element {
           </div>
         )}
 
-        <div className="relative flex items-end gap-2 rounded-xl bg-surface-2 border border-border input-glow transition-all duration-200 px-4 py-3">
+        <div className="relative rounded-2xl bg-surface-2/80 border border-accent/20 shadow-[0_0_0_1px_rgba(99,102,241,0.1),0_0_20px_rgba(99,102,241,0.06)] transition-all duration-200 focus-within:border-accent/40 focus-within:shadow-[0_0_0_1px_rgba(99,102,241,0.3),0_0_30px_rgba(99,102,241,0.1)]">
           <AnimatePresence>
             {showSlash && (
               <SlashCommandMenu
@@ -431,63 +431,74 @@ export function InputBar(): JSX.Element {
               />
             )}
           </AnimatePresence>
-          <textarea
-            ref={textareaRef}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onKeyDown={onKeyDown}
-            onPaste={handlePaste}
-            placeholder="Ask anything, or type / for commands..."
-            rows={1}
-            className="flex-1 bg-transparent resize-none outline-none text-sm text-text-primary placeholder:text-text-muted leading-relaxed py-1 max-h-[200px]"
-          />
-          <button
-            type="button"
-            onClick={() => useAppStore.getState().toggleAutopilot()}
-            title={autopilotEnabled ? `Autopilot ON (${autopilotMaxTurns} turns)` : 'Autopilot OFF'}
-            className={
-              'shrink-0 w-8 h-8 flex items-center justify-center rounded-md transition-colors ' +
-              (autopilotEnabled
-                ? 'bg-warning/20 text-warning hover:bg-warning/30'
-                : 'bg-transparent text-text-muted hover:text-text-secondary hover:bg-surface-3')
-            }
-          >
-            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-          </button>
-          {isGenerating ? (
-            <button
-              type="button"
-              onClick={() => {
-                useChatStore.getState().stopAutopilot()
-                handleStop()
-              }}
-              title="Stop generation"
-              className="shrink-0 w-8 h-8 flex items-center justify-center rounded-md bg-danger hover:bg-danger/90 text-white transition-colors"
-            >
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
-                <rect x="6" y="6" width="12" height="12" rx="1.5" />
-              </svg>
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleSend}
-              disabled={!canSend}
-              title="Send message"
-              className={
-                'shrink-0 w-8 h-8 flex items-center justify-center rounded-md transition-colors ' +
-                (canSend
-                  ? 'bg-accent hover:bg-accent-hover text-white'
-                  : 'bg-surface-3 text-text-muted cursor-not-allowed')
-              }
-            >
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          )}
+          {/* Textarea area */}
+          <div className="px-4 pt-3 pb-2">
+            <textarea
+              ref={textareaRef}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              onKeyDown={onKeyDown}
+              onPaste={handlePaste}
+              placeholder="Plan and build, @ for context, / for commands..."
+              rows={2}
+              className="w-full bg-transparent resize-none outline-none text-sm text-text-primary placeholder:text-text-muted/60 leading-relaxed max-h-[200px]"
+            />
+          </div>
+          {/* Bottom toolbar inside the input box */}
+          <div className="flex items-center justify-between px-3 pb-2.5">
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => useAppStore.getState().toggleAutopilot()}
+                title={autopilotEnabled ? `Autopilot ON (${autopilotMaxTurns} turns)` : 'Autopilot OFF'}
+                className={
+                  'flex items-center gap-1 px-2 py-1 rounded-md text-xs transition-colors ' +
+                  (autopilotEnabled
+                    ? 'bg-warning/15 text-warning'
+                    : 'text-text-muted hover:text-text-secondary hover:bg-surface-3')
+                }
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+                <span>{autopilotEnabled ? 'Auto' : ''}</span>
+              </button>
+            </div>
+            <div className="flex items-center gap-1.5">
+              {isGenerating ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    useChatStore.getState().stopAutopilot()
+                    handleStop()
+                  }}
+                  title="Stop generation"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-danger hover:bg-danger/90 text-white transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
+                    <rect x="6" y="6" width="12" height="12" rx="1.5" />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleSend}
+                  disabled={!canSend}
+                  title="Send message"
+                  className={
+                    'w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-150 ' +
+                    (canSend
+                      ? 'bg-accent hover:bg-accent-hover text-white shadow-sm hover-lift'
+                      : 'bg-surface-3 text-text-muted cursor-not-allowed')
+                  }
+                >
+                  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         <div className="mt-1.5 px-1 text-xs text-text-muted flex justify-between">
           <span>Enter send · Shift+Enter newline · / commands · @file · ⌘K palette</span>

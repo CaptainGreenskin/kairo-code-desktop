@@ -178,7 +178,7 @@ test('built-in slash commands are available (plugin commands are a known gap)', 
   // SLASH_COMMANDS array — a known feature gap. Verify built-in commands work.
   const closeBtn = page.getByLabel('Close settings')
   if (await closeBtn.isVisible().catch(() => false)) await closeBtn.click()
-  const input = page.getByPlaceholder(/ask anything/i)
+  const input = page.getByPlaceholder(/plan and build/i)
   await input.click()
   await input.fill('/')
   await expect(page.getByText('/new')).toBeVisible({ timeout: 5_000 })

@@ -41,11 +41,11 @@ test('welcome screen shows on first launch', async () => {
 })
 
 test('input bar is always visible with the prompt placeholder', async () => {
-  await expect(page.getByPlaceholder(/ask anything/i)).toBeVisible()
+  await expect(page.getByPlaceholder(/plan and build/i)).toBeVisible()
 })
 
 test('sending a prompt without an API key shows an error', async () => {
-  const input = page.getByPlaceholder(/ask anything/i)
+  const input = page.getByPlaceholder(/plan and build/i)
   await input.fill('hello world')
   await input.press('Enter')
   // With no API key configured, the app should show an error (toast, banner, or inline).
@@ -155,7 +155,7 @@ test('clicking a session in sidebar switches to it', async () => {
   const first = page.locator('#kairo-sidebar li button').first()
   await first.click()
   // The input bar should still be visible (session loaded).
-  await expect(page.getByPlaceholder(/ask anything/i)).toBeVisible()
+  await expect(page.getByPlaceholder(/plan and build/i)).toBeVisible()
 })
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -163,7 +163,7 @@ test('clicking a session in sidebar switches to it', async () => {
 // ═══════════════════════════════════════════════════════════════════════════
 
 test('typing / in input bar shows the slash command menu', async () => {
-  const input = page.getByPlaceholder(/ask anything/i)
+  const input = page.getByPlaceholder(/plan and build/i)
   await input.fill('/')
   // The slash menu should appear with at least the built-in commands.
   await expect(page.getByText('/new')).toBeVisible({ timeout: 5_000 })

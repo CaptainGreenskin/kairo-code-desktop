@@ -46,7 +46,7 @@ const crewModeHint = (): ReturnType<Page['getByText']> =>
 test('app boots and renders the main window', async () => {
   await expect(page.locator('#root')).toBeVisible()
   // The renderer mounted React — the input bar is always present.
-  await expect(page.getByPlaceholder(/ask anything/i)).toBeVisible()
+  await expect(page.getByPlaceholder(/plan and build/i)).toBeVisible()
   await page.screenshot({ path: 'e2e/screenshots/boot.png' })
 })
 

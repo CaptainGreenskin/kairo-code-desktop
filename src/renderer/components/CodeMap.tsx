@@ -184,7 +184,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
 
   // Map → Chat linkage: clicking a module/event in sidebar fills the main input.
   const fillChatInput = (text: string): void => {
-    const input = document.querySelector<HTMLTextAreaElement>('[placeholder*="Ask anything"]')
+    const input = document.querySelector<HTMLTextAreaElement>('[placeholder*="Plan and build"]')
     if (input) {
       const nativeSetter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set
       nativeSetter?.call(input, text)
