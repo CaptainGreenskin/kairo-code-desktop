@@ -18,9 +18,9 @@ interface MessageBubbleProps {
 }
 
 const FADE_IN = {
-  initial: { opacity: 0, y: 8 },
+  initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.18, ease: 'easeOut' as const }
+  transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
 }
 
 export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
@@ -56,9 +56,9 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
   const hasToolCalls = (message.toolCalls?.length ?? 0) > 0
 
   return (
-    <motion.div {...FADE_IN} className="flex justify-start px-6 py-3">
+    <motion.div {...FADE_IN} className="flex justify-start px-6 py-4">
       <div className="w-full max-w-3xl group/msg relative">
-        <div className="text-xs uppercase tracking-wide text-text-muted mb-1">
+        <div className="text-xs uppercase tracking-widest text-text-muted/60 font-medium mb-2">
           Assistant
         </div>
 

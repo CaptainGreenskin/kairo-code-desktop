@@ -28,7 +28,7 @@ const iconSizeStyles: Record<Size, string> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'secondary', size = 'md', icon = false, className = '', children, disabled, ...props }, ref) => {
-    const base = 'inline-flex items-center justify-center font-medium transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none select-none'
+    const base = 'inline-flex items-center justify-center font-medium transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none select-none hover-lift'
     const v = variantStyles[variant]
     const s = icon ? iconSizeStyles[size] : sizeStyles[size]
     return (

@@ -46,22 +46,21 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
   return (
     <div
       className={
-        'my-2 rounded-md border bg-surface-0/60 ' +
+        'my-1 rounded-lg border transition-all duration-150 ' +
         (status === 'error'
-          ? 'border-danger/40'
+          ? 'border-danger/30 bg-danger/5'
           : status === 'pending'
-            ? 'border-accent/40'
-            : 'border-border')
+            ? 'border-accent/30 bg-accent/5'
+            : 'border-border/60 bg-surface-0/40')
       }
     >
       <button
         type="button"
         onClick={() => toggle(toolCall.id)}
-        className="w-full flex items-center gap-2 px-3 py-2 text-left text-xs font-mono text-text-secondary hover:bg-surface-2 rounded-md"
+        className="w-full flex items-center gap-2 px-3 py-1.5 text-left text-xs font-mono text-text-secondary hover:bg-surface-2/50 rounded-lg transition-colors"
       >
         <StatusIcon status={status} />
-        <span className="text-text-muted">tool</span>
-        <span className="text-text-primary">{toolCall.toolName}</span>
+        <span className="text-text-primary font-medium">{toolCall.toolName}</span>
         {pendingDiff && (
           <span className="ml-2 px-1.5 py-0.5 rounded bg-warning/20 text-warning text-xs uppercase tracking-wide">
             review

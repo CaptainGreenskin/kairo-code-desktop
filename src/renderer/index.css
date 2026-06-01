@@ -93,6 +93,11 @@
   border-color: var(--color-accent);
 }
 
+/* Subtle hover lift for interactive elements */
+.hover-lift { transition: transform 150ms ease; }
+.hover-lift:hover { transform: translateY(-1px); }
+.hover-lift:active { transform: translateY(0); }
+
 /* ── Global resets ──────────────────────────────────────────────────────── */
 * {
   -webkit-font-smoothing: antialiased;

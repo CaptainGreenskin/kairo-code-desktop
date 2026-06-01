@@ -12,6 +12,7 @@ import {
   type DateGroup
 } from '../stores/app-store'
 import { useChatStore } from '../stores/chat-store'
+import { Button } from './ui/Button'
 import { FileTree } from './FileTree'
 import { GitPanel } from './GitPanel'
 import type { SessionFile, SessionMeta } from '../../shared/types'
@@ -164,19 +165,15 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
 
       {/* New chat */}
       <div className="px-3 pt-3">
-        <button
-          type="button"
-          onClick={onNewChat}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-accent hover:bg-accent-hover text-white text-sm font-medium transition-colors shadow-sm"
-        >
+        <Button variant="primary" onClick={onNewChat} className="w-full">
           <PlusIcon />
           <span>New Chat</span>
-        </button>
+        </Button>
       </div>
 
       {/* Search */}
       <div className="px-3 pt-2">
-        <div className="flex items-center gap-2 px-2 py-1.5 rounded-md bg-surface-2 border border-border focus-within:border-border-focus transition-colors">
+        <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border input-glow transition-all duration-150">
           <SearchIcon />
           <input
             value={searchQuery}
@@ -201,7 +198,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
             if (items.length === 0) return null
             return (
               <div key={g} className="mt-2">
-                <div className="px-3 text-xs uppercase tracking-wider text-text-muted font-semibold">
+                <div className="px-4 pt-1 pb-0.5 text-xs uppercase tracking-widest text-text-muted/70 font-medium">
                   {GROUP_LABELS[g]}
                 </div>
                 <ul className="mt-1">
@@ -328,10 +325,10 @@ function SessionItem({
         onClick={onSelect}
         onContextMenu={onContextMenu}
         className={
-          'group w-full text-left px-3 py-1.5 flex items-start gap-2 border-l-2 transition-colors ' +
+          'group w-full text-left mx-2 px-2.5 py-2 flex items-start gap-2 rounded-lg transition-all duration-150 ' +
           (isActive
-            ? 'border-accent bg-surface-2 text-text-primary'
-            : 'border-transparent text-text-secondary hover:text-text-primary hover:bg-surface-3')
+            ? 'bg-accent/10 text-text-primary shadow-sm'
+            : 'text-text-secondary hover:text-text-primary hover:bg-surface-2')
         }
         title={session.preview || session.name}
       >
