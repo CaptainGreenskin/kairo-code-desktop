@@ -37,15 +37,15 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
       <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-surface-0">
         <div className="flex items-center gap-2 min-w-0">
           <CrewIcon />
-          <span className="text-[13px] font-semibold text-text-primary">Crew</span>
-          <span className="text-[12px] text-text-secondary truncate">{crew.task}</span>
-          <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">{strategyLabel}</span>
+          <span className="text-sm font-semibold text-text-primary">Crew</span>
+          <span className="text-sm text-text-secondary truncate">{crew.task}</span>
+          <span className="shrink-0 text-xs px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">{strategyLabel}</span>
         </div>
         {crew.phase === 'running' && (
           <button
             type="button"
             onClick={() => abort(crew.crewId)}
-            className="shrink-0 px-2 py-0.5 text-[11px] rounded-md bg-danger/20 hover:bg-danger/30 text-danger"
+            className="shrink-0 px-2 py-0.5 text-xs rounded-md bg-danger/20 hover:bg-danger/30 text-danger"
           >
             Stop
           </button>
@@ -54,7 +54,7 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
 
       {/* Planning spinner */}
       {crew.phase === 'planning' && (
-        <div className="px-4 py-3 text-[12px] text-text-muted flex items-center gap-2">
+        <div className="px-4 py-3 text-sm text-text-muted flex items-center gap-2">
           <span className="inline-block w-1.5 h-3.5 bg-accent animate-pulse" />
           Team Lead 正在规划阵容与步骤…
         </div>
@@ -78,7 +78,7 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
         <>
           {crew.roles.length > 0 && (
             <div className="px-3 pt-3">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Crew map</div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Crew map</div>
               <CrewGraph
                 roles={crew.roles.map((r) => ({ ...r, systemPrompt: '' }))}
                 strategy={crew.strategy}
@@ -102,13 +102,13 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
         const diff = expectationDiff(crew.expectedModules ?? [], crew.lens.blastRadius.map((b) => b.module))
         if (diff.unexpected.length === 0 && diff.missed.length === 0) {
           return (
-            <div className="px-4 py-2 border-t border-border bg-success/10 text-[12px] text-text-secondary" data-testid="expectation-diff">
+            <div className="px-4 py-2 border-t border-border bg-success/10 text-sm text-text-secondary" data-testid="expectation-diff">
               ✓ 影响范围与你的预期一致
             </div>
           )
         }
         return (
-          <div className="px-4 py-2 border-t border-border bg-warning/10 text-[12px] space-y-1" data-testid="expectation-diff">
+          <div className="px-4 py-2 border-t border-border bg-warning/10 text-sm space-y-1" data-testid="expectation-diff">
             {diff.unexpected.length > 0 && (
               <div>
                 <span className="text-warning font-medium">你没料到的改动：</span>
@@ -133,7 +133,7 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
       )}
 
       {crew.phase === 'done' && crew.reason === 'error' && (
-        <div className="px-4 py-2 border-t border-border text-[12px] text-danger">
+        <div className="px-4 py-2 border-t border-border text-sm text-danger">
           {crew.error ?? 'Crew failed.'}
         </div>
       )}
@@ -165,18 +165,18 @@ function CrewAgentModal({ agent, onClose }: { agent: CrewRunAgent; onClose: () =
             <span className={`w-2 h-2 rounded-full ${dot}`} />
             <span className="text-sm font-semibold text-text-primary">{agent.label}</span>
             {agent.tokensUsed !== undefined && (
-              <span className="text-[11px] text-text-muted font-mono">{agent.tokensUsed}t</span>
+              <span className="text-xs text-text-muted font-mono">{agent.tokensUsed}t</span>
             )}
           </div>
           <button type="button" onClick={onClose} className="text-text-muted hover:text-text-primary text-sm px-1">&#10005;</button>
         </div>
         <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3">
-          <div className="text-[13px] text-text-secondary leading-relaxed markdown-body">
+          <div className="text-sm text-text-secondary leading-relaxed markdown-body">
             {agent.output ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{agent.output}</ReactMarkdown> : <span className="text-text-muted">（暂无输出）</span>}
           </div>
           {agent.toolCalls.length > 0 && (
             <div className="space-y-1 border-t border-border pt-3">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+              <div className="text-xs font-semibold uppercase tracking-wider text-text-muted">
                 工具调用 · {agent.toolCalls.length}
               </div>
               {agent.toolCalls.map((tc) => (
@@ -206,11 +206,11 @@ function CrewAgentColumn({ agent, onExpand }: { agent: CrewRunAgent; onExpand: (
       <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-surface-0">
         <div className="flex items-center gap-2">
           <span className={`w-2 h-2 rounded-full ${dot}`} />
-          <span className="text-[13px] font-medium text-text-primary">{agent.label}</span>
+          <span className="text-sm font-medium text-text-primary">{agent.label}</span>
         </div>
         <div className="flex items-center gap-2">
           {agent.tokensUsed !== undefined && (
-            <span className="text-[10px] text-text-muted font-mono">{agent.tokensUsed}t</span>
+            <span className="text-xs text-text-muted font-mono">{agent.tokensUsed}t</span>
           )}
           <button
             type="button"
@@ -223,7 +223,7 @@ function CrewAgentColumn({ agent, onExpand }: { agent: CrewRunAgent; onExpand: (
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-3 text-[12px] text-text-secondary leading-relaxed markdown-body">
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-3 text-sm text-text-secondary leading-relaxed markdown-body">
         {agent.output ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{agent.output}</ReactMarkdown> : (agent.status === 'pending' ? <span className="text-text-muted">Waiting…</span> : '')}
         {agent.status === 'running' && <span className="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-accent animate-pulse" />}
       </div>
@@ -252,7 +252,7 @@ function CrewToolChip({ call }: { call: CrewToolCall }): JSX.Element {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-1.5 px-1.5 py-0.5 text-[10px] font-mono text-text-muted hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-1.5 py-0.5 text-xs font-mono text-text-muted hover:text-text-primary"
       >
         <span className="text-text-muted/70">{open ? '▾' : '▸'}</span>
         <span className={markColor}>{mark}</span>
@@ -261,12 +261,12 @@ function CrewToolChip({ call }: { call: CrewToolCall }): JSX.Element {
       {open && (
         <div className="px-2 pb-1.5 space-y-1">
           {argsStr && (
-            <pre className="text-[10px] font-mono text-text-secondary bg-surface-0 rounded p-1.5 overflow-x-auto whitespace-pre-wrap">{argsStr}</pre>
+            <pre className="text-xs font-mono text-text-secondary bg-surface-0 rounded p-1.5 overflow-x-auto whitespace-pre-wrap">{argsStr}</pre>
           )}
           {call.result !== undefined ? (
-            <pre className="text-[10px] font-mono text-text-secondary bg-surface-0 rounded p-1.5 overflow-x-auto whitespace-pre-wrap max-h-40 overflow-y-auto">{call.result || '(empty)'}</pre>
+            <pre className="text-xs font-mono text-text-secondary bg-surface-0 rounded p-1.5 overflow-x-auto whitespace-pre-wrap max-h-40 overflow-y-auto">{call.result || '(empty)'}</pre>
           ) : (
-            <div className="text-[10px] text-text-muted">运行中…</div>
+            <div className="text-xs text-text-muted">运行中…</div>
           )}
         </div>
       )}

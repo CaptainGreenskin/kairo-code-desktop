@@ -56,7 +56,7 @@ export function GitPanel(): JSX.Element {
   ]
 
   return (
-    <div className="text-[12px]">
+    <div className="text-sm">
       {/* Branch */}
       <div className="flex items-center gap-1.5 px-3 py-1.5 text-text-secondary">
         <BranchIcon />
@@ -73,7 +73,7 @@ export function GitPanel(): JSX.Element {
       </div>
 
       {error && (
-        <div className="px-3 py-1 text-danger text-[11px]">{error}</div>
+        <div className="px-3 py-1 text-danger text-xs">{error}</div>
       )}
 
       {loading ? (
@@ -120,7 +120,7 @@ export function GitPanel(): JSX.Element {
               value={commitMsg}
               onChange={(e) => setCommitMsg(e.target.value)}
               placeholder="Commit message..."
-              className="w-full px-2 py-1 rounded bg-surface-2 border border-border text-text-primary text-[12px] outline-none focus:border-border-focus"
+              className="w-full px-2 py-1 rounded bg-surface-2 border border-border text-text-primary text-sm outline-none focus:border-border-focus"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') void handleCommit()
               }}
@@ -129,7 +129,7 @@ export function GitPanel(): JSX.Element {
               type="button"
               onClick={() => void handleCommit()}
               disabled={committing || !commitMsg.trim() || selectedFiles.size === 0}
-              className="w-full py-1 rounded bg-accent hover:bg-accent-hover text-white text-[12px] font-medium disabled:opacity-40 transition-colors"
+              className="w-full py-1 rounded bg-accent hover:bg-accent-hover text-white text-sm font-medium disabled:opacity-40 transition-colors"
             >
               {committing ? 'Committing...' : `Commit (${selectedFiles.size})`}
             </button>

@@ -40,7 +40,7 @@ function linkifyLine(line: string, idx: number): React.ReactNode {
     const rest = line.slice(matched!.length)
     return (
       <span key={idx}>
-        <ClickablePath path={filePath!} line={lineNum} className="text-[12px]">
+        <ClickablePath path={filePath!} line={lineNum} className="text-sm">
           {filePath}:{lineStr}
         </ClickablePath>
         {rest}
@@ -64,7 +64,7 @@ function linkifyLine(line: string, idx: number): React.ReactNode {
     parts.push(
       <span key={`p-${idx}-${partIdx++}`}>
         {'('}
-        <ClickablePath path={filePath!} line={lineNum} className="text-[12px]">
+        <ClickablePath path={filePath!} line={lineNum} className="text-sm">
           {filePath}:{lineStr}
         </ClickablePath>
         {')'}
@@ -98,7 +98,7 @@ export function BashResultView({ result, isError }: BashResultViewProps): JSX.El
     return (
       <pre
         className={
-          'bg-gray-950 border rounded p-2 overflow-x-auto whitespace-pre-wrap break-words font-mono text-[12px] leading-5 ' +
+          'bg-gray-950 border rounded p-2 overflow-x-auto whitespace-pre-wrap break-words font-mono text-sm leading-5 ' +
           (isError ? 'border-danger/40 text-danger' : 'border-border text-gray-300')
         }
       >
@@ -108,7 +108,7 @@ export function BashResultView({ result, isError }: BashResultViewProps): JSX.El
   }
 
   return (
-    <div className="bg-gray-950 border border-border rounded overflow-hidden font-mono text-[12px] leading-5">
+    <div className="bg-gray-950 border border-border rounded overflow-hidden font-mono text-sm leading-5">
       {parsed.stdout && (
         <pre className="p-2 overflow-x-auto whitespace-pre-wrap break-words text-gray-300">
           <code>{linkifyOutput(parsed.stdout)}</code>
@@ -122,7 +122,7 @@ export function BashResultView({ result, isError }: BashResultViewProps): JSX.El
       {parsed.exitLine && (
         <div
           className={
-            'px-2 py-1 border-t border-border text-[11px] ' +
+            'px-2 py-1 border-t border-border text-xs ' +
             (isError ? 'text-danger bg-danger/5' : 'text-text-muted bg-surface-1')
           }
         >

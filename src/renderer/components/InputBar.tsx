@@ -353,10 +353,10 @@ export function InputBar(): JSX.Element {
               className="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 border border-accent/30 hover:border-danger/50 hover:bg-danger/10 transition-colors"
             >
               <CodeIcon />
-              <span className="text-[11px] font-mono text-text-primary max-w-[300px] truncate">
+              <span className="text-xs font-mono text-text-primary max-w-[300px] truncate">
                 {codeContext.split('\n')[0]}
               </span>
-              <span className="text-[10px] text-text-muted group-hover:text-danger">✕</span>
+              <span className="text-xs text-text-muted group-hover:text-danger">✕</span>
             </button>
           </div>
         )}
@@ -371,10 +371,10 @@ export function InputBar(): JSX.Element {
                 className="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-3 border border-border hover:border-danger/50 hover:bg-danger/10 transition-colors"
               >
                 <ChipIcon />
-                <span className="text-[11px] font-mono text-text-primary max-w-[220px] truncate">
+                <span className="text-xs font-mono text-text-primary max-w-[220px] truncate">
                   {file.name}
                 </span>
-                <span className="text-[10px] text-text-muted group-hover:text-danger">✕</span>
+                <span className="text-xs text-text-muted group-hover:text-danger">✕</span>
               </button>
             ))}
           </div>
@@ -400,19 +400,19 @@ export function InputBar(): JSX.Element {
         {/* Crew mode indicator (only visible when /crew activated) */}
         {composerMode === 'crew' && (
           <div className="mb-2 flex items-center gap-2">
-            <span className="px-2 py-0.5 text-[10px] rounded bg-accent/20 text-accent font-medium">Crew 模式</span>
-            <span className="text-[10px] text-text-muted">多角色协作 · 发送即启动</span>
+            <span className="px-2 py-0.5 text-xs rounded bg-accent/20 text-accent font-medium">Crew 模式</span>
+            <span className="text-xs text-text-muted">多角色协作 · 发送即启动</span>
             <button
               type="button"
               onClick={() => useAppStore.getState().setComposerMode('agent')}
-              className="text-[10px] text-text-muted hover:text-text-primary"
+              className="text-xs text-text-muted hover:text-text-primary"
             >
               取消
             </button>
           </div>
         )}
 
-        <div className="relative flex items-end gap-2 rounded-md bg-surface-2 border border-border focus-within:ring-1 focus-within:ring-border-focus focus-within:border-border-focus transition-colors px-3 py-2">
+        <div className="relative flex items-end gap-2 rounded-xl bg-surface-2 border border-border input-glow transition-all duration-200 px-4 py-3">
           <AnimatePresence>
             {showSlash && (
               <SlashCommandMenu
@@ -489,7 +489,7 @@ export function InputBar(): JSX.Element {
             </button>
           )}
         </div>
-        <div className="mt-1.5 px-1 text-[11px] text-text-muted flex justify-between">
+        <div className="mt-1.5 px-1 text-xs text-text-muted flex justify-between">
           <span>Enter send · Shift+Enter newline · / commands · @file · ⌘K palette</span>
           {isGenerating && <span className="text-accent">Generating…</span>}
         </div>

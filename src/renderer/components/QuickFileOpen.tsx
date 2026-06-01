@@ -139,7 +139,7 @@ export function QuickFileOpen(): JSX.Element {
                 className="flex-1 py-3 px-2 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none"
               />
               {loading && (
-                <span className="text-[10px] text-text-muted">Loading...</span>
+                <span className="text-xs text-text-muted">Loading...</span>
               )}
             </div>
 
@@ -163,7 +163,7 @@ export function QuickFileOpen(): JSX.Element {
                     }
                   >
                     <span className="text-sm font-medium truncate">{file.name}</span>
-                    <span className="text-[11px] text-text-muted font-mono truncate">{file.relativePath}</span>
+                    <span className="text-xs text-text-muted font-mono truncate">{file.relativePath}</span>
                   </button>
                 ))
               )}

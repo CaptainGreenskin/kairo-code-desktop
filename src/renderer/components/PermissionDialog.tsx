@@ -77,7 +77,7 @@ export function PermissionDialog(): JSX.Element | null {
       >
         <header className="flex items-start justify-between gap-4 border-b border-border px-6 py-4">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-warning">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-warning">
               Approval required
             </div>
             <h2
@@ -91,7 +91,7 @@ export function PermissionDialog(): JSX.Element | null {
             <div className="text-xs text-text-secondary">auto-deny in</div>
             <div className="font-mono text-base text-text-primary">{secondsLeft}s</div>
             {queueLength > 1 ? (
-              <div className="mt-1 text-[11px] text-text-muted">
+              <div className="mt-1 text-xs text-text-muted">
                 +{queueLength - 1} queued
               </div>
             ) : null}
@@ -104,7 +104,7 @@ export function PermissionDialog(): JSX.Element | null {
           ) : null}
 
           <div>
-            <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+            <div className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
               Arguments
             </div>
             <pre className="max-h-64 overflow-auto rounded-md border border-border bg-surface-0 px-3 py-2 text-xs text-text-primary font-mono whitespace-pre-wrap break-words">

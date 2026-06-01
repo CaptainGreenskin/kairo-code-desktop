@@ -218,10 +218,10 @@ export function CrewPanel(): JSX.Element | null {
           <div className="flex items-center gap-2 min-w-0">
             <CrewIcon />
             <h3 className="text-sm font-semibold text-text-primary">Crew</h3>
-            <span className="text-[11px] text-text-muted truncate">
+            <span className="text-xs text-text-muted truncate">
               {roles.map((r) => r.label).join(strategy === 'parallel' ? ' + ' : ' → ')}
             </span>
-            <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">
+            <span className="shrink-0 text-xs px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">
               {strategy === 'parallel' ? 'parallel' : 'sequential'}
             </span>
           </div>
@@ -231,7 +231,7 @@ export function CrewPanel(): JSX.Element | null {
               onClick={() => setShowMap((v) => !v)}
               title="Show the live System Map beside the console"
               className={
-                'px-2.5 py-1 text-[11px] rounded-md transition-colors ' +
+                'px-2.5 py-1 text-xs rounded-md transition-colors ' +
                 (showMap ? 'bg-accent/20 text-accent' : 'text-text-muted hover:text-text-primary hover:bg-surface-3')
               }
             >
@@ -242,7 +242,7 @@ export function CrewPanel(): JSX.Element | null {
                 type="button"
                 onClick={() => setShowConfig((v) => !v)}
                 className={
-                  'px-2.5 py-1 text-[11px] rounded-md transition-colors ' +
+                  'px-2.5 py-1 text-xs rounded-md transition-colors ' +
                   (showConfig ? 'bg-accent/20 text-accent' : 'text-text-muted hover:text-text-primary hover:bg-surface-3')
                 }
               >
@@ -253,7 +253,7 @@ export function CrewPanel(): JSX.Element | null {
               <button
                 type="button"
                 onClick={abort}
-                className="px-2.5 py-1 text-[11px] rounded-md bg-danger/20 hover:bg-danger/30 text-danger transition-colors"
+                className="px-2.5 py-1 text-xs rounded-md bg-danger/20 hover:bg-danger/30 text-danger transition-colors"
               >
                 Stop
               </button>
@@ -279,8 +279,8 @@ export function CrewPanel(): JSX.Element | null {
                 data-testid="crew-system-map"
               >
                 <div className="flex items-center justify-between px-3 py-2 border-b border-border">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">System map</span>
-                  <span className="text-[10px] text-text-muted/70 font-mono">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">System map</span>
+                  <span className="text-xs text-text-muted/70 font-mono">
                     {codeMap.map ? `${codeMap.map.modules.length} mod · ${codeMap.map.edges.length} dep` : 'live'}
                   </span>
                 </div>
@@ -303,7 +303,7 @@ export function CrewPanel(): JSX.Element | null {
 
         {/* Onboarding guard — no usable model credential. */}
         {!hasModel && (
-          <div className="flex items-center justify-between gap-2 px-4 py-2 border-b border-border bg-warning/10 text-[12px] text-warning">
+          <div className="flex items-center justify-between gap-2 px-4 py-2 border-b border-border bg-warning/10 text-sm text-warning">
             <span>No model configured. Set your API key &amp; model to run a crew.</span>
             <button
               type="button"
@@ -328,13 +328,13 @@ export function CrewPanel(): JSX.Element | null {
             }}
             disabled={running || phase !== 'idle'}
             placeholder="Describe a task for the crew to tackle together…"
-            className="flex-1 px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus disabled:opacity-60"
+            className="flex-1 px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus disabled:opacity-60"
           />
           <button
             type="button"
             onClick={startPlanning}
             disabled={running || phase !== 'idle' || !draft.trim() || !hasModel}
-            className="px-3 py-2 text-[13px] rounded-md bg-accent hover:bg-accent-hover text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="px-3 py-2 text-sm rounded-md bg-accent hover:bg-accent-hover text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             {running ? 'Running…' : phase === 'planning' ? 'Planning…' : 'Plan Crew'}
           </button>
@@ -354,7 +354,7 @@ export function CrewPanel(): JSX.Element | null {
         {/* The Bridge — live dependency-graph map of the run */}
         {hasRun && executedRoles.length > 0 && (
           <div className="px-4 pt-3 border-b border-border bg-surface-0">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Crew map</div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Crew map</div>
             <CrewGraph
               roles={executedRoles}
               strategy={strategy}
@@ -369,7 +369,7 @@ export function CrewPanel(): JSX.Element | null {
             <div className="h-full min-h-[240px] flex flex-col items-center justify-center text-center text-text-muted">
               <CrewIcon large />
               <p className="mt-3 text-sm">A crew of specialized agents will plan, implement, and review your task.</p>
-              <p className="mt-1 text-[12px]">Enter a task above and press Run Crew.</p>
+              <p className="mt-1 text-sm">Enter a task above and press Run Crew.</p>
             </div>
           ) : (
             <div className="h-full grid gap-3 overflow-x-auto" style={{ gridTemplateColumns: `repeat(${agents.length}, minmax(220px, 1fr))` }}>
@@ -391,7 +391,7 @@ export function CrewPanel(): JSX.Element | null {
 
         {/* Footer status */}
         {hasRun && !running && reason && (
-          <div className="px-4 py-2 border-t border-border bg-surface-2 text-[12px]">
+          <div className="px-4 py-2 border-t border-border bg-surface-2 text-sm">
             {reason === 'completed' && <span className="text-success">Crew completed.</span>}
             {reason === 'aborted' && <span className="text-warning">Crew aborted.</span>}
             {reason === 'error' && <span className="text-danger">Crew failed.</span>}
@@ -416,20 +416,20 @@ export function AgentColumn({ agent }: { agent: CrewAgent }): JSX.Element {
       <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-surface-0">
         <div className="flex items-center gap-2">
           <StatusDot status={agent.status} />
-          <span className="text-[13px] font-medium text-text-primary">{agent.label}</span>
+          <span className="text-sm font-medium text-text-primary">{agent.label}</span>
         </div>
         {agent.tokensUsed !== undefined && (
-          <span className="text-[10px] text-text-muted font-mono">{agent.tokensUsed}t</span>
+          <span className="text-xs text-text-muted font-mono">{agent.tokensUsed}t</span>
         )}
       </div>
-      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-3 text-[12px] text-text-secondary leading-relaxed markdown-body">
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-3 text-sm text-text-secondary leading-relaxed markdown-body">
         {agent.output ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{agent.output}</ReactMarkdown> : (agent.status === 'pending' ? <span className="text-text-muted">Waiting…</span> : '')}
         {agent.status === 'running' && <span className="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-accent animate-pulse" />}
       </div>
       {agent.tools.length > 0 && (
         <div className="px-3 py-1.5 border-t border-border bg-surface-0 flex flex-wrap gap-1">
           {agent.tools.slice(-6).map((t, i) => (
-            <span key={`${t}-${i}`} className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">
+            <span key={`${t}-${i}`} className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-3 text-text-muted">
               {t}
             </span>
           ))}
@@ -465,29 +465,29 @@ export function PlanReview({
   return (
     <div className="px-4 py-3 border-b border-border bg-surface-0 space-y-3 max-h-[42vh] overflow-y-auto">
       <div className="flex items-center gap-2">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">Team Lead plan — review before running</span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-accent">Team Lead plan — review before running</span>
       </div>
 
       {/* The proposed crew as a dependency graph. */}
       {(plan.roles ?? []).length > 0 && <CrewGraph roles={plan.roles} />}
 
       <label className="block">
-        <span className="text-[11px] text-text-muted">Approach</span>
+        <span className="text-xs text-text-muted">Approach</span>
         <input
           value={plan.approach}
           onChange={(e) => onChange({ ...plan, approach: e.target.value })}
-          className="mt-1 w-full px-2 py-1.5 rounded bg-surface-2 border border-border text-[12px] text-text-primary outline-none focus:border-border-focus"
+          className="mt-1 w-full px-2 py-1.5 rounded bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus"
         />
       </label>
 
       {onExpectedChange && (
         <label className="block" data-testid="expected-input">
-          <span className="text-[11px] text-text-muted">你预期它改哪些模块？（逗号分隔，可选——完成后会高亮你没料到的）</span>
+          <span className="text-xs text-text-muted">你预期它改哪些模块？（逗号分隔，可选——完成后会高亮你没料到的）</span>
           <input
             value={(expected ?? []).join(', ')}
             onChange={(e) => onExpectedChange(e.target.value.split(',').map((s) => s.trim()).filter(Boolean))}
             placeholder="如 src/main, src/shared"
-            className="mt-1 w-full px-2 py-1.5 rounded bg-surface-2 border border-border text-[12px] text-text-primary outline-none focus:border-border-focus"
+            className="mt-1 w-full px-2 py-1.5 rounded bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus"
           />
         </label>
       )}
@@ -496,14 +496,14 @@ export function PlanReview({
         {plan.steps.map((step, i) => (
           <div key={i} className="rounded-md border border-border bg-surface-2 p-2">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[12px] font-medium text-text-primary">
+              <span className="text-sm font-medium text-text-primary">
                 {i + 1}. {roleLabels[step.roleId] ?? step.roleId}
               </span>
               <button
                 type="button"
                 onClick={() => removeStep(i)}
                 disabled={plan.steps.length <= 1}
-                className="text-[11px] text-danger/70 hover:text-danger disabled:opacity-30"
+                className="text-xs text-danger/70 hover:text-danger disabled:opacity-30"
                 title="Remove step"
               >
                 ✕
@@ -513,7 +513,7 @@ export function PlanReview({
               value={step.brief}
               onChange={(e) => setBrief(i, e.target.value)}
               rows={2}
-              className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-[11px] text-text-secondary outline-none focus:border-border-focus resize-none"
+              className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-xs text-text-secondary outline-none focus:border-border-focus resize-none"
             />
           </div>
         ))}
@@ -523,14 +523,14 @@ export function PlanReview({
         <button
           type="button"
           onClick={onCancel}
-          className="px-3 py-1.5 text-[12px] rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
+          className="px-3 py-1.5 text-sm rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
         >
           Cancel
         </button>
         <button
           type="button"
           onClick={onApprove}
-          className="px-3 py-1.5 text-[12px] rounded-md bg-accent hover:bg-accent-hover text-white font-medium"
+          className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent-hover text-white font-medium"
         >
           Approve &amp; Run
         </button>
@@ -644,7 +644,7 @@ export function GateCard({
   if (verdict.risk === 'auto') {
     return (
       <div
-        className="px-4 py-2 border-t border-border bg-success/10 flex items-center gap-2 text-[12px]"
+        className="px-4 py-2 border-t border-border bg-success/10 flex items-center gap-2 text-sm"
         data-testid="gate-auto"
       >
         <span className="text-success font-medium">✓ Comprehension Gate</span>
@@ -655,20 +655,20 @@ export function GateCard({
 
   return (
     <div className="px-4 py-3 border-t border-border bg-warning/10 space-y-2" data-testid="gate-review">
-      <span className="text-[11px] font-semibold uppercase tracking-wider text-warning">
+      <span className="text-xs font-semibold uppercase tracking-wider text-warning">
         Comprehension Gate · 需要你判断
       </span>
-      <p className="text-[13px] text-text-primary leading-snug">{verdict.question}</p>
+      <p className="text-sm text-text-primary leading-snug">{verdict.question}</p>
 
       {verdict.note && (
-        <p className="text-[11px] text-warning/90" data-testid="gate-note">
+        <p className="text-xs text-warning/90" data-testid="gate-note">
           {verdict.note}
         </p>
       )}
 
       {verdict.verificationGap && (
         <div
-          className="text-[11px] rounded-md border border-danger/40 bg-danger/10 px-2 py-1.5 text-text-secondary"
+          className="text-xs rounded-md border border-danger/40 bg-danger/10 px-2 py-1.5 text-text-secondary"
           data-testid="gate-verification-gap"
         >
           <span className="font-semibold text-danger">未验证 · </span>
@@ -682,7 +682,7 @@ export function GateCard({
         <div className="rounded-md border border-border bg-surface-0 px-2 py-1.5" data-testid="gate-probe">
           {!probed ? (
             <>
-              <div className="text-[11px] text-text-secondary mb-1">确认前自测：勾选你认为这次改动会影响的模块</div>
+              <div className="text-xs text-text-secondary mb-1">确认前自测：勾选你认为这次改动会影响的模块</div>
               <div className="flex flex-wrap gap-1.5">
                 {realImpacted.map((m) => {
                   const on = guess.has(m)
@@ -698,7 +698,7 @@ export function GateCard({
                         })
                       }
                       className={
-                        'px-1.5 py-0.5 rounded text-[10px] font-mono border ' +
+                        'px-1.5 py-0.5 rounded text-xs font-mono border ' +
                         (on ? 'bg-accent/20 text-accent border-accent/40' : 'border-border text-text-muted hover:text-text-secondary')
                       }
                     >
@@ -710,7 +710,7 @@ export function GateCard({
               <button
                 type="button"
                 onClick={() => setProbed(true)}
-                className="mt-1.5 text-[10px] px-1.5 py-0.5 rounded bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
+                className="mt-1.5 text-xs px-1.5 py-0.5 rounded bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
               >
                 对照真实影响
               </button>
@@ -719,11 +719,11 @@ export function GateCard({
             (() => {
               const diff = expectationDiff([...guess], realImpacted)
               return diff.unexpected.length === 0 ? (
-                <div className="text-[11px] text-success" data-testid="probe-result">
+                <div className="text-xs text-success" data-testid="probe-result">
                   ✓ 你的心智模型与真实影响半径一致
                 </div>
               ) : (
-                <div className="text-[11px]" data-testid="probe-result">
+                <div className="text-xs" data-testid="probe-result">
                   <span className="text-warning font-medium">盲区：</span>
                   <span className="text-text-primary font-mono">{diff.unexpected.join('、')}</span>
                   <span className="text-text-muted"> 也（传递）受影响，你没勾</span>
@@ -739,7 +739,7 @@ export function GateCard({
           type="button"
           onClick={openFocus}
           data-testid="gate-focus"
-          className="block w-full text-left px-2 py-1.5 rounded-md bg-surface-2 border border-border hover:border-border-focus text-[12px] text-text-secondary"
+          className="block w-full text-left px-2 py-1.5 rounded-md bg-surface-2 border border-border hover:border-border-focus text-sm text-text-secondary"
         >
           看那一处 → <span className="font-mono text-text-primary">{verdict.focus.file}</span>
           <span className="text-text-muted">（{verdict.focus.why}）</span>
@@ -755,12 +755,12 @@ export function GateCard({
         if (!sig) return null
         return (
           <div className="rounded-md border border-border bg-surface-0 overflow-hidden" data-testid="gate-keydiff">
-            <div className="px-2 py-0.5 text-[10px] uppercase tracking-wide text-text-muted border-b border-border">{sig.detail}</div>
+            <div className="px-2 py-0.5 text-xs uppercase tracking-wide text-text-muted border-b border-border">{sig.detail}</div>
             {sig.before && (
-              <pre className="text-[11px] font-mono px-2 py-1 bg-danger/10 text-danger overflow-x-auto whitespace-pre-wrap break-words">- {sig.before}</pre>
+              <pre className="text-xs font-mono px-2 py-1 bg-danger/10 text-danger overflow-x-auto whitespace-pre-wrap break-words">- {sig.before}</pre>
             )}
             {sig.after && (
-              <pre className="text-[11px] font-mono px-2 py-1 bg-success/10 text-success overflow-x-auto whitespace-pre-wrap break-words">+ {sig.after}</pre>
+              <pre className="text-xs font-mono px-2 py-1 bg-success/10 text-success overflow-x-auto whitespace-pre-wrap break-words">+ {sig.after}</pre>
             )}
           </div>
         )
@@ -769,7 +769,7 @@ export function GateCard({
       {snippet && (
         <pre
           data-testid="gate-snippet"
-          className="text-[11px] font-mono bg-surface-0 border border-border rounded-md overflow-x-auto p-2 leading-relaxed"
+          className="text-xs font-mono bg-surface-0 border border-border rounded-md overflow-x-auto p-2 leading-relaxed"
         >
           {snippet.lines.map((l, i) => (
             <div
@@ -789,13 +789,13 @@ export function GateCard({
           onChange={(e) => setRationale(e.target.value)}
           placeholder="结论（可选）：为什么这样判？这句会挂到模块上，下次有人能直接读到"
           data-testid="gate-rationale"
-          className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-[11px] text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
+          className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-xs text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
         />
       )}
 
       <div className="flex items-center gap-2">
         {resolved ? (
-          <span className="text-[12px] text-text-muted">
+          <span className="text-sm text-text-muted">
             已{resolved === 'passed' ? '通过' : '标记需修改'} — 记入 Brain
           </span>
         ) : (
@@ -803,14 +803,14 @@ export function GateCard({
             <button
               type="button"
               onClick={() => record('passed')}
-              className="px-3 py-1.5 text-[12px] rounded-md bg-accent hover:bg-accent-hover text-white font-medium"
+              className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent-hover text-white font-medium"
             >
               理解了，通过
             </button>
             <button
               type="button"
               onClick={() => record('changes')}
-              className="px-3 py-1.5 text-[12px] rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
+              className="px-3 py-1.5 text-sm rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
             >
               需要修改
             </button>
@@ -819,7 +819,7 @@ export function GateCard({
         <button
           type="button"
           onClick={() => setShowWhy((v) => !v)}
-          className="ml-auto text-[11px] text-text-muted hover:text-text-secondary"
+          className="ml-auto text-xs text-text-muted hover:text-text-secondary"
         >
           {showWhy ? '收起原因' : `为什么（${verdict.reasons.length}）`}
         </button>
@@ -828,7 +828,7 @@ export function GateCard({
       {showWhy && (
         <ul className="space-y-0.5 pt-1">
           {verdict.reasons.map((r, i) => (
-            <li key={i} className="text-[11px] flex gap-1.5">
+            <li key={i} className="text-xs flex gap-1.5">
               <span className={r.severity === 'high' ? 'text-danger' : 'text-warning'}>
                 {r.severity === 'high' ? '●' : '○'}
               </span>
@@ -849,7 +849,7 @@ export function CollapsibleLens({ lens }: { lens: ChangeLens }): JSX.Element {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-2 px-4 py-1.5 text-[11px] text-text-muted hover:text-text-secondary"
+        className="w-full flex items-center gap-2 px-4 py-1.5 text-xs text-text-muted hover:text-text-secondary"
       >
         <span>{open ? '▾' : '▸'}</span>
         <span>{open ? '收起完整 Change Lens' : '展开完整 Change Lens'}</span>
@@ -864,27 +864,27 @@ export function ChangeLensView({ lens }: { lens: ChangeLens }): JSX.Element {
     <div className="px-4 py-3 border-t border-border bg-surface-0 max-h-[32vh] overflow-y-auto space-y-3">
       <div className="flex items-center gap-2">
         <LensIcon />
-        <span className="text-[12px] font-semibold text-text-primary">Change Lens</span>
-        <span className="text-[10px] text-text-muted">understand it in 60s — not re-read it</span>
+        <span className="text-sm font-semibold text-text-primary">Change Lens</span>
+        <span className="text-xs text-text-muted">understand it in 60s — not re-read it</span>
       </div>
 
       {/* Verification ledger — the anti-rubber-stamp punch */}
       <div>
-        <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Verification</div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Verification</div>
         {lens.verification.ran.length > 0 ? (
           <div className="space-y-0.5">
             {lens.verification.ran.map((r, i) => (
-              <div key={i} className="flex items-center gap-1.5 text-[12px] font-mono">
+              <div key={i} className="flex items-center gap-1.5 text-sm font-mono">
                 <span className={r.ok ? 'text-success' : 'text-danger'}>{r.ok ? '✓' : '✗'}</span>
                 <span className="text-text-secondary truncate">{r.command}</span>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-[12px] text-text-muted">Nothing was executed.</div>
+          <div className="text-sm text-text-muted">Nothing was executed.</div>
         )}
         {lens.verification.warning && (
-          <div className="mt-1 text-[12px] text-warning flex items-center gap-1">
+          <div className="mt-1 text-sm text-warning flex items-center gap-1">
             <span>⚠</span>
             <span>{lens.verification.warning}</span>
           </div>
@@ -894,7 +894,7 @@ export function ChangeLensView({ lens }: { lens: ChangeLens }): JSX.Element {
       {/* Blast radius */}
       {lens.blastRadius.length > 0 && (
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">
             Blast radius · {lens.filesChanged.length} file(s)
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -904,7 +904,7 @@ export function ChangeLensView({ lens }: { lens: ChangeLens }): JSX.Element {
                 type="button"
                 onClick={() => useAppStore.getState().focusModuleOnMap(m.module)}
                 title={`在地图上定位 ${m.module}\n${m.files.join('\n')}`}
-                className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-surface-3 text-text-secondary hover:bg-surface-2 hover:text-text-primary"
+                className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-3 text-text-secondary hover:bg-surface-2 hover:text-text-primary"
               >
                 {m.module} ({m.files.length})
               </button>
@@ -916,10 +916,10 @@ export function ChangeLensView({ lens }: { lens: ChangeLens }): JSX.Element {
       {/* Behavior delta — what observably changed (contract / side effects / routes) */}
       {lens.behaviorDelta && lens.behaviorDelta.length > 0 && (
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Behavior delta</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Behavior delta</div>
           <ul className="space-y-0.5">
             {lens.behaviorDelta.map((s, i) => (
-              <li key={i} className="text-[12px] text-text-secondary flex gap-1.5">
+              <li key={i} className="text-sm text-text-secondary flex gap-1.5">
                 <span
                   className={
                     s.kind === 'api-removed' || s.kind === 'api-changed' || s.kind === 'return-shape'
@@ -941,10 +941,10 @@ export function ChangeLensView({ lens }: { lens: ChangeLens }): JSX.Element {
       {/* Uncertainty flags — where the crew was unsure */}
       {lens.uncertaintyFlags.length > 0 && (
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Where the crew was unsure</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Where the crew was unsure</div>
           <ul className="space-y-0.5">
             {lens.uncertaintyFlags.map((f, i) => (
-              <li key={i} className="text-[12px] text-text-secondary flex gap-1.5">
+              <li key={i} className="text-sm text-text-secondary flex gap-1.5">
                 <span className="text-warning shrink-0">?</span>
                 <span>{f}</span>
               </li>
@@ -1010,7 +1010,7 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
     <div className="px-4 py-3 border-b border-border bg-surface-0 space-y-3 max-h-[40vh] overflow-y-auto">
       {pluginAgents.length > 0 && (
         <div data-testid="plugin-agents" className="rounded-md border border-accent/30 bg-accent/5 px-2.5 py-1.5">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">
             来自插件的 agents（受信任，Team Lead 可调用）
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -1019,7 +1019,7 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
                 key={a.id}
                 data-testid={`plugin-agent-${a.id}`}
                 title={a.id}
-                className="text-[11px] px-1.5 py-0.5 rounded bg-accent/15 text-accent font-mono"
+                className="text-xs px-1.5 py-0.5 rounded bg-accent/15 text-accent font-mono"
               >
                 {a.label}
               </span>
@@ -1028,9 +1028,9 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
         </div>
       )}
       <div className="flex items-center gap-3">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">Strategy</span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">Strategy</span>
         {(['sequential', 'parallel'] as CrewStrategy[]).map((s) => (
-          <label key={s} className="flex items-center gap-1.5 cursor-pointer text-[12px] text-text-secondary">
+          <label key={s} className="flex items-center gap-1.5 cursor-pointer text-sm text-text-secondary">
             <input
               type="radio"
               name="crew-strategy"
@@ -1051,9 +1051,9 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
                 value={role.label}
                 onChange={(e) => update(i, { label: e.target.value })}
                 placeholder="Role name"
-                className="flex-1 px-2 py-1 rounded bg-surface-0 border border-border text-[12px] text-text-primary outline-none focus:border-border-focus"
+                className="flex-1 px-2 py-1 rounded bg-surface-0 border border-border text-sm text-text-primary outline-none focus:border-border-focus"
               />
-              <label className="flex items-center gap-1 text-[11px] text-text-secondary cursor-pointer" title="Allow this role to write files / run commands (requires approval)">
+              <label className="flex items-center gap-1 text-xs text-text-secondary cursor-pointer" title="Allow this role to write files / run commands (requires approval)">
                 <input type="checkbox" checked={role.canWrite} onChange={(e) => update(i, { canWrite: e.target.checked })} className="accent-accent" />
                 can write
               </label>
@@ -1066,12 +1066,12 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
               onChange={(e) => update(i, { systemPrompt: e.target.value })}
               placeholder="System prompt for this role…"
               rows={2}
-              className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-[11px] text-text-secondary outline-none focus:border-border-focus resize-none font-mono"
+              className="w-full px-2 py-1 rounded bg-surface-0 border border-border text-xs text-text-secondary outline-none focus:border-border-focus resize-none font-mono"
             />
             {/* Dependencies: which other roles must finish first. */}
             {drafts.some((o, oi) => oi !== i && o.id) && (
               <div className="flex items-center flex-wrap gap-1">
-                <span className="text-[10px] text-text-muted mr-1">runs after:</span>
+                <span className="text-xs text-text-muted mr-1">runs after:</span>
                 {drafts.map((o, oi) =>
                   oi === i || !o.id ? null : (
                     <button
@@ -1080,7 +1080,7 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
                       data-testid={`runafter-${i}-${o.id}`}
                       onClick={() => toggleDep(i, o.id)}
                       className={
-                        'text-[10px] px-1.5 py-0.5 rounded border transition-colors ' +
+                        'text-xs px-1.5 py-0.5 rounded border transition-colors ' +
                         (role.dependsOn.includes(o.id)
                           ? 'bg-accent/15 border-accent/40 text-accent'
                           : 'border-border text-text-muted hover:bg-surface-3')
@@ -1098,11 +1098,11 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
 
       {/* Execution preview — the DAG as topological waves. */}
       <div data-testid="exec-preview" className="rounded-md border border-border bg-surface-2 p-2">
-        <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted mb-1">Execution preview</div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">Execution preview</div>
         {hasCycle ? (
-          <div className="text-[11px] text-danger">⚠ Dependency cycle — will fall back to sequential.</div>
+          <div className="text-xs text-danger">⚠ Dependency cycle — will fall back to sequential.</div>
         ) : (
-          <div className="flex items-center flex-wrap gap-1.5 text-[11px]">
+          <div className="flex items-center flex-wrap gap-1.5 text-xs">
             {waves.map((w, wi) => (
               <span key={wi} className="flex items-center gap-1.5">
                 {wi > 0 && <span className="text-text-muted">→</span>}
@@ -1116,10 +1116,10 @@ function RosterEditor({ onClose }: { onClose: () => void }): JSX.Element {
       </div>
 
       <div className="flex items-center gap-2">
-        <button type="button" onClick={add} className="text-[12px] text-accent hover:text-accent-hover">+ Add role</button>
+        <button type="button" onClick={add} className="text-sm text-accent hover:text-accent-hover">+ Add role</button>
         <div className="flex-1" />
-        <button type="button" onClick={resetToDefault} className="text-[11px] text-text-muted hover:text-text-secondary">Reset</button>
-        <button type="button" onClick={save} className="px-3 py-1 text-[12px] rounded-md bg-accent hover:bg-accent-hover text-white font-medium">Save</button>
+        <button type="button" onClick={resetToDefault} className="text-xs text-text-muted hover:text-text-secondary">Reset</button>
+        <button type="button" onClick={save} className="px-3 py-1 text-sm rounded-md bg-accent hover:bg-accent-hover text-white font-medium">Save</button>
       </div>
     </div>
   )

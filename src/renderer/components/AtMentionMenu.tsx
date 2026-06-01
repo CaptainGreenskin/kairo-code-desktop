@@ -94,7 +94,7 @@ export function AtMentionMenu({
                   file.name
                 )}
               </span>
-              <span className="text-[10px] text-text-muted truncate block">
+              <span className="text-xs text-text-muted truncate block">
                 {file.relativePath}
               </span>
             </div>

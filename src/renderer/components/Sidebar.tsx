@@ -148,7 +148,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
     >
       {/* Header */}
       <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-border">
-        <div className="flex items-center gap-2 text-[13px] font-semibold text-text-primary">
+        <div className="flex items-center gap-2 text-sm font-semibold text-text-primary">
           <span className="text-accent">✦</span>
           <span>Kairo Code</span>
         </div>
@@ -167,7 +167,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
         <button
           type="button"
           onClick={onNewChat}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-accent hover:bg-accent-hover text-white text-[13px] font-medium transition-colors shadow-sm"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-accent hover:bg-accent-hover text-white text-sm font-medium transition-colors shadow-sm"
         >
           <PlusIcon />
           <span>New Chat</span>
@@ -190,7 +190,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
       {/* Session list */}
       <div className="flex-1 min-h-0 overflow-y-auto mt-2 pb-2">
         {sessions.length === 0 ? (
-          <div className="px-4 py-6 text-[12px] text-text-muted text-center">
+          <div className="px-4 py-6 text-sm text-text-muted text-center">
             No sessions yet.
             <br />
             Start a new chat above.
@@ -201,7 +201,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
             if (items.length === 0) return null
             return (
               <div key={g} className="mt-2">
-                <div className="px-3 text-[10px] uppercase tracking-wider text-text-muted font-semibold">
+                <div className="px-3 text-xs uppercase tracking-wider text-text-muted font-semibold">
                   {GROUP_LABELS[g]}
                 </div>
                 <ul className="mt-1">
@@ -230,9 +230,9 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
           <button
             type="button"
             onClick={() => setFileTreeOpen((v) => !v)}
-            className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wider text-text-muted font-semibold hover:bg-surface-2 transition-colors"
+            className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider text-text-muted font-semibold hover:bg-surface-2 transition-colors"
           >
-            <span className="text-[9px]">{fileTreeOpen ? '▾' : '▸'}</span>
+            <span className="text-xs">{fileTreeOpen ? '▾' : '▸'}</span>
             Files
           </button>
           {fileTreeOpen && (
@@ -249,9 +249,9 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
           <button
             type="button"
             onClick={() => setGitPanelOpen((v) => !v)}
-            className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wider text-text-muted font-semibold hover:bg-surface-2 transition-colors"
+            className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider text-text-muted font-semibold hover:bg-surface-2 transition-colors"
           >
-            <span className="text-[9px]">{gitPanelOpen ? '▾' : '▸'}</span>
+            <span className="text-xs">{gitPanelOpen ? '▾' : '▸'}</span>
             Source Control
           </button>
           {gitPanelOpen && <GitPanel />}
@@ -263,7 +263,7 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
         type="button"
         onClick={handleOpenFolder}
         title={workspacePath ?? 'Choose workspace folder'}
-        className="flex items-center gap-2 mx-3 mb-2 px-2 py-1.5 rounded-md text-left bg-surface-2 hover:bg-surface-3 border border-border text-[12px] text-text-secondary transition-colors min-w-0"
+        className="flex items-center gap-2 mx-3 mb-2 px-2 py-1.5 rounded-md text-left bg-surface-2 hover:bg-surface-3 border border-border text-sm text-text-secondary transition-colors min-w-0"
       >
         <FolderIcon />
         <span className="truncate flex-1 font-mono">
@@ -336,9 +336,9 @@ function SessionItem({
         title={session.preview || session.name}
       >
         <div className="flex-1 min-w-0">
-          <div className="text-[13px] truncate">{session.name}</div>
+          <div className="text-sm truncate">{session.name}</div>
           {session.preview && (
-            <div className="text-[11px] text-text-muted truncate">
+            <div className="text-xs text-text-muted truncate">
               {session.preview}
             </div>
           )}

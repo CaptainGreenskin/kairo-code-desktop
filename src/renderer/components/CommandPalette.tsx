@@ -263,7 +263,7 @@ export function CommandPalette({ onNewChat, onOpenFolder }: CommandPaletteProps)
                 placeholder="Type a command..."
                 className="flex-1 py-3 px-2 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none"
               />
-              <kbd className="text-[10px] text-text-muted bg-surface-3 px-1.5 py-0.5 rounded border border-border font-mono">
+              <kbd className="text-xs text-text-muted bg-surface-3 px-1.5 py-0.5 rounded border border-border font-mono">
                 ESC
               </kbd>
             </div>
@@ -280,7 +280,7 @@ export function CommandPalette({ onNewChat, onOpenFolder }: CommandPaletteProps)
                   return (
                     <div key={cmd.id}>
                       {showHeader && (
-                        <div className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                        <div className="px-4 pt-2 pb-1 text-xs font-semibold uppercase tracking-wider text-text-muted">
                           {cmd.category}
                         </div>
                       )}
@@ -300,7 +300,7 @@ export function CommandPalette({ onNewChat, onOpenFolder }: CommandPaletteProps)
                           <div className="text-xs text-text-muted mt-0.5">{cmd.description}</div>
                         </div>
                         {cmd.shortcut && (
-                          <kbd className="text-[10px] text-text-muted bg-surface-3 px-1.5 py-0.5 rounded border border-border font-mono shrink-0 ml-4">
+                          <kbd className="text-xs text-text-muted bg-surface-3 px-1.5 py-0.5 rounded border border-border font-mono shrink-0 ml-4">
                             {cmd.shortcut}
                           </kbd>
                         )}

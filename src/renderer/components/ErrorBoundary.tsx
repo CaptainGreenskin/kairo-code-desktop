@@ -59,28 +59,28 @@ function ErrorFallback({
           </svg>
           <h2 className="text-base font-semibold text-text-primary">{title}</h2>
         </div>
-        <pre className="text-[12px] font-mono text-text-secondary bg-surface-0 rounded-md p-3 overflow-auto max-h-40 border border-border mb-4">
+        <pre className="text-sm font-mono text-text-secondary bg-surface-0 rounded-md p-3 overflow-auto max-h-40 border border-border mb-4">
           {error.message}
         </pre>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="px-3 py-1.5 text-[13px] rounded-md bg-accent hover:bg-accent-hover text-white transition-colors"
+            className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent-hover text-white transition-colors"
           >
             Reload
           </button>
           <button
             type="button"
             onClick={() => void handleCopy()}
-            className="px-3 py-1.5 text-[13px] rounded-md bg-surface-3 hover:bg-surface-0 text-text-primary border border-border transition-colors"
+            className="px-3 py-1.5 text-sm rounded-md bg-surface-3 hover:bg-surface-0 text-text-primary border border-border transition-colors"
           >
             Copy Error
           </button>
           <button
             type="button"
             onClick={onReset}
-            className="px-3 py-1.5 text-[13px] rounded-md bg-surface-3 hover:bg-surface-0 text-text-secondary border border-border transition-colors"
+            className="px-3 py-1.5 text-sm rounded-md bg-surface-3 hover:bg-surface-0 text-text-secondary border border-border transition-colors"
           >
             Try Again
           </button>

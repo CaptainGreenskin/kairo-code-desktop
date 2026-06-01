@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Button } from './ui/Button'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useAppStore } from '../stores/app-store'
@@ -81,13 +82,11 @@ export function WelcomeScreen(): JSX.Element {
           The coding tool that makes sure you understand what AI builds for you.
         </p>
         {map ? (
-          <p className="text-[12px] text-text-muted animate-pulse">正在分析项目…</p>
+          <p className="text-sm text-text-muted animate-pulse">正在分析项目…</p>
         ) : (
-          <button type="button" onClick={handleOpenFolder} className="px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-sm font-medium transition-colors">
-            Open Folder
-          </button>
+          <Button variant="primary" onClick={handleOpenFolder}>Open Folder</Button>
         )}
-        <div className="mt-6 text-[11px] text-text-muted space-x-4">
+        <div className="mt-6 text-xs text-text-muted space-x-4">
           <span>&#8984;K palette</span>
           <span>&#8984;N new chat</span>
           <span>&#8984;O open folder</span>
@@ -100,7 +99,7 @@ export function WelcomeScreen(): JSX.Element {
     <div className="h-full min-h-[320px] flex flex-col items-center justify-center px-8 max-w-2xl mx-auto">
       {briefing ? (
         <div className="w-full space-y-4" data-testid="project-briefing">
-          <div className="text-[13px] text-text-primary leading-relaxed markdown-body">
+          <div className="text-sm text-text-primary leading-relaxed markdown-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{briefing.text}</ReactMarkdown>
           </div>
 
@@ -111,7 +110,7 @@ export function WelcomeScreen(): JSX.Element {
                   key={e.path}
                   type="button"
                   onClick={() => fillInput(`帮我理解 ${e.path} 模块`)}
-                  className="px-2 py-1 text-[11px] rounded border border-border bg-surface-2 text-text-secondary hover:text-accent hover:border-accent/40 font-mono truncate max-w-[200px]"
+                  className="px-2 py-1 text-xs rounded border border-border bg-surface-2 text-text-secondary hover:text-accent hover:border-accent/40 font-mono truncate max-w-[200px]"
                   title={`${e.path} — ${e.reason}`}
                 >
                   {e.path.split('/').slice(-2).join('/')}
@@ -136,7 +135,7 @@ export function WelcomeScreen(): JSX.Element {
             onClick={() => fillInput(s.prompt)}
             className="group text-left px-3.5 py-2.5 rounded-lg border border-border bg-surface-2 hover:border-accent/40 hover:bg-accent/5 transition-colors"
           >
-            <span className="text-[13px] text-text-primary group-hover:text-accent transition-colors">
+            <span className="text-sm text-text-primary group-hover:text-accent transition-colors">
               {s.label}
             </span>
           </button>

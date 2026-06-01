@@ -105,12 +105,12 @@ export function TerminalPanel(): JSX.Element {
   return (
     <div className="flex flex-col h-full bg-[#1e1e1e] border-t border-border">
       <div className="flex items-center justify-between px-3 py-1.5 bg-surface-2 border-b border-border">
-        <span className="text-[11px] font-medium text-text-primary">Terminal</span>
+        <span className="text-xs font-medium text-text-primary">Terminal</span>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={clearLines}
-            className="text-[10px] text-text-muted hover:text-text-primary transition-colors"
+            className="text-xs text-text-muted hover:text-text-primary transition-colors"
           >
             Clear
           </button>
@@ -126,14 +126,14 @@ export function TerminalPanel(): JSX.Element {
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-2 font-mono text-[12px] leading-5">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-2 font-mono text-sm leading-5">
         {lines.map((line) => (
           <TerminalLineView key={line.id} line={line} />
         ))}
       </div>
 
       <div className="flex items-center gap-2 px-3 py-1.5 border-t border-border/50">
-        <span className="text-[12px] text-success font-mono shrink-0">
+        <span className="text-sm text-success font-mono shrink-0">
           {workspacePath ? `${workspacePath.split('/').pop()} $` : '$'}
         </span>
         <input
@@ -144,7 +144,7 @@ export function TerminalPanel(): JSX.Element {
           onKeyDown={onKeyDown}
           disabled={running}
           placeholder={running ? 'Running…' : 'Enter command…'}
-          className="flex-1 bg-transparent text-[12px] font-mono text-text-primary outline-none placeholder:text-text-muted disabled:opacity-50"
+          className="flex-1 bg-transparent text-sm font-mono text-text-primary outline-none placeholder:text-text-muted disabled:opacity-50"
         />
       </div>
     </div>

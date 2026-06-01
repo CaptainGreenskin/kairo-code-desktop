@@ -22,14 +22,14 @@ export function FileTree(): JSX.Element {
 
   if (!workspacePath) {
     return (
-      <div className="px-3 py-2 text-[11px] text-text-muted">
+      <div className="px-3 py-2 text-xs text-text-muted">
         Open a folder to browse files
       </div>
     )
   }
 
   return (
-    <div className="overflow-y-auto text-[12px]">
+    <div className="overflow-y-auto text-sm">
       {rootEntries.map((e) => (
         <TreeNode key={e.path} entry={e} depth={0} />
       ))}
@@ -79,13 +79,13 @@ function TreeNode({ entry, depth }: TreeNodeProps): JSX.Element {
         style={{ paddingLeft: indent }}
       >
         {isDir ? (
-          <span className="w-3.5 text-center text-text-muted text-[10px]">
+          <span className="w-3.5 text-center text-text-muted text-xs">
             {expanded ? '▾' : '▸'}
           </span>
         ) : (
           <span className="w-3.5" />
         )}
-        <span className="text-[10px] mr-0.5">{isDir ? '📁' : fileIcon(entry.name)}</span>
+        <span className="text-xs mr-0.5">{isDir ? '📁' : fileIcon(entry.name)}</span>
         <span className="truncate text-text-secondary">{entry.name}</span>
       </button>
       {expanded &&

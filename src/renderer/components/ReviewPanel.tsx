@@ -165,7 +165,7 @@ export function ReviewPanel(): JSX.Element | null {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-text-muted">
+            <span className="text-xs text-text-muted">
               j/k navigate &middot; a accept &middot; r reject &middot; A accept all &middot; Esc close
             </span>
             <button type="button" onClick={close} className="text-text-muted hover:text-text-primary text-sm px-1">

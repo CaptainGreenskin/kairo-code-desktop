@@ -54,7 +54,7 @@ export function GrepResultView({ result, isError }: GrepResultViewProps): JSX.El
     <div className="space-y-2 max-h-80 overflow-y-auto">
       {groups.map((group) => (
         <div key={group.file} className="bg-surface-2 border border-border rounded overflow-hidden">
-          <div className="px-2 py-1 bg-surface-3 text-[11px] truncate">
+          <div className="px-2 py-1 bg-surface-3 text-xs truncate">
             <ClickablePath path={group.file}>{group.file}</ClickablePath>
           </div>
           <div className="divide-y divide-border">
@@ -63,7 +63,7 @@ export function GrepResultView({ result, isError }: GrepResultViewProps): JSX.El
                 key={`${group.file}:${line.num}:${i}`}
                 path={group.file}
                 line={line.num}
-                className="flex font-mono text-[12px] leading-5 hover:bg-surface-3/50 w-full no-underline hover:no-underline"
+                className="flex font-mono text-sm leading-5 hover:bg-surface-3/50 w-full no-underline hover:no-underline"
               >
                 <span className="w-10 shrink-0 text-right pr-2 text-text-muted select-none border-r border-border bg-surface-1">
                   {line.num}

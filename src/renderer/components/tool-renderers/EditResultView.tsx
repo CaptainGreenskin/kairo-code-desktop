@@ -9,7 +9,7 @@ interface EditResultViewProps {
 export function EditResultView({ result, isError, args }: EditResultViewProps): JSX.Element {
   if (isError) {
     return (
-      <pre className="bg-surface-2 border border-danger/40 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-danger text-[12px] font-mono">
+      <pre className="bg-surface-2 border border-danger/40 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-danger text-sm font-mono">
         <code>{result}</code>
       </pre>
     )
@@ -20,7 +20,7 @@ export function EditResultView({ result, isError, args }: EditResultViewProps): 
 
   return (
     <div className="bg-surface-2 border border-border rounded overflow-hidden">
-      <div className="px-2 py-1.5 flex items-center gap-2 text-[12px]">
+      <div className="px-2 py-1.5 flex items-center gap-2 text-sm">
         <svg
           viewBox="0 0 24 24"
           className="w-3.5 h-3.5 text-success shrink-0"
@@ -34,7 +34,7 @@ export function EditResultView({ result, isError, args }: EditResultViewProps): 
           {replacements.length} replacement{replacements.length === 1 ? '' : 's'} applied
         </span>
         {filePath && (
-          <ClickablePath path={filePath} className="truncate ml-1 text-[12px]">
+          <ClickablePath path={filePath} className="truncate ml-1 text-sm">
             {filePath}
           </ClickablePath>
         )}

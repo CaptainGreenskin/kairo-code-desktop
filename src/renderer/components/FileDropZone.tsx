@@ -100,7 +100,7 @@ function DropOverlay(): JSX.Element {
       <div className="flex flex-col items-center gap-2 text-accent">
         <UploadIcon />
         <div className="text-sm font-medium">Drop files here</div>
-        <div className="text-[11px] text-accent/80">
+        <div className="text-xs text-accent/80">
           They'll be attached to your next message
         </div>
       </div>

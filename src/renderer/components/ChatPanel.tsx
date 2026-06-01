@@ -62,7 +62,7 @@ export function ChatPanel(): JSX.Element {
         {isEmpty ? (
           <WelcomeScreen />
         ) : (
-          <div className="py-4 flex flex-col gap-1">
+          <div className="py-4 flex flex-col gap-3">
             {messages.map((m) => (
               <MessageBubble key={m.id} message={m} />
             ))}
@@ -115,27 +115,27 @@ function BatchDiffBar({ count }: { count: number }): JSX.Element {
 
   return (
     <div className="absolute top-2 right-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-2 border border-border shadow-lg z-10">
-      <span className="text-[11px] text-text-secondary">
+      <span className="text-xs text-text-secondary">
         {count} pending changes
       </span>
       <button
         type="button"
         onClick={() => void handleRejectAll()}
-        className="px-2 py-0.5 text-[11px] rounded bg-danger/20 hover:bg-danger/30 text-danger transition-colors"
+        className="px-2 py-0.5 text-xs rounded bg-danger/20 hover:bg-danger/30 text-danger transition-colors"
       >
         Reject All
       </button>
       <button
         type="button"
         onClick={() => void handleAcceptAll()}
-        className="px-2 py-0.5 text-[11px] rounded bg-success/20 hover:bg-success/30 text-success transition-colors"
+        className="px-2 py-0.5 text-xs rounded bg-success/20 hover:bg-success/30 text-success transition-colors"
       >
         Accept All
       </button>
       <button
         type="button"
         onClick={() => useAppStore.getState().setReviewPanelOpen(true)}
-        className="px-2 py-0.5 text-[11px] rounded bg-accent/20 hover:bg-accent/30 text-accent transition-colors"
+        className="px-2 py-0.5 text-xs rounded bg-accent/20 hover:bg-accent/30 text-accent transition-colors"
       >
         Review
       </button>

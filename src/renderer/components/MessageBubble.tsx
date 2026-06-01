@@ -26,9 +26,9 @@ const FADE_IN = {
 export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
   if (message.role === 'user') {
     return (
-      <motion.div {...FADE_IN} className="flex justify-end px-6 py-3">
-        <div className="max-w-[80%] bg-accent/10 border border-accent/20 text-text-primary rounded-lg px-4 py-2">
-          <div className="markdown-body text-[14px] leading-relaxed">
+      <motion.div {...FADE_IN} className="flex justify-end px-6 py-4">
+        <div className="max-w-[75%] bg-accent/8 border border-accent/15 text-text-primary rounded-2xl px-4 py-3">
+          <div className="markdown-body text-base leading-relaxed">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={userMarkdownComponents}
@@ -58,7 +58,7 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
   return (
     <motion.div {...FADE_IN} className="flex justify-start px-6 py-3">
       <div className="w-full max-w-3xl group/msg relative">
-        <div className="text-[11px] uppercase tracking-wide text-text-muted mb-1">
+        <div className="text-xs uppercase tracking-wide text-text-muted mb-1">
           Assistant
         </div>
 
@@ -71,7 +71,7 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
         )}
 
         {hasContent && (
-          <div className="markdown-body text-[14px] leading-relaxed text-text-primary">
+          <div className="markdown-body text-base leading-relaxed text-text-primary">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={markdownComponents}
@@ -110,7 +110,7 @@ function CopyMessageButton({ content }: { content: string }): JSX.Element {
     <button
       type="button"
       onClick={() => void handleCopy()}
-      className="absolute top-0 right-0 opacity-0 group-hover/msg:opacity-100 transition-opacity text-[11px] text-text-muted hover:text-text-primary px-2 py-1 rounded bg-surface-2 border border-border"
+      className="absolute top-0 right-0 opacity-0 group-hover/msg:opacity-100 transition-opacity text-xs text-text-muted hover:text-text-primary px-2 py-1 rounded bg-surface-2 border border-border"
     >
       {copied ? 'Copied' : 'Copy'}
     </button>

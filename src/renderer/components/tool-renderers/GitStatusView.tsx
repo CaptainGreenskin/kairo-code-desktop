@@ -78,14 +78,14 @@ function FileGroup({
 }): JSX.Element {
   return (
     <div>
-      <div className={`text-[10px] uppercase tracking-wide ${color} mb-1`}>
+      <div className={`text-xs uppercase tracking-wide ${color} mb-1`}>
         {label} ({files.length})
       </div>
       <div className="space-y-0.5">
         {files.map((f) => (
           <div key={f} className="flex items-center gap-1.5 font-mono">
             <span className={`w-1.5 h-1.5 rounded-full ${dotColor} shrink-0`} />
-            <ClickablePath path={f} className="text-[12px]">{f}</ClickablePath>
+            <ClickablePath path={f} className="text-sm">{f}</ClickablePath>
           </div>
         ))}
       </div>

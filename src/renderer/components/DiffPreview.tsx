@@ -129,7 +129,7 @@ export function DiffPreview({
         <span className="text-xs font-mono text-text-primary truncate" title={filePath}>
           {filePath}
         </span>
-        <div className="ml-auto flex items-center gap-2 text-[11px] font-mono">
+        <div className="ml-auto flex items-center gap-2 text-xs font-mono">
           <span className="text-success">+{stats.added}</span>
           <span className="text-danger">-{stats.removed}</span>
           <div className="ml-2 flex rounded border border-border overflow-hidden">
@@ -152,7 +152,7 @@ export function DiffPreview({
       </div>
 
       {error && (
-        <div className="px-3 py-1.5 text-[11px] bg-danger/20 border-t border-danger/40 text-danger">
+        <div className="px-3 py-1.5 text-xs bg-danger/20 border-t border-danger/40 text-danger">
           {error}
         </div>
       )}
@@ -161,7 +161,7 @@ export function DiffPreview({
         {decided ? (
           <span
             className={
-              'text-[11px] font-medium ' +
+              'text-xs font-medium ' +
               (status === 'accepted' ? 'text-success' : 'text-danger')
             }
           >
@@ -169,7 +169,7 @@ export function DiffPreview({
           </span>
         ) : (
           <>
-            <span className="text-[11px] text-text-muted">
+            <span className="text-xs text-text-muted">
               Review the proposed change before it's written to disk.
             </span>
             <div className="ml-auto flex items-center gap-2">
@@ -180,7 +180,7 @@ export function DiffPreview({
                 className="px-3 py-1 text-xs rounded-md bg-danger hover:bg-danger/90 text-white disabled:opacity-50 transition-colors flex items-center gap-1.5"
               >
                 Reject
-                <kbd className="text-[9px] opacity-70 bg-white/20 px-1 rounded">⌘⌫</kbd>
+                <kbd className="text-xs opacity-70 bg-white/20 px-1 rounded">⌘⌫</kbd>
               </button>
               <button
                 type="button"
@@ -189,7 +189,7 @@ export function DiffPreview({
                 className="px-3 py-1 text-xs rounded-md bg-success hover:bg-success/90 text-white disabled:opacity-50 transition-colors flex items-center gap-1.5"
               >
                 {busy ? 'Applying…' : 'Accept'}
-                <kbd className="text-[9px] opacity-70 bg-white/20 px-1 rounded">⌘↵</kbd>
+                <kbd className="text-xs opacity-70 bg-white/20 px-1 rounded">⌘↵</kbd>
               </button>
             </div>
           </>
@@ -439,7 +439,7 @@ function ViewToggle({
       type="button"
       onClick={onClick}
       className={
-        'px-2 py-0.5 text-[10px] uppercase tracking-wide ' +
+        'px-2 py-0.5 text-xs uppercase tracking-wide ' +
         (active
           ? 'bg-surface-3 text-text-primary'
           : 'bg-surface-2 text-text-secondary hover:text-text-primary')

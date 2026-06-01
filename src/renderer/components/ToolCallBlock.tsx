@@ -63,12 +63,12 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
         <span className="text-text-muted">tool</span>
         <span className="text-text-primary">{toolCall.toolName}</span>
         {pendingDiff && (
-          <span className="ml-2 px-1.5 py-0.5 rounded bg-warning/20 text-warning text-[10px] uppercase tracking-wide">
+          <span className="ml-2 px-1.5 py-0.5 rounded bg-warning/20 text-warning text-xs uppercase tracking-wide">
             review
           </span>
         )}
         {toolCall.subagentSteps && toolCall.subagentSteps.length > 0 && (
-          <span className="ml-2 px-1.5 py-0.5 rounded bg-accent/15 text-accent text-[10px]">
+          <span className="ml-2 px-1.5 py-0.5 rounded bg-accent/15 text-accent text-xs">
             ↳ {toolCall.subagentSteps.length} step{toolCall.subagentSteps.length > 1 ? 's' : ''}
             {toolCall.subagentDone ? '' : ' …'}
           </span>
@@ -108,7 +108,7 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
       {toolCall.isExpanded && (
         <div className="px-3 pb-3 space-y-2 text-xs">
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">
+            <div className="text-xs uppercase tracking-wide text-text-muted mb-1">
               Arguments
             </div>
             <pre className="bg-surface-2 border border-border rounded p-2 overflow-x-auto text-text-primary">
@@ -122,7 +122,7 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
 
           {result || isPending ? (
             <div>
-              <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">
+              <div className="text-xs uppercase tracking-wide text-text-muted mb-1">
                 {toolCall.isError ? 'Error' : 'Result'}
               </div>
               {isPending ? (
@@ -134,7 +134,7 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setResultExpanded((v) => !v)}
-                      className="mt-1 text-[11px] text-accent hover:text-accent-hover"
+                      className="mt-1 text-xs text-accent hover:text-accent-hover"
                     >
                       {resultExpanded ? 'Show less' : 'Show more'}
                     </button>
@@ -161,7 +161,7 @@ function SubagentTrace({
   const [openId, setOpenId] = useState<string | null>(null)
   return (
     <div data-testid="subagent-trace">
-      <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">
+      <div className="text-xs uppercase tracking-wide text-text-muted mb-1">
         Sub-agent trace{done ? '' : ' · running…'}
       </div>
       <div className="border-l-2 border-accent/30 pl-2 space-y-1">
@@ -171,7 +171,7 @@ function SubagentTrace({
           const mark = pending ? '◌' : st.ok === false ? '✕' : '✓'
           const markColor = pending ? 'text-accent' : st.ok === false ? 'text-danger' : 'text-success'
           return (
-            <div key={st.id} className="text-[11px]">
+            <div key={st.id} className="text-xs">
               <button
                 type="button"
                 onClick={() => setOpenId(open ? null : st.id)}

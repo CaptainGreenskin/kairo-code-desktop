@@ -28,7 +28,7 @@ const MAX_PREVIEW_LINES = 100
 export function ReadFileResultView({ result, isError, args }: ReadFileResultViewProps): JSX.Element {
   if (isError) {
     return (
-      <pre className="bg-surface-2 border border-danger/40 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-danger text-[12px] font-mono">
+      <pre className="bg-surface-2 border border-danger/40 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-danger text-sm font-mono">
         <code>{result}</code>
       </pre>
     )
@@ -45,7 +45,7 @@ export function ReadFileResultView({ result, isError, args }: ReadFileResultView
   return (
     <div>
       {filePath && (
-        <div className="mb-1 text-[11px]">
+        <div className="mb-1 text-xs">
           <ClickablePath path={filePath}>{filePath}</ClickablePath>
         </div>
       )}

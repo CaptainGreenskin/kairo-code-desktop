@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useState } from 'react'
+import { Button } from './ui/Button'
 import { motion } from 'framer-motion'
 import { useAppStore } from '../stores/app-store'
 import { useToastStore } from '../stores/toast-store'
@@ -114,7 +115,7 @@ export function SettingsPanel(): JSX.Element | null {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -24, opacity: 0 }}
         transition={{ duration: 0.18, ease: 'easeOut' }}
-        className="w-full max-w-2xl my-8 mx-4 flex flex-col rounded-xl bg-surface-1 border border-border shadow-2xl overflow-hidden"
+        className="w-full max-w-2xl my-8 mx-4 flex flex-col rounded-2xl bg-surface-1 border border-border shadow-modal overflow-hidden"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
@@ -165,7 +166,7 @@ export function SettingsPanel(): JSX.Element | null {
                       : 'bg-surface-2 border-border hover:border-text-muted')
                   }
                 >
-                  <div className="text-[13px] text-text-primary">{opt.label}</div>
+                  <div className="text-sm text-text-primary">{opt.label}</div>
                   <div className="text-[11.5px] text-text-muted">{opt.desc}</div>
                 </button>
               ))}
@@ -185,7 +186,7 @@ export function SettingsPanel(): JSX.Element | null {
                     setDraft((d) => ({ ...d, model: v }))
                   }
                 }}
-                className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus"
+                className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus"
               >
                 {presets.map((m) => (
                   <option key={m} value={m}>
@@ -199,7 +200,7 @@ export function SettingsPanel(): JSX.Element | null {
                   value={draft.model}
                   onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
                   placeholder="e.g. qwen2.5-coder-32b-instruct"
-                  className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                  className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                 />
               )}
             </div>
@@ -215,7 +216,7 @@ export function SettingsPanel(): JSX.Element | null {
             }
           >
             <label className="block">
-              <span className="text-[12px] text-text-secondary">API Key</span>
+              <span className="text-sm text-text-secondary">API Key</span>
               <div className="mt-1 flex items-stretch gap-1">
                 <input
                   type={showApiKey ? 'text' : 'password'}
@@ -230,12 +231,12 @@ export function SettingsPanel(): JSX.Element | null {
                   placeholder={draft.provider === 'anthropic' ? 'sk-ant-...' : 'sk-...'}
                   spellCheck={false}
                   autoComplete="off"
-                  className="flex-1 px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                  className="flex-1 px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                 />
                 <button
                   type="button"
                   onClick={() => setShowApiKey((v) => !v)}
-                  className="px-3 rounded-md bg-surface-3 hover:bg-surface-2 text-[12px] text-text-secondary"
+                  className="px-3 rounded-md bg-surface-3 hover:bg-surface-2 text-sm text-text-secondary"
                   title={showApiKey ? 'Hide' : 'Show'}
                 >
                   {showApiKey ? 'Hide' : 'Show'}
@@ -243,7 +244,7 @@ export function SettingsPanel(): JSX.Element | null {
               </div>
             </label>
             <label className="block mt-3">
-              <span className="text-[12px] text-text-secondary">Base URL</span>
+              <span className="text-sm text-text-secondary">Base URL</span>
               <input
                 value={draft.provider === 'anthropic' ? draft.anthropicBaseUrl : draft.baseUrl}
                 onChange={(e) =>
@@ -260,7 +261,7 @@ export function SettingsPanel(): JSX.Element | null {
                 }
                 spellCheck={false}
                 autoComplete="off"
-                className="mt-1 w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                className="mt-1 w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
               />
             </label>
           </Section>
@@ -312,7 +313,7 @@ export function SettingsPanel(): JSX.Element | null {
                       : 'bg-surface-2 border-border hover:border-text-muted')
                   }
                 >
-                  <div className="text-[13px] text-text-primary">{opt.label}</div>
+                  <div className="text-sm text-text-primary">{opt.label}</div>
                   <div className="text-[11.5px] text-text-muted">{opt.desc}</div>
                 </button>
               ))}
@@ -330,7 +331,7 @@ export function SettingsPanel(): JSX.Element | null {
               rows={5}
               spellCheck={false}
               placeholder={'**/auth/**\n**/payment*/**\n**/.env*'}
-              className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-[12px] text-text-primary outline-none focus:border-border-focus font-mono resize-none"
+              className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono resize-none"
             />
           </Section>
 
@@ -354,10 +355,10 @@ export function SettingsPanel(): JSX.Element | null {
                   onChange={(e) => setAutopilotEnabled(e.target.checked)}
                   className="w-4 h-4 rounded accent-accent"
                 />
-                <span className="text-[13px] text-text-primary">Enable Autopilot</span>
+                <span className="text-sm text-text-primary">Enable Autopilot</span>
               </label>
               <label className="block">
-                <span className="text-[12px] text-text-secondary">Max turns per run</span>
+                <span className="text-sm text-text-secondary">Max turns per run</span>
                 <div className="flex items-center gap-3 mt-1">
                   <input
                     type="range"
@@ -367,7 +368,7 @@ export function SettingsPanel(): JSX.Element | null {
                     onChange={(e) => setAutopilotMaxTurns(Number(e.target.value))}
                     className="flex-1 accent-accent"
                   />
-                  <span className="text-[13px] font-mono text-text-primary w-6 text-center">
+                  <span className="text-sm font-mono text-text-primary w-6 text-center">
                     {autopilotMaxTurns}
                   </span>
                 </div>
@@ -379,7 +380,7 @@ export function SettingsPanel(): JSX.Element | null {
           <Section title="MCP Servers" subtitle="Connect external tool servers via the Model Context Protocol.">
             <div className="space-y-2">
               {mcpServers.length === 0 && !showMcpForm && (
-                <p className="text-[12px] text-text-muted">No MCP servers configured.</p>
+                <p className="text-sm text-text-muted">No MCP servers configured.</p>
               )}
               {mcpServers.map((server) => (
                 <McpServerRow
@@ -406,7 +407,7 @@ export function SettingsPanel(): JSX.Element | null {
                     value={mcpForm.name}
                     onChange={(e) => setMcpForm((f) => ({ ...f, name: e.target.value }))}
                     placeholder="Server name"
-                    className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                    className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                   />
                   <div className="flex gap-2">
                     <ChoiceTile active={mcpForm.transport === 'stdio'} label="stdio" onClick={() => setMcpForm((f) => ({ ...f, transport: 'stdio' }))} />
@@ -418,13 +419,13 @@ export function SettingsPanel(): JSX.Element | null {
                         value={mcpForm.command}
                         onChange={(e) => setMcpForm((f) => ({ ...f, command: e.target.value }))}
                         placeholder="Command (e.g. npx)"
-                        className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                        className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                       />
                       <input
                         value={mcpForm.args}
                         onChange={(e) => setMcpForm((f) => ({ ...f, args: e.target.value }))}
                         placeholder="Arguments (space-separated)"
-                        className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                        className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                       />
                     </>
                   ) : (
@@ -432,7 +433,7 @@ export function SettingsPanel(): JSX.Element | null {
                       value={mcpForm.url}
                       onChange={(e) => setMcpForm((f) => ({ ...f, url: e.target.value }))}
                       placeholder="Server URL (e.g. http://localhost:3100/sse)"
-                      className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus font-mono"
+                      className="w-full px-2 py-1.5 rounded bg-surface-0 border border-border text-sm text-text-primary outline-none focus:border-border-focus font-mono"
                     />
                   )}
                   <div className="flex gap-2">
@@ -475,7 +476,7 @@ export function SettingsPanel(): JSX.Element | null {
                 <button
                   type="button"
                   onClick={() => setShowMcpForm(true)}
-                  className="text-[12px] text-accent hover:text-accent-hover"
+                  className="text-sm text-accent hover:text-accent-hover"
                 >
                   + Add Server
                 </button>
@@ -486,7 +487,7 @@ export function SettingsPanel(): JSX.Element | null {
           {/* Workspace */}
           <Section title="Workspace" subtitle="Root folder for file operations.">
             <div className="flex items-center gap-2">
-              <span className="text-[13px] font-mono text-text-primary truncate flex-1">
+              <span className="text-sm font-mono text-text-primary truncate flex-1">
                 {workspacePath || 'Not set'}
               </span>
               <button
@@ -508,20 +509,12 @@ export function SettingsPanel(): JSX.Element | null {
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-2 px-6 py-3 border-t border-border bg-surface-0">
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="px-3 py-1.5 rounded-md bg-surface-3 hover:bg-surface-2 text-[13px] text-text-primary"
-          >
+          <Button variant="secondary" onClick={() => setOpen(false)}>
             Close
-          </button>
-          <button
-            type="button"
-            onClick={handleSave}
-            className="px-3 py-1.5 rounded-md bg-accent hover:bg-accent-hover text-[13px] text-white font-medium"
-          >
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
             Save
-          </button>
+          </Button>
         </div>
       </motion.div>
     </motion.div>
@@ -538,7 +531,7 @@ function Section({ title, subtitle, children }: SectionProps): JSX.Element {
   return (
     <section>
       <div className="mb-2">
-        <h3 className="text-[13px] font-medium text-text-primary">{title}</h3>
+        <h3 className="text-sm font-medium text-text-primary">{title}</h3>
         {subtitle && (
           <p className="text-[11.5px] text-text-muted leading-relaxed">{subtitle}</p>
         )}
@@ -560,7 +553,7 @@ function ChoiceTile({ active, label, onClick }: ChoiceTileProps): JSX.Element {
       type="button"
       onClick={onClick}
       className={
-        'px-3 py-2 rounded-md text-[13px] border transition-colors ' +
+        'px-3 py-2 rounded-md text-sm border transition-colors ' +
         (active
           ? 'bg-accent/10 border-accent/50 text-text-primary'
           : 'bg-surface-2 border-border text-text-secondary hover:border-text-muted')
@@ -586,21 +579,21 @@ function McpServerRow({
         className={`w-2 h-2 rounded-full shrink-0 ${server.connected ? 'bg-success' : 'bg-danger'}`}
         title={server.connected ? 'Connected' : 'Disconnected'}
       />
-      <span className="text-[13px] font-mono text-text-primary truncate flex-1">
+      <span className="text-sm font-mono text-text-primary truncate flex-1">
         {server.name}
       </span>
-      <span className="text-[11px] text-text-muted">
+      <span className="text-xs text-text-muted">
         {server.transport} · {server.toolCount} tools
       </span>
       {server.error && (
-        <span className="text-[10px] text-danger truncate max-w-[120px]" title={server.error}>
+        <span className="text-xs text-danger truncate max-w-[120px]" title={server.error}>
           {server.error}
         </span>
       )}
       <button
         type="button"
         onClick={onToggle}
-        className={`text-[11px] px-2 py-0.5 rounded border ${
+        className={`text-xs px-2 py-0.5 rounded border ${
           server.enabled
             ? 'text-success border-success/30 hover:bg-success/10'
             : 'text-text-muted border-border hover:bg-surface-3'
@@ -611,7 +604,7 @@ function McpServerRow({
       <button
         type="button"
         onClick={onRemove}
-        className="text-[11px] text-danger hover:text-danger/80 px-1"
+        className="text-xs text-danger hover:text-danger/80 px-1"
         title="Remove server"
       >
         ✕
@@ -655,14 +648,14 @@ function PluginInstall(): JSX.Element {
         placeholder="本地路径 或 github:owner/repo[#ref][/subdir]"
         disabled={busy}
         data-testid="plugin-install-source"
-        className="flex-1 text-[12px] px-2 py-1 rounded border border-border bg-surface-1 text-text-primary placeholder:text-text-muted disabled:opacity-50"
+        className="flex-1 text-sm px-2 py-1 rounded border border-border bg-surface-1 text-text-primary placeholder:text-text-muted disabled:opacity-50"
       />
       <button
         type="button"
         onClick={() => void install()}
         disabled={busy || !source.trim()}
         data-testid="plugin-install-button"
-        className="text-[11px] px-2.5 py-1 rounded border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
+        className="text-xs px-2.5 py-1 rounded border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
       >
         {busy ? '安装中…' : '安装'}
       </button>
@@ -680,7 +673,7 @@ function PluginList(): JSX.Element {
     <button
       type="button"
       onClick={() => useAppStore.getState().loadPlugins()}
-      className="text-[11px] px-2 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
+      className="text-xs px-2 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
     >
       刷新
     </button>
@@ -690,7 +683,7 @@ function PluginList(): JSX.Element {
     <div className="space-y-2" data-testid="plugin-list">
       <PluginInstall />
       {manifests.length === 0 ? (
-        <div className="flex items-center gap-2 text-[12px] text-text-muted">
+        <div className="flex items-center gap-2 text-sm text-text-muted">
           <span>未发现插件。放到 工作区/.kairo/plugins/&lt;name&gt;/（含 .claude-plugin/plugin.json），或从上方安装。</span>
           {refresh}
         </div>
@@ -717,10 +710,10 @@ function PluginList(): JSX.Element {
                       className="w-3.5 h-3.5 rounded accent-accent"
                       data-testid={`plugin-toggle-${p.metadata.name}`}
                     />
-                    <span className="text-[13px] font-medium text-text-primary">{p.metadata.name}</span>
+                    <span className="text-sm font-medium text-text-primary">{p.metadata.name}</span>
                   </label>
-                  {p.metadata.version && <span className="text-[10px] text-text-muted font-mono">v{p.metadata.version}</span>}
-                  <span className="ml-auto text-[10px] text-text-muted">
+                  {p.metadata.version && <span className="text-xs text-text-muted font-mono">v{p.metadata.version}</span>}
+                  <span className="ml-auto text-xs text-text-muted">
                     {p.commands.length} 命令 · {p.agents.length} agents · {mcpCount} MCP · {p.gateRules.length} 规则
                   </span>
                   {p.installedFrom && (
@@ -736,7 +729,7 @@ function PluginList(): JSX.Element {
                           )
                       }}
                       data-testid={`plugin-update-${p.metadata.name}`}
-                      className="text-[10px] px-1.5 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
+                      className="text-xs px-1.5 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
                     >
                       更新
                     </button>
@@ -753,14 +746,14 @@ function PluginList(): JSX.Element {
                         )
                     }}
                     data-testid={`plugin-uninstall-${p.metadata.name}`}
-                    className="text-[10px] px-1.5 py-0.5 rounded border border-danger/40 text-danger/80 hover:text-danger hover:border-danger"
+                    className="text-xs px-1.5 py-0.5 rounded border border-danger/40 text-danger/80 hover:text-danger hover:border-danger"
                   >
                     卸载
                   </button>
                 </div>
-                {p.metadata.description && <div className="text-[11px] text-text-secondary mt-0.5">{p.metadata.description}</div>}
+                {p.metadata.description && <div className="text-xs text-text-secondary mt-0.5">{p.metadata.description}</div>}
                 {(p.metadata.author || p.installedFrom) && (
-                  <div className="text-[10px] text-text-muted mt-0.5 truncate">
+                  <div className="text-xs text-text-muted mt-0.5 truncate">
                     {p.metadata.author && <span>by {p.metadata.author}</span>}
                     {p.metadata.author && p.installedFrom && <span> · </span>}
                     {p.installedFrom && <span className="font-mono">{p.installedFrom.source}</span>}
@@ -777,7 +770,7 @@ function PluginList(): JSX.Element {
                       className="w-3.5 h-3.5 rounded accent-warning"
                       data-testid={`plugin-trust-${p.metadata.name}`}
                     />
-                    <span className={`text-[11px] ${isTrusted ? 'text-text-secondary' : 'text-warning'}`}>
+                    <span className={`text-xs ${isTrusted ? 'text-text-secondary' : 'text-warning'}`}>
                       {isTrusted
                         ? `已信任 — ${codeBits.join(' + ')} 会运行其代码`
                         : `信任以启用 ${codeBits.join(' + ')}（会执行插件代码）`}
@@ -866,25 +859,25 @@ function MarketplaceManager(): JSX.Element {
           placeholder="marketplace 来源：本地路径 或 github:owner/repo"
           disabled={busy}
           data-testid="marketplace-source"
-          className="flex-1 text-[12px] px-2 py-1 rounded border border-border bg-surface-1 text-text-primary placeholder:text-text-muted disabled:opacity-50"
+          className="flex-1 text-sm px-2 py-1 rounded border border-border bg-surface-1 text-text-primary placeholder:text-text-muted disabled:opacity-50"
         />
         <button
           type="button"
           onClick={() => void add()}
           disabled={busy || !input.trim()}
           data-testid="marketplace-add"
-          className="text-[11px] px-2.5 py-1 rounded border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
+          className="text-xs px-2.5 py-1 rounded border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
         >
           {busy ? '注册中…' : '注册'}
         </button>
       </div>
 
       {sources.length === 0 ? (
-        <div className="text-[12px] text-text-muted">未注册任何 marketplace。</div>
+        <div className="text-sm text-text-muted">未注册任何 marketplace。</div>
       ) : (
         <div className="space-y-1" data-testid="marketplace-list">
           {sources.map((src, i) => (
-            <div key={src} className="flex items-center gap-2 text-[12px]">
+            <div key={src} className="flex items-center gap-2 text-sm">
               <span className="font-mono text-text-secondary truncate flex-1" title={src}>
                 {src}
               </span>
@@ -892,7 +885,7 @@ function MarketplaceManager(): JSX.Element {
                 type="button"
                 onClick={() => void browse(src)}
                 data-testid={`marketplace-browse-${i}`}
-                className="text-[10px] px-1.5 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
+                className="text-xs px-1.5 py-0.5 rounded border border-border text-text-secondary hover:text-text-primary"
               >
                 浏览
               </button>
@@ -900,7 +893,7 @@ function MarketplaceManager(): JSX.Element {
                 type="button"
                 onClick={() => void remove(src)}
                 data-testid={`marketplace-remove-${i}`}
-                className="text-[10px] px-1.5 py-0.5 rounded border border-danger/40 text-danger/80 hover:text-danger"
+                className="text-xs px-1.5 py-0.5 rounded border border-danger/40 text-danger/80 hover:text-danger"
               >
                 移除
               </button>
@@ -911,22 +904,22 @@ function MarketplaceManager(): JSX.Element {
 
       {browsed && (
         <div data-testid="marketplace-entries" className="rounded-md border border-border bg-surface-2 p-2 space-y-1.5">
-          <div className="text-[11px] font-semibold text-text-primary">{browsed.mp.name}</div>
-          {browsed.mp.plugins.length === 0 && <div className="text-[11px] text-text-muted">该 marketplace 没有插件条目。</div>}
+          <div className="text-xs font-semibold text-text-primary">{browsed.mp.name}</div>
+          {browsed.mp.plugins.length === 0 && <div className="text-xs text-text-muted">该 marketplace 没有插件条目。</div>}
           {browsed.mp.plugins.map((entry) => (
             <div key={entry.name} data-testid={`marketplace-entry-${entry.name}`} className="flex items-center gap-2">
               <div className="flex-1 min-w-0">
-                <div className="text-[12px] text-text-primary">
+                <div className="text-sm text-text-primary">
                   {entry.name}
-                  {entry.version && <span className="ml-1 text-[10px] text-text-muted font-mono">v{entry.version}</span>}
+                  {entry.version && <span className="ml-1 text-xs text-text-muted font-mono">v{entry.version}</span>}
                 </div>
-                {entry.description && <div className="text-[10px] text-text-secondary truncate">{entry.description}</div>}
+                {entry.description && <div className="text-xs text-text-secondary truncate">{entry.description}</div>}
               </div>
               <button
                 type="button"
                 onClick={() => void install(entry)}
                 data-testid={`marketplace-install-${entry.name}`}
-                className="text-[10px] px-2 py-0.5 rounded border border-accent/40 text-accent hover:border-accent"
+                className="text-xs px-2 py-0.5 rounded border border-accent/40 text-accent hover:border-accent"
               >
                 安装
               </button>

@@ -66,7 +66,7 @@ export function FeedbackDialog(): JSX.Element | null {
 
         <div className="p-4 space-y-3">
           <div className="flex items-center gap-2">
-            <span className="text-[12px] text-text-muted">体验评分</span>
+            <span className="text-sm text-text-muted">体验评分</span>
             {[1, 2, 3, 4, 5].map((n) => (
               <button
                 key={n}
@@ -86,14 +86,14 @@ export function FeedbackDialog(): JSX.Element | null {
             autoFocus
             rows={5}
             placeholder="哪里有用？哪里别扭？Comprehension Gate 的那个问题问到点子上了吗？"
-            className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-[13px] text-text-primary outline-none focus:border-border-focus resize-none"
+            className="w-full px-3 py-2 rounded-md bg-surface-2 border border-border text-sm text-text-primary outline-none focus:border-border-focus resize-none"
           />
 
           <div className="flex items-center justify-end gap-2">
             <button
               type="button"
               onClick={close}
-              className="px-3 py-1.5 text-[12px] rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
+              className="px-3 py-1.5 text-sm rounded-md bg-surface-3 hover:bg-surface-2 text-text-secondary border border-border"
             >
               取消
             </button>
@@ -101,7 +101,7 @@ export function FeedbackDialog(): JSX.Element | null {
               type="button"
               onClick={submit}
               disabled={!text.trim() || submitting}
-              className="px-3 py-1.5 text-[12px] rounded-md bg-accent hover:bg-accent-hover text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+              className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent-hover text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {submitting ? '保存中…' : '提交'}
             </button>

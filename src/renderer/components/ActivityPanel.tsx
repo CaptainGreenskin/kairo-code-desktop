@@ -21,7 +21,7 @@ export function ActivityPanel(): JSX.Element {
           <button
             type="button"
             onClick={clearEvents}
-            className="text-[10px] text-text-muted hover:text-text-primary transition-colors"
+            className="text-xs text-text-muted hover:text-text-primary transition-colors"
           >
             Clear
           </button>
@@ -60,7 +60,7 @@ function ActivityRow({ event }: { event: ActivityEvent }): JSX.Element {
   const { icon, color, label } = getEventDisplay(event)
 
   return (
-    <div className="flex items-start gap-2 text-[11px] py-0.5">
+    <div className="flex items-start gap-2 text-xs py-0.5">
       <span className="text-text-muted shrink-0 font-mono w-16">{time}</span>
       <span className={`shrink-0 ${color}`}>{icon}</span>
       <span className="text-text-secondary min-w-0">

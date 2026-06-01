@@ -79,7 +79,7 @@ export function ModelSwitcher(): JSX.Element {
                   type="button"
                   onClick={() => switchProvider(p)}
                   className={
-                    'flex-1 px-2 py-1 rounded text-[11px] transition-colors ' +
+                    'flex-1 px-2 py-1 rounded text-xs transition-colors ' +
                     (provider === p
                       ? 'bg-accent/15 text-text-primary'
                       : 'text-text-muted hover:bg-surface-3')
@@ -98,7 +98,7 @@ export function ModelSwitcher(): JSX.Element {
                   type="button"
                   onClick={() => selectModel(m)}
                   className={
-                    'w-full flex items-center justify-between px-3 py-1.5 text-left text-[12px] font-mono transition-colors ' +
+                    'w-full flex items-center justify-between px-3 py-1.5 text-left text-sm font-mono transition-colors ' +
                     (m === model
                       ? 'bg-accent/10 text-text-primary'
                       : 'text-text-secondary hover:bg-surface-3')
@@ -109,7 +109,7 @@ export function ModelSwitcher(): JSX.Element {
                 </button>
               ))}
               {!presets.includes(model) && (
-                <div className="px-3 py-1.5 text-[11px] text-text-muted border-t border-border mt-1">
+                <div className="px-3 py-1.5 text-xs text-text-muted border-t border-border mt-1">
                   Custom: <span className="font-mono text-text-secondary">{model}</span>
                 </div>
               )}

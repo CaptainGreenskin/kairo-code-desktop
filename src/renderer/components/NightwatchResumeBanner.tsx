@@ -43,7 +43,7 @@ export function NightwatchResumeBanner(): JSX.Element | null {
 
   return (
     <div
-      className="flex items-center gap-2 px-4 py-1.5 border-b border-border bg-accent/10 text-[12px]"
+      className="flex items-center gap-2 px-4 py-1.5 border-b border-border bg-accent/10 text-sm"
       data-testid="nightwatch-resume-banner"
     >
       <span className="text-text-primary">
@@ -53,14 +53,14 @@ export function NightwatchResumeBanner(): JSX.Element | null {
         type="button"
         onClick={() => void resume()}
         data-testid="nightwatch-resume"
-        className="ml-auto shrink-0 px-2 py-0.5 rounded bg-accent text-white hover:bg-accent-hover text-[11px]"
+        className="ml-auto shrink-0 px-2 py-0.5 rounded bg-accent text-white hover:bg-accent-hover text-xs"
       >
         恢复续跑
       </button>
       <button
         type="button"
         onClick={dismiss}
-        className="shrink-0 px-2 py-0.5 rounded border border-border text-text-muted hover:text-text-primary text-[11px]"
+        className="shrink-0 px-2 py-0.5 rounded border border-border text-text-muted hover:text-text-primary text-xs"
       >
         忽略
       </button>

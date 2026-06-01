@@ -608,34 +608,34 @@ export function CodeMapView({
                     <div
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
-                      className="rounded-md border border-border bg-surface-0/95 shadow-lg px-2.5 py-2 text-[11px] leading-tight overflow-y-auto"
+                      className="rounded-md border border-border bg-surface-0/95 shadow-lg px-2.5 py-2 text-xs leading-tight overflow-y-auto"
                       style={{ maxHeight: CH }}
                       data-testid="map-hover-card"
                     >
                       <div className="font-mono text-text-primary truncate" title={hovered}>{shortenModuleId(hovered)}</div>
-                      <div className="text-[10px] text-text-muted mb-1">
+                      <div className="text-xs text-text-muted mb-1">
                         {hm ? `${hm.fileCount} files · ${hm.loc} LOC` : ''}
                       </div>
                       {isChanged(hovered) && downstreamCount > 0 && (
-                        <div className="text-[10px] mb-1" style={{ color: 'var(--color-accent)' }}>
+                        <div className="text-xs mb-1" style={{ color: 'var(--color-accent)' }}>
                           改动中心 · 波及 {downstreamCount} 个下游模块
                         </div>
                       )}
                       {!isChanged(hovered) && impactDepth(hovered) > 0 && (
-                        <div className="text-[10px] mb-1" style={{ color: 'var(--color-accent)' }}>
+                        <div className="text-xs mb-1" style={{ color: 'var(--color-accent)' }}>
                           受最近改动影响（{impactDepth(hovered)} 跳下游）
                         </div>
                       )}
                       {flags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-1.5">
                           {flags.map((f) => (
-                            <span key={f.t} className="px-1 rounded text-[9px]" style={{ background: f.c, color: 'var(--color-surface-0)' }}>{f.t}</span>
+                            <span key={f.t} className="px-1 rounded text-xs" style={{ background: f.c, color: 'var(--color-surface-0)' }}>{f.t}</span>
                           ))}
                         </div>
                       )}
                       {signals.length > 0 && (
                         <div className="mb-1.5 -mx-0.5">
-                          <div className="text-[9px] uppercase tracking-wide text-text-muted px-0.5 mb-0.5">behavior delta</div>
+                          <div className="text-xs uppercase tracking-wide text-text-muted px-0.5 mb-0.5">behavior delta</div>
                           {signals.map((s, si) => (
                             <button
                               key={`s-${si}`}
@@ -645,17 +645,17 @@ export function CodeMapView({
                               title={`打开 ${s.file}`}
                             >
                               <div className="flex items-center gap-1">
-                                <span className="px-1 rounded text-[9px] shrink-0" style={{ background: sigColor(s.kind), color: 'var(--color-surface-0)' }}>{sigLabel(s.kind)}</span>
+                                <span className="px-1 rounded text-xs shrink-0" style={{ background: sigColor(s.kind), color: 'var(--color-surface-0)' }}>{sigLabel(s.kind)}</span>
                                 <span className="truncate text-text-secondary group-hover:text-text-primary">{s.detail}</span>
                               </div>
-                              <div className="text-[9px] text-text-muted truncate pl-0.5">{s.file.split('/').pop()} ↗</div>
+                              <div className="text-xs text-text-muted truncate pl-0.5">{s.file.split('/').pop()} ↗</div>
                             </button>
                           ))}
                         </div>
                       )}
                       {devs.length > 0 && (
                         <div className="mb-1.5 -mx-0.5" data-testid="hover-deviations">
-                          <div className="text-[9px] uppercase tracking-wide text-text-muted px-0.5 mb-0.5">architecture deviation</div>
+                          <div className="text-xs uppercase tracking-wide text-text-muted px-0.5 mb-0.5">architecture deviation</div>
                           {devs.map((d, di) => (
                             <button
                               key={`dev-${di}`}
@@ -665,7 +665,7 @@ export function CodeMapView({
                               title={`打开 ${d.file}`}
                             >
                               <span
-                                className="px-1 rounded text-[9px] shrink-0"
+                                className="px-1 rounded text-xs shrink-0"
                                 style={{ background: d.kind === 'cyclic-dependency' ? 'var(--color-danger)' : 'var(--color-warning)', color: 'var(--color-surface-0)' }}
                               >
                                 {d.kind === 'cyclic-dependency' ? 'cycle' : 'new dep'}
@@ -677,7 +677,7 @@ export function CodeMapView({
                       )}
                       {brain.length > 0 && (
                         <div className="mb-1.5 -mx-0.5" data-testid="hover-brain">
-                          <div className="text-[9px] uppercase tracking-wide text-text-muted px-0.5 mb-0.5">brain · 决策史</div>
+                          <div className="text-xs uppercase tracking-wide text-text-muted px-0.5 mb-0.5">brain · 决策史</div>
                           {brain.map((d, bi) => (
                             <button
                               key={`brain-${bi}`}
@@ -690,20 +690,20 @@ export function CodeMapView({
                               title={d.focus ? `打开 ${d.focus}` : undefined}
                             >
                               <span
-                                className="px-1 rounded text-[9px] shrink-0 mt-px"
+                                className="px-1 rounded text-xs shrink-0 mt-px"
                                 style={{ background: d.outcome === 'passed' ? 'var(--color-success)' : 'var(--color-warning)', color: 'var(--color-surface-0)' }}
                               >
                                 {d.outcome === 'passed' ? '通过' : '改过'}
                               </span>
                               <span className="min-w-0 flex-1">
                                 <span className="block truncate text-text-secondary">{d.rationale ?? d.question ?? '已在闸门确认'}</span>
-                                <span className="block text-[9px] text-text-muted">{new Date(d.at).toLocaleDateString()}</span>
+                                <span className="block text-xs text-text-muted">{new Date(d.at).toLocaleDateString()}</span>
                               </span>
                             </button>
                           ))}
                         </div>
                       )}
-                      <div className="text-[10px] text-text-muted">
+                      <div className="text-xs text-text-muted">
                         imports → <span className="text-text-secondary">{hoverDeps.imports.length}</span> · used by ← <span className="text-text-secondary">{hoverDeps.dependents.length}</span>
                       </div>
                       {imports.length > 0 && (
@@ -748,7 +748,7 @@ export function CodeMapView({
           </svg>
         )}
         {hiddenCount > 0 && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-text-muted bg-surface-0/80 px-2 py-0.5 rounded">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-text-muted bg-surface-0/80 px-2 py-0.5 rounded">
             最大 {nodes.length} 个模块（共 {vmap?.total}），其余 {hiddenCount} 个已折叠
           </div>
         )}
@@ -758,17 +758,17 @@ export function CodeMapView({
       {selected && (
         <div className="w-64 shrink-0 border-l border-border bg-surface-0 flex flex-col" data-testid="map-drawer">
           <div className="flex items-center justify-between px-3 py-2 border-b border-border">
-            <span className="text-[12px] font-mono text-text-primary truncate" title={selected.label}>{shortenModuleId(selected.label)}</span>
+            <span className="text-sm font-mono text-text-primary truncate" title={selected.label}>{shortenModuleId(selected.label)}</span>
             <button type="button" onClick={() => setSelected(null)} className="text-text-muted hover:text-text-primary text-xs px-1">&#10005;</button>
           </div>
-          <div className="px-3 py-1.5 text-[10px] text-text-muted">{selected.files.length} files · {selected.loc} LOC</div>
+          <div className="px-3 py-1.5 text-xs text-text-muted">{selected.files.length} files · {selected.loc} LOC</div>
           <div className="flex-1 min-h-0 overflow-y-auto px-1.5 pb-2">
             {selected.files.map((f) => (
               <button
                 key={f}
                 type="button"
                 onClick={() => openModuleFile(f)}
-                className="w-full text-left px-2 py-1 rounded text-[12px] font-mono text-text-secondary hover:bg-surface-3 hover:text-text-primary truncate"
+                className="w-full text-left px-2 py-1 rounded text-sm font-mono text-text-secondary hover:bg-surface-3 hover:text-text-primary truncate"
                 title={f}
               >
                 {f.split('/').pop()}

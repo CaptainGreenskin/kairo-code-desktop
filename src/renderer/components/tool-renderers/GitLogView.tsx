@@ -43,10 +43,10 @@ export function GitLogView({ result, isError }: Props): JSX.Element {
       {commits.map((c) => (
         <div key={c.hash} className="px-3 py-2 text-xs hover:bg-surface-3/50 transition-colors">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-accent text-[11px]">{c.hash?.slice(0, 7)}</span>
+            <span className="font-mono text-accent text-xs">{c.hash?.slice(0, 7)}</span>
             <span className="text-text-primary flex-1 truncate">{c.message}</span>
           </div>
-          <div className="flex items-center gap-3 mt-0.5 text-text-muted text-[10px]">
+          <div className="flex items-center gap-3 mt-0.5 text-text-muted text-xs">
             <span>{c.author}</span>
             <span>{formatDate(c.date)}</span>
           </div>

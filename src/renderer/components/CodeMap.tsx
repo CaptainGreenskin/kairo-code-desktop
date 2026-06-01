@@ -200,13 +200,13 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
       {!isDisplay && (
         <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-surface-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[13px] font-semibold text-text-primary">Code Map</span>
-            <span className="text-[10px] text-text-muted truncate">
+            <span className="text-sm font-semibold text-text-primary">Code Map</span>
+            <span className="text-xs text-text-muted truncate">
               {map ? `${map.modules.length} modules · ${map.edges.length} deps` : 'your system, by real imports'}
             </span>
             {stats && (
               <span
-                className="text-[10px] text-text-muted/70 font-mono shrink-0"
+                className="text-xs text-text-muted/70 font-mono shrink-0"
                 title={`${stats.read} read · ${stats.reused} cached · ${stats.removed} pruned`}
               >
                 {stats.cached ? 'cached' : 'scanned'} {stats.durationMs}ms
@@ -217,7 +217,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
         </div>
       )}
       {isDisplay && map && (
-        <div className="px-3 py-1 text-[10px] text-text-muted border-b border-border">
+        <div className="px-3 py-1 text-xs text-text-muted border-b border-border">
           {map.modules.length} modules · {map.edges.length} deps
         </div>
       )}
@@ -232,13 +232,13 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
           high-risk changes raises a standing alarm instead of rotting silently. */}
       {governance.action !== 'ok' && (
         <div
-          className="px-3 py-1.5 border-b border-border flex items-start gap-2 text-[10px]"
+          className="px-3 py-1.5 border-b border-border flex items-start gap-2 text-xs"
           style={{ background: `color-mix(in srgb, ${governance.action === 'freeze' ? 'var(--color-danger)' : 'var(--color-warning)'} 14%, transparent)` }}
           data-testid="governance-banner"
           data-action={governance.action}
         >
           <span
-            className="px-1 rounded text-[9px] font-semibold shrink-0 mt-px"
+            className="px-1 rounded text-xs font-semibold shrink-0 mt-px"
             style={{ background: governance.action === 'freeze' ? 'var(--color-danger)' : 'var(--color-warning)', color: 'var(--color-surface-0)' }}
           >
             {governance.action === 'freeze' ? '建议暂停' : '先理解'}
@@ -259,10 +259,10 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
           onChange={(e) => setQuery(e.target.value)}
           placeholder="问系统：模块名 / 文件名 / 谁依赖它 / 它安全吗"
           data-testid="map-query-input"
-          className="w-full px-2 py-1 rounded bg-surface-2 border border-border text-[11px] text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
+          className="w-full px-2 py-1 rounded bg-surface-2 border border-border text-xs text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
         />
         {query.trim() && !brain && !fileDeps && (
-          <div className="mt-1 text-[10px] text-text-muted" data-testid="map-query-result">无匹配模块</div>
+          <div className="mt-1 text-xs text-text-muted" data-testid="map-query-result">无匹配模块</div>
         )}
         {fileQuery && fileDeps && (
           <FileLevelPanel file={fileQuery} deps={fileDeps} onOpenFile={openFile} />
@@ -342,7 +342,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
         <ServiceMap workspacePath={workspacePath} serviceRoots={serviceRoots} />
       </AdvancedToolsGroup>
 
-      <div className="flex items-center gap-3 px-3 py-1.5 border-b border-border text-[10px] text-text-muted">
+      <div className="flex items-center gap-3 px-3 py-1.5 border-b border-border text-xs text-text-muted">
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-warning)' }} /> invariant</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} /> last change</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full border border-dashed" style={{ borderColor: 'var(--color-accent)' }} /> downstream</span>
@@ -353,7 +353,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
 
       {track && track.total > 0 && (
         <div
-          className="flex items-center gap-3 px-3 py-1.5 border-b border-border text-[10px] text-text-muted"
+          className="flex items-center gap-3 px-3 py-1.5 border-b border-border text-xs text-text-muted"
           data-testid="track-record"
           title="Agent Track Record：基于历史变更与闸门决策的信任信号"
         >
@@ -394,7 +394,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
 
       {delta && delta.sinceCount > 0 && (
         <div className="px-3 py-2 border-b border-border bg-accent/10 flex items-center gap-2" data-testid="map-delta-banner">
-          <span className="text-[11px] text-text-primary">
+          <span className="text-xs text-text-primary">
             自上次查看：<span className="font-semibold text-accent">{delta.sinceCount}</span> 处变更
             {delta.needsJudgment.length > 0 && (
               <> · <span className="font-semibold text-warning">{delta.needsJudgment.length}</span> 处待你判断</>
@@ -403,7 +403,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
           <button
             type="button"
             onClick={markCaughtUp}
-            className="ml-auto shrink-0 text-[10px] px-1.5 py-0.5 rounded border border-border text-text-muted hover:text-text-primary hover:border-border-focus"
+            className="ml-auto shrink-0 text-xs px-1.5 py-0.5 rounded border border-border text-text-muted hover:text-text-primary hover:border-border-focus"
             title="把当前时刻标记为已理解"
           >
             标记已跟进
@@ -510,18 +510,18 @@ function SidebarFeed({
 }): JSX.Element {
   const feed = useMemo(() => buildNarrativeFeed(input), [input])
   if (feed.length === 0) {
-    return <div className="px-3 py-1.5 text-[10px] text-text-muted border-b border-border">一切正常。在下方聊天框问任何问题。</div>
+    return <div className="px-3 py-1.5 text-xs text-text-muted border-b border-border">一切正常。在下方聊天框问任何问题。</div>
   }
   return (
     <div className="border-b border-border px-2 py-1.5 space-y-1" data-testid="sidebar-feed">
-      <div className="text-[9px] text-text-muted uppercase tracking-wider px-1">最近动态</div>
+      <div className="text-xs text-text-muted uppercase tracking-wider px-1">最近动态</div>
       {feed.map((ev, i) => (
         <button
           key={i}
           type="button"
           onClick={() => onAsk(ev.title + '，详情是什么？')}
           className={
-            'w-full text-left flex items-start gap-1.5 px-1.5 py-1 rounded text-[10px] hover:bg-surface-3 ' +
+            'w-full text-left flex items-start gap-1.5 px-1.5 py-1 rounded text-xs hover:bg-surface-3 ' +
             (ev.severity === 'critical' ? 'text-danger' :
              ev.severity === 'warning' ? 'text-warning' :
              'text-text-secondary')
@@ -544,7 +544,7 @@ function AdvancedToolsGroup({ children }: { children: React.ReactNode }): JSX.El
         type="button"
         onClick={() => setOpen((v) => !v)}
         data-testid="advanced-tools-toggle"
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-muted hover:text-text-secondary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-muted hover:text-text-secondary"
       >
         <span>{open ? '▾' : '▸'}</span>
         <span>更多工具</span>
@@ -573,7 +573,7 @@ function ComprehensionHealthBar({
     health.score >= 0.8 ? 'var(--color-success)' : health.score >= 0.5 ? 'var(--color-warning)' : 'var(--color-danger)'
   return (
     <div
-      className="px-3 py-1.5 border-b border-border flex items-center gap-2 text-[10px]"
+      className="px-3 py-1.5 border-b border-border flex items-center gap-2 text-xs"
       data-testid="comprehension-health"
       data-score={pctNum}
       title={`${health.freshModules}/${health.liveModules} 个变更过的模块你已跟进（按重要度加权）`}
@@ -596,7 +596,7 @@ function ComprehensionHealthBar({
               key={m.id}
               type="button"
               onClick={() => onPick(m.id)}
-              className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus truncate"
+              className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus truncate"
               title={`${m.id} 自变更后没人跟进 — 点击问系统`}
             >
               {m.id.split('/').slice(-1)[0]}
@@ -632,7 +632,7 @@ function renderCited(
         key={i}
         type="button"
         onClick={() => (item.file ? onOpenFile(item.file) : item.module ? onPick(item.module) : undefined)}
-        className="px-0.5 rounded text-[9px] align-baseline text-accent hover:underline"
+        className="px-0.5 rounded text-xs align-baseline text-accent hover:underline"
         title={item.text}
       >
         [{item.id}]
@@ -692,8 +692,8 @@ function BrainChat({
     <div className="border-b border-border" data-testid="brain-chat">
       <div className="px-3 py-2 space-y-2">
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-medium text-text-secondary">与系统对话</span>
-          <span className="text-[9px] text-text-muted">grounded · 每句都引用证据</span>
+          <span className="text-xs font-medium text-text-secondary">与系统对话</span>
+          <span className="text-xs text-text-muted">grounded · 每句都引用证据</span>
         </div>
         <div className="flex gap-1.5">
           <input
@@ -702,14 +702,14 @@ function BrainChat({
             onKeyDown={(e) => e.key === 'Enter' && ask()}
             placeholder="问系统：流程怎么走？为什么这样？发生了什么？"
             data-testid="brain-chat-input"
-            className="flex-1 px-2 py-1 rounded bg-surface-2 border border-border text-[11px] text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
+            className="flex-1 px-2 py-1 rounded bg-surface-2 border border-border text-xs text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
           />
           <button
             type="button"
             onClick={ask}
             disabled={loading}
             data-testid="brain-chat-ask"
-            className="px-2 py-1 rounded text-[11px] bg-accent text-white hover:bg-accent-hover disabled:opacity-50"
+            className="px-2 py-1 rounded text-xs bg-accent text-white hover:bg-accent-hover disabled:opacity-50"
           >
             {loading ? '…' : '问'}
           </button>
@@ -718,13 +718,13 @@ function BrainChat({
         {/* ── Narrative Feed: shown when the user hasn't asked anything yet ── */}
         {!hasAsked && feed.length > 0 && (
           <div className="space-y-1" data-testid="narrative-feed">
-            <div className="text-[10px] text-text-muted">自上次查看以来，你需要知道的事：</div>
+            <div className="text-xs text-text-muted">自上次查看以来，你需要知道的事：</div>
             {feed.map((ev, i) => (
               <div
                 key={i}
                 data-testid={`narrative-event-${i}`}
                 className={
-                  'flex items-start gap-1.5 px-2 py-1 rounded text-[11px] ' +
+                  'flex items-start gap-1.5 px-2 py-1 rounded text-xs ' +
                   (ev.severity === 'critical' ? 'bg-danger/10 text-danger' :
                    ev.severity === 'warning' ? 'bg-warning/10 text-warning' :
                    'bg-surface-2 text-text-secondary')
@@ -733,31 +733,31 @@ function BrainChat({
                 <span className="shrink-0">{ev.severity === 'critical' ? '🔴' : ev.severity === 'warning' ? '🟡' : '🟢'}</span>
                 <div className="min-w-0">
                   <div className="font-medium">{ev.title}</div>
-                  <div className="text-[10px] opacity-80">{ev.detail}</div>
+                  <div className="text-xs opacity-80">{ev.detail}</div>
                 </div>
               </div>
             ))}
           </div>
         )}
         {!hasAsked && feed.length === 0 && (
-          <div className="text-[10px] text-text-muted" data-testid="narrative-feed-empty">
+          <div className="text-xs text-text-muted" data-testid="narrative-feed-empty">
             一切正常，没有需要你关注的变化。试试问一个问题。
           </div>
         )}
 
         {answer && evidence && (
-          <div className="text-[11px] text-text-primary leading-snug rounded bg-surface-2 px-2 py-1.5" data-testid="brain-chat-answer">
+          <div className="text-xs text-text-primary leading-snug rounded bg-surface-2 px-2 py-1.5" data-testid="brain-chat-answer">
             {renderCited(answer, evidence, onOpenFile, onPick)}
           </div>
         )}
 
         {noModel && evidence && (
           <div className="rounded bg-surface-2 px-2 py-1.5 space-y-1" data-testid="brain-chat-nomodel">
-            <div className="text-[11px] text-text-primary font-medium">
+            <div className="text-xs text-text-primary font-medium">
               找到 {evidence.items.length} 条相关证据（无模型，显示原始数据）
             </div>
             {evidence.items.length > 0 && (
-              <div className="text-[10px] text-text-secondary leading-snug">
+              <div className="text-xs text-text-secondary leading-snug">
                 {/* Summarize evidence kinds for quick overview */}
                 {(() => {
                   const kinds = new Map<string, number>()
@@ -766,13 +766,13 @@ function BrainChat({
                 })()}
               </div>
             )}
-            <div className="text-[9px] text-accent">
+            <div className="text-xs text-accent">
               配置模型后（Settings → Provider），AI 会用这些证据 + 读代码工具生成完整回答
             </div>
           </div>
         )}
         {noModel && !evidence && (
-          <div className="text-[10px] text-text-muted" data-testid="brain-chat-nomodel">
+          <div className="text-xs text-text-muted" data-testid="brain-chat-nomodel">
             未配置模型 — 去 Settings 配模型后可以问系统任何问题
           </div>
         )}
@@ -780,18 +780,18 @@ function BrainChat({
         {evidence && (
           <div className="space-y-0.5" data-testid="brain-chat-evidence">
             {evidence.items.length === 0 ? (
-              <div className="text-[10px] text-text-muted">Brain 里没有与这个问题相关的证据</div>
+              <div className="text-xs text-text-muted">Brain 里没有与这个问题相关的证据</div>
             ) : (
               evidence.items.slice(0, 8).map((e) => (
                 <button
                   key={e.id}
                   type="button"
                   onClick={() => (e.file ? onOpenFile(e.file) : e.module ? onPick(e.module) : undefined)}
-                  className="w-full text-left flex items-start gap-1 text-[10px] px-0.5 py-0.5 rounded hover:bg-surface-3"
+                  className="w-full text-left flex items-start gap-1 text-xs px-0.5 py-0.5 rounded hover:bg-surface-3"
                   title={e.file ?? e.module ?? ''}
                 >
                   <span className="text-accent shrink-0">[{e.id}]</span>
-                  <span className="px-1 rounded text-[9px] shrink-0 bg-surface-3 text-text-muted">{EVIDENCE_KIND_LABEL[e.kind]}</span>
+                  <span className="px-1 rounded text-xs shrink-0 bg-surface-3 text-text-muted">{EVIDENCE_KIND_LABEL[e.kind]}</span>
                   <span className="text-text-secondary truncate">{e.text}</span>
                 </button>
               ))
@@ -839,11 +839,11 @@ function PreflightPredict({
           setExpanded(next)
           if (!next) onPredict(new Set())
         }}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">派单前预测</span>
-        <span className="text-[9px] text-text-muted">改之前先看会炸到哪</span>
+        <span className="text-xs text-text-muted">改之前先看会炸到哪</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1.5">
@@ -854,35 +854,35 @@ function PreflightPredict({
               onKeyDown={(e) => e.key === 'Enter' && run()}
               placeholder="要派给 crew 的任务，如：重构 auth 的 token 刷新"
               data-testid="preflight-input"
-              className="flex-1 px-2 py-1 rounded bg-surface-2 border border-border text-[11px] text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
+              className="flex-1 px-2 py-1 rounded bg-surface-2 border border-border text-xs text-text-primary placeholder:text-text-muted outline-none focus:border-border-focus"
             />
             <button
               type="button"
               onClick={run}
               data-testid="preflight-run"
-              className="px-2 py-1 rounded text-[11px] bg-accent text-white hover:bg-accent-hover"
+              className="px-2 py-1 rounded text-xs bg-accent text-white hover:bg-accent-hover"
             >
               预测
             </button>
           </div>
           {pred && (
             <div className="space-y-1" data-testid="preflight-result">
-              <div className="text-[11px] text-text-primary">{pred.summary}</div>
+              <div className="text-xs text-text-primary">{pred.summary}</div>
               {pred.invariantsAtRisk.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1 text-[10px]">
+                <div className="flex flex-wrap items-center gap-1 text-xs">
                   <span className="text-warning shrink-0">不变量</span>
                   {pred.invariantsAtRisk.slice(0, 4).map((id) => (
-                    <button key={id} type="button" onClick={() => onPick(id)} className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary">
+                    <button key={id} type="button" onClick={() => onPick(id)} className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary">
                       {id.split('/').slice(-1)[0]}
                     </button>
                   ))}
                 </div>
               )}
               {pred.debtHit.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1 text-[10px]">
+                <div className="flex flex-wrap items-center gap-1 text-xs">
                   <span className="text-danger shrink-0">带债</span>
                   {pred.debtHit.slice(0, 4).map((id) => (
-                    <button key={id} type="button" onClick={() => onPick(id)} className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary">
+                    <button key={id} type="button" onClick={() => onPick(id)} className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary">
                       {id.split('/').slice(-1)[0]}
                     </button>
                   ))}
@@ -943,20 +943,20 @@ function RankedDiffPanel({
           setExpanded(next)
           if (next && hunks === null) load()
         }}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">关键改动</span>
-        <span className="text-[9px] text-text-muted">本地改动 · 按理解重要性排序</span>
+        <span className="text-xs text-text-muted">本地改动 · 按理解重要性排序</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1" data-testid="ranked-diff-body">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={load} className="px-2 py-0.5 rounded text-[10px] border border-border text-text-secondary hover:text-text-primary">刷新</button>
-            <span className="text-[9px] text-text-muted">{loading ? '读取中…' : hunks ? `${meaningful.length} 处关键 · ${cosmetic.length} 处装饰` : ''}</span>
+            <button type="button" onClick={load} className="px-2 py-0.5 rounded text-xs border border-border text-text-secondary hover:text-text-primary">刷新</button>
+            <span className="text-xs text-text-muted">{loading ? '读取中…' : hunks ? `${meaningful.length} 处关键 · ${cosmetic.length} 处装饰` : ''}</span>
           </div>
           {hunks && meaningful.length === 0 && cosmetic.length === 0 && (
-            <div className="text-[10px] text-text-muted">本地无未提交改动</div>
+            <div className="text-xs text-text-muted">本地无未提交改动</div>
           )}
           {meaningful.map((h, i) => {
             const st = HUNK_KIND_STYLE[h.kind]
@@ -968,23 +968,23 @@ function RankedDiffPanel({
                 className="w-full text-left rounded px-1.5 py-1 hover:bg-surface-3 border border-border/50"
                 title={`打开 ${h.file}`}
               >
-                <div className="flex items-center gap-1 text-[10px]">
-                  <span className="px-1 rounded text-[9px] shrink-0" style={{ background: st.color, color: 'var(--color-surface-0)' }}>{st.label}</span>
+                <div className="flex items-center gap-1 text-xs">
+                  <span className="px-1 rounded text-xs shrink-0" style={{ background: st.color, color: 'var(--color-surface-0)' }}>{st.label}</span>
                   <span className="font-mono text-text-secondary truncate">{h.file.split('/').slice(-1)[0]}{h.header ? ` · ${h.header}` : ''}</span>
                   <span className="ml-auto shrink-0 text-text-muted">+{h.added}/-{h.removed}</span>
                 </div>
-                {h.reasons[0] && <div className="text-[9px] text-text-muted pl-0.5">{h.reasons[0]}</div>}
+                {h.reasons[0] && <div className="text-xs text-text-muted pl-0.5">{h.reasons[0]}</div>}
               </button>
             )
           })}
           {cosmetic.length > 0 && (
-            <button type="button" onClick={() => setShowCosmetic((v) => !v)} className="text-[9px] text-text-muted hover:text-text-secondary" data-testid="ranked-diff-cosmetic-toggle">
+            <button type="button" onClick={() => setShowCosmetic((v) => !v)} className="text-xs text-text-muted hover:text-text-secondary" data-testid="ranked-diff-cosmetic-toggle">
               {showCosmetic ? '收起' : `展开 ${cosmetic.length} 处格式/注释改动`}
             </button>
           )}
           {showCosmetic &&
             cosmetic.map((h, i) => (
-              <button key={`c-${h.file}-${i}`} type="button" onClick={() => onOpenFile(h.file)} className="w-full text-left text-[9px] text-text-muted px-1.5 py-0.5 rounded hover:bg-surface-3 truncate">
+              <button key={`c-${h.file}-${i}`} type="button" onClick={() => onOpenFile(h.file)} className="w-full text-left text-xs text-text-muted px-1.5 py-0.5 rounded hover:bg-surface-3 truncate">
                 装饰 · {h.file.split('/').slice(-1)[0]} (+{h.added}/-{h.removed})
               </button>
             ))}
@@ -1062,15 +1062,15 @@ function DrillPanel({
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">理解力自测</span>
-        <span className="text-[9px] text-text-muted">{acc != null ? `本轮准确率 ${acc}%（${score.correct}/${score.total}）` : '考考你对系统的理解'}</span>
+        <span className="text-xs text-text-muted">{acc != null ? `本轮准确率 ${acc}%（${score.correct}/${score.total}）` : '考考你对系统的理解'}</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1.5" data-testid="drill-question">
-          <div className="text-[11px] text-text-primary font-mono">{drill.question}</div>
+          <div className="text-xs text-text-primary font-mono">{drill.question}</div>
           <div className="space-y-1">
             {drill.options.map((opt, i) => {
               const isAnswer = i === drill.answerIndex
@@ -1084,7 +1084,7 @@ function DrillPanel({
                   onClick={() => choose(i)}
                   disabled={reveal}
                   data-testid={`drill-option-${i}`}
-                  className="w-full text-left px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-border-focus disabled:cursor-default"
+                  className="w-full text-left px-2 py-1 rounded text-xs font-mono border border-border hover:border-border-focus disabled:cursor-default"
                   style={bg ? { background: bg, color: 'var(--color-surface-0)', borderColor: bg } : undefined}
                 >
                   {opt}
@@ -1097,7 +1097,7 @@ function DrillPanel({
               type="button"
               onClick={next}
               data-testid="drill-next"
-              className="px-2 py-0.5 rounded text-[10px] bg-accent text-white hover:bg-accent-hover"
+              className="px-2 py-0.5 rounded text-xs bg-accent text-white hover:bg-accent-hover"
             >
               下一题
             </button>
@@ -1134,16 +1134,16 @@ function OnboardingTour({ steps, onFocus }: { steps: TourStep[]; onFocus: (q: st
           setExpanded(next)
           if (next) go(idx)
         }}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">理解上手之旅</span>
-        <span className="text-[9px] text-text-muted">{steps.length} 步 · 快速读懂这个系统</span>
+        <span className="text-xs text-text-muted">{steps.length} 步 · 快速读懂这个系统</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1.5" data-testid="tour-step">
-          <div className="text-[11px] font-medium text-text-primary">{cur.title}</div>
-          <div className="text-[10px] text-text-secondary leading-snug">{cur.detail}</div>
+          <div className="text-xs font-medium text-text-primary">{cur.title}</div>
+          <div className="text-xs text-text-secondary leading-snug">{cur.detail}</div>
           {cur.focusModules.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {cur.focusModules.slice(0, 6).map((m) => (
@@ -1151,7 +1151,7 @@ function OnboardingTour({ steps, onFocus }: { steps: TourStep[]; onFocus: (q: st
                   key={m}
                   type="button"
                   onClick={() => onFocus(m)}
-                  className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
+                  className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
                 >
                   {m.split('/').slice(-1)[0]}
                 </button>
@@ -1163,17 +1163,17 @@ function OnboardingTour({ steps, onFocus }: { steps: TourStep[]; onFocus: (q: st
               type="button"
               onClick={() => go(idx - 1)}
               disabled={idx === 0}
-              className="px-2 py-0.5 rounded text-[10px] border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
+              className="px-2 py-0.5 rounded text-xs border border-border text-text-secondary hover:text-text-primary disabled:opacity-40"
             >
               上一步
             </button>
-            <span className="text-[9px] text-text-muted">{Math.min(idx, steps.length - 1) + 1}/{steps.length}</span>
+            <span className="text-xs text-text-muted">{Math.min(idx, steps.length - 1) + 1}/{steps.length}</span>
             <button
               type="button"
               onClick={() => go(idx + 1)}
               disabled={idx >= steps.length - 1}
               data-testid="tour-next"
-              className="px-2 py-0.5 rounded text-[10px] bg-accent text-white hover:bg-accent-hover disabled:opacity-40"
+              className="px-2 py-0.5 rounded text-xs bg-accent text-white hover:bg-accent-hover disabled:opacity-40"
             >
               下一步
             </button>
@@ -1251,11 +1251,11 @@ function ServiceMap({
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">服务图</span>
-        <span className="text-[9px] text-text-muted">跨仓:谁的事件/接口连着谁</span>
+        <span className="text-xs text-text-muted">跨仓:谁的事件/接口连着谁</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1.5">
@@ -1264,7 +1264,7 @@ function ServiceMap({
               type="button"
               onClick={addService}
               data-testid="service-add"
-              className="px-2 py-1 rounded text-[10px] border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
+              className="px-2 py-1 rounded text-xs border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
             >
               + 添加服务目录
             </button>
@@ -1273,11 +1273,11 @@ function ServiceMap({
               onClick={discover}
               disabled={!workspacePath}
               data-testid="service-discover"
-              className="px-2 py-1 rounded text-[10px] border border-border text-text-secondary hover:text-text-primary hover:border-border-focus disabled:opacity-50"
+              className="px-2 py-1 rounded text-xs border border-border text-text-secondary hover:text-text-primary hover:border-border-focus disabled:opacity-50"
             >
               自动发现同级
             </button>
-            <span className="text-[9px] text-text-muted">{allRoots.length} 个服务{loading ? ' · 扫描中…' : ''}</span>
+            <span className="text-xs text-text-muted">{allRoots.length} 个服务{loading ? ' · 扫描中…' : ''}</span>
           </div>
 
           {/* Registered sibling roots, each removable. */}
@@ -1288,7 +1288,7 @@ function ServiceMap({
                   key={r}
                   type="button"
                   onClick={() => useAppStore.getState().removeServiceRoot(r)}
-                  className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-danger hover:border-danger/50"
+                  className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-danger hover:border-danger/50"
                   title={`移除 ${r}`}
                 >
                   {r.split('/').slice(-1)[0]} ✕
@@ -1300,7 +1300,7 @@ function ServiceMap({
           {graph && graph.edges.length > 0 ? (
             <ServiceGraphView graph={graph} />
           ) : (
-            <div className="text-[10px] text-text-muted" data-testid="service-empty">
+            <div className="text-xs text-text-muted" data-testid="service-empty">
               {allRoots.length < 2 ? '添加 ≥2 个服务目录（或"自动发现同级"），看跨服务的事件/接口连接' : '这些服务之间没有共享的事件/接口'}
             </div>
           )}
@@ -1340,11 +1340,11 @@ function ReplayBar({
           if (next) scrub(idx)
           else onScrub(new Set())
         }}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] text-text-secondary hover:text-text-primary"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"
       >
         <span>{expanded ? '▾' : '▸'}</span>
         <span className="font-medium">理解力回放</span>
-        <span className="text-[9px] text-text-muted">{steps.length} 步 · 看系统怎么长成现在这样</span>
+        <span className="text-xs text-text-muted">{steps.length} 步 · 看系统怎么长成现在这样</span>
       </button>
       {expanded && (
         <div className="px-3 pb-2 space-y-1">
@@ -1357,17 +1357,17 @@ function ReplayBar({
             data-testid="replay-slider"
             className="w-full accent-accent"
           />
-          <div className="flex items-center gap-1.5 text-[10px]" data-testid="replay-step">
+          <div className="flex items-center gap-1.5 text-xs" data-testid="replay-step">
             <span className="text-text-muted shrink-0">{Math.min(idx, steps.length - 1) + 1}/{steps.length}</span>
             <span
-              className="px-1 rounded text-[9px] shrink-0"
+              className="px-1 rounded text-xs shrink-0"
               style={{ background: cur.source === 'crew' ? 'var(--color-accent)' : 'var(--color-surface-3)', color: cur.source === 'crew' ? 'var(--color-surface-0)' : 'var(--color-text-muted)' }}
             >
               {cur.source === 'crew' ? 'crew' : 'git'}
             </span>
             <span className="text-text-secondary truncate" title={cur.label}>{cur.label}</span>
           </div>
-          <div className="text-[9px] text-text-muted">
+          <div className="text-xs text-text-muted">
             {cur.modules.length} 个模块变更{relTime(cur.at) ? ` · ${relTime(cur.at)}` : ''}
           </div>
         </div>
@@ -1392,26 +1392,26 @@ function FileLevelPanel({
 }): JSX.Element {
   const row = (label: string, list: string[]): JSX.Element => (
     <div className="space-y-0.5">
-      <div className="text-[9px] uppercase tracking-wide text-text-muted">{label}（{list.length}）</div>
+      <div className="text-xs uppercase tracking-wide text-text-muted">{label}（{list.length}）</div>
       {list.slice(0, 6).map((f) => (
         <button
           key={f}
           type="button"
           onClick={() => onOpenFile(f)}
-          className="w-full text-left px-0.5 py-0.5 rounded text-[10px] text-text-secondary hover:bg-surface-3 hover:text-text-primary truncate"
+          className="w-full text-left px-0.5 py-0.5 rounded text-xs text-text-secondary hover:bg-surface-3 hover:text-text-primary truncate"
           title={`打开 ${f}`}
         >
           {f.split('/').pop()} ↗
         </button>
       ))}
-      {list.length === 0 && <div className="text-[10px] text-text-muted px-0.5">（无）</div>}
+      {list.length === 0 && <div className="text-xs text-text-muted px-0.5">（无）</div>}
     </div>
   )
   return (
     <div className="mt-1.5 space-y-1.5 rounded border border-border bg-surface-2 px-2 py-1.5" data-testid="map-file-deps">
       <div className="flex items-center gap-1.5">
-        <span className="px-1 rounded text-[9px] bg-accent text-white shrink-0">文件级</span>
-        <span className="font-mono text-[11px] text-text-primary truncate" title={file}>{file}</span>
+        <span className="px-1 rounded text-xs bg-accent text-white shrink-0">文件级</span>
+        <span className="font-mono text-xs text-text-primary truncate" title={file}>{file}</span>
       </div>
       {row('被这些文件 import', deps.importers)}
       {row('它 import 了', deps.imports)}
@@ -1454,17 +1454,17 @@ function ModuleDossier({
       brain.invariant || brain.debt > 0 || brain.deltaCount > 0 ? (
         <div className="flex flex-wrap gap-1" data-testid="dossier-flags">
           {brain.invariant && (
-            <span className="px-1 rounded text-[9px]" style={{ background: 'var(--color-warning)', color: 'var(--color-surface-0)' }}>
+            <span className="px-1 rounded text-xs" style={{ background: 'var(--color-warning)', color: 'var(--color-surface-0)' }}>
               不变量
             </span>
           )}
           {brain.debt > 0 && (
-            <span className="px-1 rounded text-[9px]" style={{ background: 'var(--color-danger)', color: 'var(--color-surface-0)' }} title="高风险变更没人在闸门确认过">
+            <span className="px-1 rounded text-xs" style={{ background: 'var(--color-danger)', color: 'var(--color-surface-0)' }} title="高风险变更没人在闸门确认过">
               理解债 {brain.debt}
             </span>
           )}
           {brain.deltaCount > 0 && (
-            <span className="px-1 rounded text-[9px]" style={{ background: 'var(--color-accent)', color: 'var(--color-surface-0)' }} title="自上次理解以来的变更">
+            <span className="px-1 rounded text-xs" style={{ background: 'var(--color-accent)', color: 'var(--color-surface-0)' }} title="自上次理解以来的变更">
               Δ {brain.deltaCount} 待跟进
             </span>
           )}
@@ -1472,7 +1472,7 @@ function ModuleDossier({
       ) : null,
     impact:
       brain.impact.downstream > 0 ? (
-        <div className="text-[10px]" style={{ color: 'var(--color-accent)' }} data-testid="dossier-impact">
+        <div className="text-xs" style={{ color: 'var(--color-accent)' }} data-testid="dossier-impact">
           改它波及 {brain.impact.downstream} 个下游
           {(brain.impact.protectedDownstream > 0 || brain.impact.debtDownstream > 0) && (
             <span className="text-text-muted">
@@ -1487,27 +1487,27 @@ function ModuleDossier({
       ) : null,
     trust:
       t.changes > 0 ? (
-        <div className="text-[10px] text-text-muted" data-testid="dossier-trust">
+        <div className="text-xs text-text-muted" data-testid="dossier-trust">
           信任：{t.changes} 次变更 · 验证 <span className={t.verified * 2 < t.changes ? 'text-warning' : 'text-text-secondary'}>{t.verified}</span> · 自动 {t.auto} · 审 {t.review}
         </div>
       ) : null,
     decisions:
       brain.decisions.length > 0 ? (
         <div className="space-y-0.5" data-testid="dossier-decisions">
-          <div className="text-[9px] uppercase tracking-wide text-text-muted">brain · 决策史</div>
+          <div className="text-xs uppercase tracking-wide text-text-muted">brain · 决策史</div>
           {brain.decisions.slice(0, 3).map((d, i) => (
             <button
               key={i}
               type="button"
               onClick={() => d.focus && onOpenFile(d.focus)}
               className={
-                'w-full text-left flex items-start gap-1 text-[10px] px-0.5 py-0.5 rounded ' +
+                'w-full text-left flex items-start gap-1 text-xs px-0.5 py-0.5 rounded ' +
                 (d.focus ? 'hover:bg-surface-3 cursor-pointer' : 'cursor-default')
               }
               title={d.focus ? `打开 ${d.focus}` : undefined}
             >
               <span
-                className="px-1 rounded text-[9px] shrink-0 mt-px"
+                className="px-1 rounded text-xs shrink-0 mt-px"
                 style={{ background: d.outcome === 'passed' ? 'var(--color-success)' : 'var(--color-warning)', color: 'var(--color-surface-0)' }}
               >
                 {d.outcome === 'passed' ? '通过' : '改过'}
@@ -1520,19 +1520,19 @@ function ModuleDossier({
     blastDecisions:
       brain.blastDecisions.length > 0 ? (
         <div className="space-y-0.5" data-testid="dossier-blast-decisions">
-          <div className="text-[9px] uppercase tracking-wide text-text-muted">影响半径上的决策</div>
+          <div className="text-xs uppercase tracking-wide text-text-muted">影响半径上的决策</div>
           {brain.blastDecisions.slice(0, 2).map((d, i) => (
             <button
               key={i}
               type="button"
               onClick={() => d.focus && onOpenFile(d.focus)}
               className={
-                'w-full text-left flex items-start gap-1 text-[10px] px-0.5 py-0.5 rounded ' +
+                'w-full text-left flex items-start gap-1 text-xs px-0.5 py-0.5 rounded ' +
                 (d.focus ? 'hover:bg-surface-3 cursor-pointer' : 'cursor-default')
               }
               title={d.focus ? `打开 ${d.focus}` : undefined}
             >
-              <span className="px-1 rounded text-[9px] shrink-0 mt-px bg-surface-3 text-text-muted">下游</span>
+              <span className="px-1 rounded text-xs shrink-0 mt-px bg-surface-3 text-text-muted">下游</span>
               <span className="text-text-muted truncate">{decisionWhy(d)}</span>
             </button>
           ))}
@@ -1541,7 +1541,7 @@ function ModuleDossier({
     coupling:
       brain.coupling.length > 0 ? (
         <div className="space-y-0.5" data-testid="dossier-coupling">
-          <div className="text-[9px] uppercase tracking-wide text-text-muted">隐藏耦合 · 非导入（共享表/事件/接口/开关）</div>
+          <div className="text-xs uppercase tracking-wide text-text-muted">隐藏耦合 · 非导入（共享表/事件/接口/开关）</div>
           {brain.coupling.slice(0, 4).map((c, i) => {
             const other = c.from === brain.focus ? c.to : c.from
             return (
@@ -1549,10 +1549,10 @@ function ModuleDossier({
                 key={i}
                 type="button"
                 onClick={() => onPick(other)}
-                className="w-full text-left flex items-center gap-1 text-[10px] px-0.5 py-0.5 rounded hover:bg-surface-3"
+                className="w-full text-left flex items-center gap-1 text-xs px-0.5 py-0.5 rounded hover:bg-surface-3"
                 title={`与 ${other} 共享 ${c.kind}:${c.key} — 点击钻入`}
               >
-                <span className="px-1 rounded text-[9px] shrink-0" style={{ background: 'var(--color-purple, #a78bfa)', color: 'var(--color-surface-0)' }}>
+                <span className="px-1 rounded text-xs shrink-0" style={{ background: 'var(--color-purple, #a78bfa)', color: 'var(--color-surface-0)' }}>
                   {c.kind}
                 </span>
                 <span className="text-text-secondary truncate font-mono">{c.key}</span>
@@ -1565,16 +1565,16 @@ function ModuleDossier({
     history:
       brain.history.length > 0 ? (
         <div className="space-y-0.5" data-testid="dossier-history">
-          <div className="text-[9px] uppercase tracking-wide text-text-muted">git · 谁改过 / 为什么（点击看 Change Lens）</div>
+          <div className="text-xs uppercase tracking-wide text-text-muted">git · 谁改过 / 为什么（点击看 Change Lens）</div>
           {brain.history.slice(0, 4).map((c) => (
             <button
               key={c.hash}
               type="button"
               onClick={() => onCommitLens(c.hash)}
-              className="w-full text-left flex items-start gap-1 text-[10px] px-0.5 py-0.5 rounded hover:bg-surface-3"
+              className="w-full text-left flex items-start gap-1 text-xs px-0.5 py-0.5 rounded hover:bg-surface-3"
               title={`计算该提交的 Change Lens：${c.subject}`}
             >
-              <span className="px-1 rounded text-[9px] shrink-0 mt-px bg-surface-3 text-text-muted">
+              <span className="px-1 rounded text-xs shrink-0 mt-px bg-surface-3 text-text-muted">
                 {c.author.split(/\s+/)[0]?.slice(0, 6) || 'git'}
               </span>
               <span className="text-text-secondary truncate">{c.subject}</span>
@@ -1598,18 +1598,18 @@ function ModuleDossier({
         data-testid="dossier-verdict"
         data-level={brain.health.level}
       >
-        <span className="text-[11px] font-semibold shrink-0" style={{ color: hs.color }}>{hs.label}</span>
-        <span className="text-[10px] text-text-secondary leading-snug">{brain.health.reason}</span>
+        <span className="text-xs font-semibold shrink-0" style={{ color: hs.color }}>{hs.label}</span>
+        <span className="text-xs text-text-secondary leading-snug">{brain.health.reason}</span>
       </div>
 
       {/* Identity + topology */}
       <div className="flex items-center gap-1.5 flex-wrap">
-        <span className="font-mono text-[11px] text-text-primary truncate" title={brain.focus}>{shortenModuleId(brain.focus)}</span>
-        <span className="px-1 rounded text-[9px] bg-surface-3 text-text-secondary shrink-0">
+        <span className="font-mono text-xs text-text-primary truncate" title={brain.focus}>{shortenModuleId(brain.focus)}</span>
+        <span className="px-1 rounded text-xs bg-surface-3 text-text-secondary shrink-0">
           {ROLE_LABEL[brain.role]} · 入{brain.fanIn}/出{brain.fanOut}
         </span>
       </div>
-      <div className="text-[10px] text-text-muted">
+      <div className="text-xs text-text-muted">
         被 <span className="text-text-secondary">{brain.dependents.length}</span> 个依赖 · 依赖{' '}
         <span className="text-text-secondary">{brain.dependencies.length}</span> 个
         {fresh && <span className="ml-1.5" data-testid="dossier-freshness">· 最近变更 {fresh}</span>}
@@ -1618,13 +1618,13 @@ function ModuleDossier({
       {/* Disambiguation: other modules that also matched the query. */}
       {brain.alternatives.length > 0 && (
         <div className="flex flex-wrap items-center gap-1" data-testid="dossier-alternatives">
-          <span className="text-[9px] text-text-muted">其他匹配</span>
+          <span className="text-xs text-text-muted">其他匹配</span>
           {brain.alternatives.map((id) => (
             <button
               key={id}
               type="button"
               onClick={() => onPick(id)}
-              className="px-1 rounded text-[9px] font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
+              className="px-1 rounded text-xs font-mono bg-surface-2 border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
               title={`切到 ${id}`}
             >
               {shortenModuleId(id).split('/').slice(-2).join('/')}
@@ -1635,10 +1635,10 @@ function ModuleDossier({
 
       {annotations.length > 0 && (
         <div className="space-y-0.5" data-testid="dossier-annotations">
-          <div className="text-[9px] uppercase tracking-wide text-text-muted">插件标注</div>
+          <div className="text-xs uppercase tracking-wide text-text-muted">插件标注</div>
           {annotations.slice(0, 4).map((a, i) => (
-            <div key={i} className="flex items-start gap-1 text-[10px]">
-              <span className="px-1 rounded text-[9px] shrink-0 mt-px" style={{ background: 'var(--color-purple, #a78bfa)', color: 'var(--color-surface-0)' }}>
+            <div key={i} className="flex items-start gap-1 text-xs">
+              <span className="px-1 rounded text-xs shrink-0 mt-px" style={{ background: 'var(--color-purple, #a78bfa)', color: 'var(--color-surface-0)' }}>
                 {a.label}
               </span>
               {a.note && <span className="text-text-secondary truncate">{a.note}</span>}
@@ -1661,7 +1661,7 @@ function ModuleDossier({
       <button
         type="button"
         onClick={() => onSendToChat(brain)}
-        className="w-full text-[10px] px-2 py-1 rounded border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
+        className="w-full text-xs px-2 py-1 rounded border border-border text-text-secondary hover:text-text-primary hover:border-border-focus"
         data-testid="dossier-send-to-chat"
         title="把这份档案作为上下文发给对话"
       >

@@ -56,11 +56,11 @@ export function CodeBlock({ code, language }: CodeBlockProps): JSX.Element {
       </div>
       {html ? (
         <div
-          className="shiki-host text-[13px] leading-relaxed border border-border rounded-b-md overflow-x-auto"
+          className="shiki-host text-sm leading-relaxed border border-border rounded-b-md overflow-x-auto"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <pre className="text-[13px] leading-relaxed bg-surface-0 border border-border rounded-b-md p-3 overflow-x-auto text-text-primary">
+        <pre className="text-sm leading-relaxed bg-surface-0 border border-border rounded-b-md p-3 overflow-x-auto text-text-primary">
           <code>{code}</code>
         </pre>
       )}

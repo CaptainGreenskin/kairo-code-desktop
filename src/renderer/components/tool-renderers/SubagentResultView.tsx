@@ -38,7 +38,7 @@ export function SubagentResultView({ result, isError }: SubagentResultViewProps)
           <button
             type="button"
             onClick={() => setToolsExpanded((v) => !v)}
-            className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-[11px] text-text-secondary hover:bg-surface-3 transition-colors"
+            className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-xs text-text-secondary hover:bg-surface-3 transition-colors"
           >
             <svg viewBox="0 0 24 24" className="w-3 h-3 text-accent" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="3" />
@@ -48,7 +48,7 @@ export function SubagentResultView({ result, isError }: SubagentResultViewProps)
             <span className="ml-auto text-text-muted">{toolsExpanded ? '▾' : '▸'}</span>
           </button>
           {toolsExpanded && (
-            <div className="px-3 py-2 border-t border-border text-[11px] font-mono text-text-muted space-y-0.5">
+            <div className="px-3 py-2 border-t border-border text-xs font-mono text-text-muted space-y-0.5">
               {parsed.toolSummary.map((line, i) => (
                 <div key={i}>{line}</div>
               ))}
@@ -59,7 +59,7 @@ export function SubagentResultView({ result, isError }: SubagentResultViewProps)
 
       <pre
         className={
-          'bg-surface-2 border rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-[12px] leading-5 ' +
+          'bg-surface-2 border rounded p-2 overflow-x-auto whitespace-pre-wrap break-words text-sm leading-5 ' +
           (isError ? 'border-danger/40 text-danger' : 'border-border text-text-primary')
         }
       >

@@ -31,12 +31,12 @@ function ToastItem({ toast }: { toast: ToastData }): JSX.Element {
       transition={{ duration: 0.2 }}
       className={`pointer-events-auto flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-2 border border-border border-l-[3px] ${borderColor} shadow-lg min-w-[200px] max-w-[360px]`}
     >
-      <span className="text-[13px] text-text-primary flex-1">{toast.message}</span>
+      <span className="text-sm text-text-primary flex-1">{toast.message}</span>
       {toast.action && (
         <button
           type="button"
           onClick={toast.action.onClick}
-          className="text-[12px] text-accent hover:text-accent-hover font-medium shrink-0"
+          className="text-sm text-accent hover:text-accent-hover font-medium shrink-0"
         >
           {toast.action.label}
         </button>

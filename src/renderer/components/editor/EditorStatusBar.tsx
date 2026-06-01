@@ -12,7 +12,7 @@ export function EditorStatusBar({ cursorLine, cursorColumn }: Props): JSX.Elemen
   const active = openFiles.find((f) => f.id === activeFileId)
 
   return (
-    <div className="flex items-center gap-4 border-t border-border bg-surface-0 px-3 py-1 text-[11px] text-text-muted select-none">
+    <div className="flex items-center gap-4 border-t border-border bg-surface-0 px-3 py-1 text-xs text-text-muted select-none">
       {active ? (
         <>
           <span className="font-mono">
