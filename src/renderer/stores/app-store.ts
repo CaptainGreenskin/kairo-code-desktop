@@ -167,8 +167,12 @@ export interface AppState {
   toggleCodeMap: () => void
   /** Module the user asked to focus on the map (from a crew blast-radius chip). */
   focusedModule: string | null
+  /** Context-aware module filter for the map (driven by chat/tool context). */
+  contextModuleIds: Set<string> | null
   /** Focus a module on the docked map (opens the map if closed). */
   focusModuleOnMap: (module: string) => void
+  /** Set the context modules shown on the map (null = show full graph). */
+  setContextModules: (ids: string[] | null) => void
   /** Bumped whenever a gate decision is recorded, so the map re-reads the Brain. */
   decisionsRev: number
   bumpDecisions: () => void
@@ -497,7 +501,9 @@ export const useAppStore = create<AppState>((set, get) => {
       return { codeMapOpen: next, ...(next && s.sidebarCollapsed ? { sidebarCollapsed: false } : {}) }
     }),
     focusedModule: null,
+    contextModuleIds: null as Set<string> | null,
     focusModuleOnMap: (module) => set({ focusedModule: module, codeMapOpen: true }),
+    setContextModules: (ids: string[] | null) => set({ contextModuleIds: ids ? new Set(ids) : null }),
     decisionsRev: 0,
     bumpDecisions: () => set((s) => ({ decisionsRev: s.decisionsRev + 1 })),
 

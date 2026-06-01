@@ -41,7 +41,7 @@ test.afterAll(async () => {
 
 /** The inline composer is in Crew mode when its helper line is showing. */
 const crewModeHint = (): ReturnType<Page['getByText']> =>
-  page.getByText('多角色协作')
+  page.getByText('Crew 模式')
 
 test('app boots and renders the main window', async () => {
   await expect(page.locator('#root')).toBeVisible()
@@ -50,27 +50,18 @@ test('app boots and renders the main window', async () => {
   await page.screenshot({ path: 'e2e/screenshots/boot.png' })
 })
 
-test('⌘⇧C and the composer toggle switch between Agent and inline Crew mode', async () => {
-  // Crew is an inline chat turn now — there is no separate modal. The shortcut
-  // flips the composer into Crew mode (Plan → run inline).
+test('⌘⇧C activates Crew mode with indicator and cancel', async () => {
   await page.keyboard.press('Meta+Shift+C')
   await expect(crewModeHint()).toBeVisible()
-  // The legacy modal must NOT appear from any entry point.
+  // No toggle buttons — Crew mode is entered via shortcut or /crew command.
   await expect(page.getByRole('heading', { name: 'Crew', exact: true })).toHaveCount(0)
-
-  // The explicit toggle buttons drive the same state.
-  await page.getByRole('button', { name: 'Agent', exact: true }).click()
+  // Cancel returns to normal mode.
+  await page.getByText('取消').click()
   await expect(crewModeHint()).toBeHidden()
-  await page.getByRole('button', { name: 'Crew', exact: true }).click()
-  await expect(crewModeHint()).toBeVisible()
   await page.screenshot({ path: 'e2e/screenshots/crew-composer.png' })
 })
 
-test('Command palette "Run Crew" enters inline Crew mode, not a modal', async () => {
-  // Reset to Agent first so the assertion is meaningful.
-  await page.getByRole('button', { name: 'Agent', exact: true }).click()
-  await expect(crewModeHint()).toBeHidden()
-
+test('Command palette "Run Crew" enters Crew mode', async () => {
   await page.keyboard.press('Meta+K')
   const palette = page.getByPlaceholder(/type a command/i)
   await expect(palette).toBeVisible()
@@ -78,7 +69,8 @@ test('Command palette "Run Crew" enters inline Crew mode, not a modal', async ()
   await page.getByText('Run Crew', { exact: true }).click()
 
   await expect(crewModeHint()).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Crew', exact: true })).toHaveCount(0)
+  // Cancel for cleanup
+  await page.getByText('取消').click()
 })
 
 test('Code Map renders the workspace module graph (from real imports)', async () => {

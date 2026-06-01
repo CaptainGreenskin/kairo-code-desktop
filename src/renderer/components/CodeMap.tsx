@@ -424,6 +424,7 @@ export function CodeMap({ mode = 'full' }: { mode?: 'full' | 'display' }): JSX.E
         couplingEdges={couplingEdges}
         predictModuleIds={predictIds}
         replayModuleIds={replayIds}
+        contextModuleIds={useAppStore((s) => s.contextModuleIds) ?? undefined}
       />
     </div>
   )

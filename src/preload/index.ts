@@ -416,7 +416,10 @@ const kairoAPI = {
     subscribe<{ type: 'stdout' | 'stderr'; text: string }>('kairo:terminalData', listener),
 
   onTerminalExit: (listener: (event: { exitCode: number | null }) => void): Unsubscribe =>
-    subscribe<{ exitCode: number | null }>('kairo:terminalExit', listener)
+    subscribe<{ exitCode: number | null }>('kairo:terminalExit', listener),
+
+  onFocusModules: (listener: (modules: string[]) => void): Unsubscribe =>
+    subscribe<string[]>('kairo:focusModules', listener)
 }
 
 export type KairoAPI = typeof kairoAPI

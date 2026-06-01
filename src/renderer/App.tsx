@@ -70,6 +70,16 @@ export default function App(): JSX.Element {
     useAppStore.getState().loadPlugins()
   }, [workspacePath])
 
+  // Code Map context focus: when the agent's understand_system tool finds
+  // relevant modules, auto-focus the map to show only those.
+  useEffect(() => {
+    const unsub = window.kairoAPI?.onFocusModules?.((modules: string[]) => {
+      useAppStore.getState().setContextModules(modules)
+      if (!useAppStore.getState().codeMapOpen) useAppStore.getState().setCodeMapOpen(true)
+    })
+    return unsub
+  }, [])
+
   // Hold the last-known session id we saved, so we don't write empties.
   const lastSavedRef = useRef<string | null>(null)
 

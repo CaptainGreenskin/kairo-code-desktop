@@ -109,6 +109,9 @@ interface Props {
   predictModuleIds?: Set<string>
   /** Comprehension replay: modules changed at the scrubbed-to moment. */
   replayModuleIds?: Set<string>
+  /** Context-aware focus: when set, only show these modules + direct neighbors
+   *  instead of the global top-N. Driven by chat context (e.g. user asking about auth). */
+  contextModuleIds?: Set<string>
 }
 
 export function CodeMapView({
@@ -124,7 +127,8 @@ export function CodeMapView({
   queryModuleIds,
   couplingEdges,
   predictModuleIds,
-  replayModuleIds
+  replayModuleIds,
+  contextModuleIds
 }: Props): JSX.Element {
   const workspacePath = useAppStore((s) => s.workspacePath)
   const protectedGlobs = useAppStore((s) => s.protectedGlobs)
@@ -162,7 +166,22 @@ export function CodeMapView({
     if (hit) setSelected(hit)
   }, [focusedModule, map])
 
-  const vmap = map ? capMap(map, MAX_NODES) : null
+  // Context-aware filtering: when contextModuleIds is set, show ONLY those
+  // modules + their direct neighbors (compact local graph). Otherwise top-N.
+  const vmap = useMemo(() => {
+    if (!map) return null
+    if (contextModuleIds && contextModuleIds.size > 0) {
+      const neighbors = new Set(contextModuleIds)
+      for (const e of map.edges) {
+        if (contextModuleIds.has(e.from)) neighbors.add(e.to)
+        if (contextModuleIds.has(e.to)) neighbors.add(e.from)
+      }
+      const modules = map.modules.filter((m) => neighbors.has(m.id))
+      const ids = new Set(modules.map((m) => m.id))
+      return { modules, edges: map.edges.filter((e) => ids.has(e.from) && ids.has(e.to)), total: map.modules.length }
+    }
+    return capMap(map, MAX_NODES)
+  }, [map, contextModuleIds])
   const nodes = vmap ? layout(vmap.modules, vmap.edges, width, height) : []
   const visibleEdges = vmap?.edges ?? []
   const posById = new Map(nodes.map((n) => [n.id, n]))

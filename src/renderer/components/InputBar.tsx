@@ -206,6 +206,7 @@ export function InputBar(): JSX.Element {
       if (!trimmed) return
       crewRun.start(trimmed)
       setContent('')
+      useAppStore.getState().setComposerMode('agent')
       return
     }
     if ((!trimmed && droppedFiles.length === 0 && !codeContext) || isGenerating) return
@@ -396,26 +397,20 @@ export function InputBar(): JSX.Element {
             ))}
           </div>
         )}
-        <div className="mb-2 flex items-center gap-1">
-          {(['agent', 'crew'] as const).map((m) => (
+        {/* Crew mode indicator (only visible when /crew activated) */}
+        {composerMode === 'crew' && (
+          <div className="mb-2 flex items-center gap-2">
+            <span className="px-2 py-0.5 text-[10px] rounded bg-accent/20 text-accent font-medium">Crew 模式</span>
+            <span className="text-[10px] text-text-muted">多角色协作 · 发送即启动</span>
             <button
-              key={m}
               type="button"
-              onClick={() => useAppStore.getState().setComposerMode(m)}
-              className={
-                'px-2.5 py-1 text-[11px] rounded-md transition-colors ' +
-                (composerMode === m
-                  ? 'bg-accent/20 text-accent font-medium'
-                  : 'text-text-muted hover:text-text-secondary hover:bg-surface-3')
-              }
+              onClick={() => useAppStore.getState().setComposerMode('agent')}
+              className="text-[10px] text-text-muted hover:text-text-primary"
             >
-              {m === 'agent' ? 'Agent' : 'Crew'}
+              取消
             </button>
-          ))}
-          <span className="ml-1 text-[10px] text-text-muted">
-            {composerMode === 'crew' ? '多角色协作' : ''}
-          </span>
-        </div>
+          </div>
+        )}
 
         <div className="relative flex items-end gap-2 rounded-md bg-surface-2 border border-border focus-within:ring-1 focus-within:ring-border-focus focus-within:border-border-focus transition-colors px-3 py-2">
           <AnimatePresence>

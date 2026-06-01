@@ -1211,6 +1211,17 @@ export function registerComprehensionTool(
 
         const evidence = gatherEvidence(question, { map, decisions, commits, changes })
         const lines = evidence.items.map((e) => `[${e.id}] (${e.kind}) ${e.text}`)
+
+        // Extract module IDs from evidence and notify the renderer to focus the map.
+        const mentionedModules = [...new Set(evidence.items.flatMap((e) =>
+          [e.module, ...(e.file ? [e.file.split('/').slice(0, -1).join('/')] : [])].filter(Boolean) as string[]
+        ))]
+        if (mentionedModules.length > 0) {
+          const { BrowserWindow } = await import('electron')
+          const win = BrowserWindow.getAllWindows()[0]
+          if (win) win.webContents.send('kairo:focusModules', mentionedModules)
+        }
+
         return {
           content: lines.length > 0
             ? `Found ${lines.length} evidence items for "${question}":\n${lines.join('\n')}`
