@@ -78,9 +78,8 @@ export function WelcomeScreen(): JSX.Element {
     }
   }
 
-  // No briefing yet: show a welcoming state. If map is still loading, show
-  // "scanning". If truly empty (no workspace, no cwd project), show "Open Folder".
-  if (!briefing) {
+  // No workspace at all — prompt to open one
+  if (!workspacePath) {
     return (
       <div className="h-full min-h-[320px] flex flex-col items-center justify-center text-center px-6">
         <div className="text-5xl mb-4 text-accent select-none">✦</div>
@@ -88,16 +87,7 @@ export function WelcomeScreen(): JSX.Element {
         <p className="text-sm text-text-muted mt-2 mb-5">
           The coding tool that makes sure you understand what AI builds for you.
         </p>
-        {workspacePath && !map ? (
-          <p className="text-sm text-text-muted animate-pulse">正在分析 {workspacePath.split('/').pop()}…</p>
-        ) : (
-          <div className="space-y-3">
-            <Button variant="primary" onClick={handleOpenFolder} className="px-6">
-              📂 打开项目文件夹
-            </Button>
-            <p className="text-xs text-text-muted">选择一个代码目录，开始探索</p>
-          </div>
-        )}
+        <Button variant="primary" onClick={handleOpenFolder} className="px-6">📂 打开项目文件夹</Button>
       </div>
     )
   }
@@ -108,6 +98,7 @@ export function WelcomeScreen(): JSX.Element {
     <div className="h-full min-h-[320px] flex flex-col items-center justify-center px-8 max-w-2xl mx-auto">
       {briefing ? (
         <div className="w-full space-y-5" data-testid="project-briefing">
+          {/* Briefing appears when scan completes — no blocking spinner */}
           {/* Hero: project identity */}
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-medium mb-3">
@@ -174,9 +165,9 @@ export function WelcomeScreen(): JSX.Element {
         </div>
       ) : (
         <div className="text-center">
-          <div className="text-5xl mb-4 text-accent select-none animate-pulse">✦</div>
-          <h2 className="text-lg font-semibold text-text-primary mb-1">正在扫描项目…</h2>
-          <p className="text-xs text-text-muted">{projectName}</p>
+          <div className="text-4xl mb-3 text-accent select-none">✦</div>
+          <h2 className="text-lg font-semibold text-text-primary">{projectName}</h2>
+          <p className="text-xs text-text-muted mt-1 animate-pulse">正在后台分析项目…</p>
         </div>
       )}
 
