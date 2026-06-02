@@ -1182,7 +1182,9 @@ export function registerComprehensionTool(
         const { buildCodeMap } = await import('../shared/code-map')
         const { parseGitLog } = await import('../shared/git-brain')
         const { promises: fsp } = await import('node:fs')
-        const { execFileSync } = await import('node:child_process')
+        const { execFile: execFileCb } = await import('node:child_process')
+        const { promisify } = await import('node:util')
+        const execFileAsync = promisify(execFileCb)
         const nodePath = await import('node:path')
 
         // Scan the code map
@@ -1197,7 +1199,7 @@ export function registerComprehensionTool(
 
         let commits: ReturnType<typeof parseGitLog> = []
         try {
-          const raw = execFileSync('git', [
+          const { stdout: raw } = await execFileAsync('git', [
             'log', '--no-merges', '-20', '--name-only',
             '--pretty=format:%x01%H%x1f%at%x1f%an%x1f%s'
           ], { cwd, encoding: 'utf-8', timeout: 5000 })

@@ -22,8 +22,10 @@ async function buildNarrativeSummary(workingDirectory: string): Promise<string |
   // Get recent git commits (last 20)
   let commits: ReturnType<typeof parseGitLog> = []
   try {
-    const { execFileSync } = await import('node:child_process')
-    const raw = execFileSync('git', [
+    const { execFile } = await import('node:child_process')
+    const { promisify } = await import('node:util')
+    const execFileAsync = promisify(execFile)
+    const { stdout: raw } = await execFileAsync('git', [
       'log', '--no-merges', '-20', '--name-only',
       '--pretty=format:%x01%H%x1f%at%x1f%an%x1f%s'
     ], { cwd: workingDirectory, encoding: 'utf-8', timeout: 5000 })

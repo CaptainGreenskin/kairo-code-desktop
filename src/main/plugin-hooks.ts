@@ -11,7 +11,7 @@
  * error → CONTINUE) so a misconfigured hook can't brick the agent.
  */
 
-import { spawn, execFileSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { HookPoint } from '@kairo/api'
 import type { HookDecision, HookEvent, HookRegistry } from '@kairo/api'
 import { matchesTool, substituteArguments, httpDecisionFromResponse, sanitizeEnv, buildSandboxWrapper, type PluginManifest } from '@kairo/plugin'
@@ -49,12 +49,8 @@ const DEFAULT_TIMEOUT_SEC = 30
 let _hasSandboxExec: boolean | null = null
 function hasSandboxExec(): boolean {
   if (_hasSandboxExec === null) {
-    try {
-      execFileSync('which', ['sandbox-exec'], { stdio: 'ignore' })
-      _hasSandboxExec = true
-    } catch {
-      _hasSandboxExec = false
-    }
+    // Lazy check — assume available on macOS, will fail gracefully if not
+    _hasSandboxExec = process.platform === 'darwin'
   }
   return _hasSandboxExec
 }
