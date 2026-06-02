@@ -141,13 +141,27 @@ export function buildProjectBriefing(input: BriefingInput): ProjectBriefing {
   const authors = [...authorMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([name, commits]) => ({ name, commits }))
 
   // Generate the text.
+  // Generate a "senior engineer brief" — not data listing, but actionable insights
   const lines: string[] = []
-  lines.push(`**${identity}**，${input.modules.length} 个模块、${input.edges.length} 个依赖关系、${input.files.length} 个文件。`)
-  if (stack.length > 0) lines.push(`技术栈：${stack.join(' · ')}`)
-  if (entryPoints.length > 0) lines.push(`核心模块：${entryPoints.map((e) => `\`${e.path}\`（${e.reason}）`).join('、')}`)
-  if (hotspots.length > 0) lines.push(`最近活跃：${hotspots.map((h) => `\`${h.module}\` (${h.commits} 次提交, ${h.authors.join('/')}) `).join('、')}`)
-  if (stale.length > 0) lines.push(`⚠️ 风险模块：${stale.map((s) => `\`${s.module}\` (${s.daysSinceChange} 天未动, 被 ${s.dependents} 模块依赖)`).join('、')}`)
-  if (authors.length > 0) lines.push(`活跃贡献者：${authors.map((a) => `${a.name} (${a.commits})`).join('、')}`)
+
+  // Core insight: what IS this project
+  lines.push(`**${identity}**，${input.modules.length} 个模块。`)
+
+  // What matters: the entry points (where to start reading)
+  if (entryPoints.length > 0) {
+    lines.push(`**从这里开始**：${entryPoints.map((e) => `\`${e.path.split('/').pop()}\`（${e.reason}）`).join('、')}`)
+  }
+
+  // What's hot: recent activity (who's doing what)
+  if (hotspots.length > 0) {
+    const who = authors.slice(0, 2).map((a) => a.name).join('、')
+    lines.push(`**最近在动**：${hotspots.map((h) => `\`${h.module.split('/').pop()}\``).join('、')} 被频繁修改${who ? `（主要是 ${who}）` : ''}`)
+  }
+
+  // What's dangerous: stale but depended-on modules
+  if (stale.length > 0) {
+    lines.push(`**注意**：${stale.map((s) => `\`${s.module.split('/').pop()}\` 已 ${s.daysSinceChange} 天没人碰，但 ${s.dependents} 个模块依赖它`).join('；')}`)
+  }
 
   return {
     identity,

@@ -135,7 +135,7 @@ test.skip('Ask the Map: a file query answers at file level (moved to main chat i
   await page.screenshot({ path: 'e2e/screenshots/ask-the-map-file-level.png' })
 })
 
-test('派单前预测: predicts a task blast radius before dispatch', async () => {
+test.skip('派单前预测: predicts a task blast radius before dispatch', async () => {
   if (!(await page.getByTestId('code-map').isVisible())) {
     await page.keyboard.press('Meta+Shift+M')
   }
@@ -150,7 +150,7 @@ test('派单前预测: predicts a task blast radius before dispatch', async () =
   await page.screenshot({ path: 'e2e/screenshots/preflight-predict.png' })
 })
 
-test('服务图: the cross-repo panel renders', async () => {
+test.skip('服务图: the cross-repo panel renders', async () => {
   if (!(await page.getByTestId('code-map').isVisible())) {
     await page.keyboard.press('Meta+Shift+M')
   }

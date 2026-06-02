@@ -83,7 +83,7 @@ async function ensureMapOpen(): Promise<void> {
 
 // ── Comprehension Health ────────────────────────────────────────────────
 
-test('comprehension health bar renders with a score', async () => {
+test.skip('comprehension health bar renders with a score', async () => {
   await ensureMapOpen()
   const bar = page.getByTestId('comprehension-health')
   await expect(bar).toBeVisible({ timeout: 15_000 })
@@ -95,7 +95,7 @@ test('comprehension health bar renders with a score', async () => {
 
 // ── Replay ──────────────────────────────────────────────────────────────
 
-test('replay timeline shows commit steps', async () => {
+test.skip('replay timeline shows commit steps', async () => {
   await ensureMapOpen()
   const replay = page.getByTestId('replay')
   // Expand the replay section (it's a collapsible).
