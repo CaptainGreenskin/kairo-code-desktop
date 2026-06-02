@@ -191,8 +191,13 @@ export function registerIpcHandlers(
     const root = args?.workspacePath || process.cwd()
     try {
       const { scanCodeMapWithStats } = await import('./code-map-scan')
-      const { map, stats } = await scanCodeMapWithStats(root)
-      return { ok: true, map, stats }
+      // Race against a 10s timeout so the UI never freezes waiting for a scan
+      const result = await Promise.race([
+        scanCodeMapWithStats(root),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 10_000))
+      ])
+      if (!result) return { ok: true, map: { modules: [], edges: [] }, stats: { total: 0, reused: 0, read: 0, removed: 0, durationMs: 10000, cached: false, timedOut: true } }
+      return { ok: true, map: result.map, stats: result.stats }
     } catch (err) {
       return { ok: false, error: err instanceof Error ? err.message : String(err) }
     }
