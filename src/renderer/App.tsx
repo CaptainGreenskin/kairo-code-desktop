@@ -175,9 +175,9 @@ export default function App(): JSX.Element {
     [persistCurrent, setActiveSession]
   )
 
-  // ── Mount: check if API is configured (env vars or saved settings)
+  // ── Mount: check if API + workspace are configured (env vars or saved settings)
   useEffect(() => {
-    if (!setupDone) {
+    if (!setupDone && useAppStore.getState().workspacePath) {
       void window.kairoAPI?.getConfigStatus?.()
         .then((r) => { if (r?.hasModel) useAppStore.getState().setSetupDone(true) })
         .catch(() => {})

@@ -60,24 +60,22 @@ export function SetupWizard(): JSX.Element {
   }
 
   const handleComplete = (): void => {
-    // Save all settings
+    // Save API settings first
     useAppStore.getState().setProvider(provider)
     useAppStore.getState().setModel(model)
     useAppStore.getState().setApiKey(apiKey)
     useAppStore.getState().setBaseUrl(baseUrl)
-    // Direct IPC push
     void window.kairoAPI?.updateConfig({
-      provider,
-      model,
-      apiKey,
-      ...(baseUrl ? { baseUrl } : {})
+      provider, model, apiKey, ...(baseUrl ? { baseUrl } : {})
     })
-    // Open folder picker
+    // Open folder picker — only proceed when a folder is actually selected
     void window.kairoAPI.openFolder().then((folder) => {
-      if (folder) useAppStore.getState().setWorkspacePath(folder)
+      if (folder) {
+        useAppStore.getState().setWorkspacePath(folder)
+        useAppStore.getState().setSetupDone(true)
+      }
+      // If user cancelled the picker, stay on this step
     })
-    // Mark setup as done
-    useAppStore.getState().setSetupDone(true)
   }
 
   return (
@@ -199,25 +197,11 @@ export function SetupWizard(): JSX.Element {
                 <p className="text-sm text-text-muted mt-1">选择你要工作的代码目录</p>
               </div>
 
-              <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-3">
                 <Button variant="primary" onClick={handleComplete} className="px-8 py-3 text-base">
                   📂 选择文件夹
                 </Button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    // Skip workspace selection — just save API config
-                    useAppStore.getState().setProvider(provider)
-                    useAppStore.getState().setModel(model)
-                    useAppStore.getState().setApiKey(apiKey)
-                    useAppStore.getState().setBaseUrl(baseUrl)
-                    void window.kairoAPI?.updateConfig({ provider, model, apiKey, ...(baseUrl ? { baseUrl } : {}) })
-                    useAppStore.getState().setSetupDone(true)
-                  }}
-                  className="text-xs text-text-muted hover:text-text-secondary transition-colors"
-                >
-                  稍后再选 →
-                </button>
+                <p className="text-xs text-text-muted">必须选择一个项目才能开始</p>
               </div>
 
               <div className="flex justify-start">
