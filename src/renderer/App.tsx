@@ -18,6 +18,7 @@ import { CommandPalette } from './components/CommandPalette'
 import { ReviewPanel } from './components/ReviewPanel'
 import { CrewPanel } from './components/CrewPanel'
 import { CodeMap } from './components/CodeMap'
+import { SetupWizard } from './components/SetupWizard'
 import { FeedbackDialog } from './components/FeedbackDialog'
 import { EditorPanel } from './components/editor/EditorPanel'
 import { FileDropZone } from './components/FileDropZone'
@@ -47,6 +48,7 @@ export default function App(): JSX.Element {
 
   const enqueuePermission = usePermissionStore((s) => s.enqueue)
   const addDroppedFile = useChatStore((s) => s.addDroppedFile)
+  const setupDone = useAppStore((s) => s.setupDone)
 
   const sessions = useAppStore((s) => s.sessions)
   const activeSessionId = useAppStore((s) => s.activeSessionId)
@@ -421,6 +423,11 @@ export default function App(): JSX.Element {
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [isMac, toggleEditor])
+
+  // First-run setup — block the main UI until configured
+  if (!setupDone) {
+    return <SetupWizard />
+  }
 
   return (
     <div className="flex flex-col h-screen w-screen bg-surface-1 text-text-primary overflow-hidden">
