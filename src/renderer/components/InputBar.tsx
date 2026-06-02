@@ -342,8 +342,8 @@ export function InputBar(): JSX.Element {
   const canSend = (content.trim().length > 0 || droppedFiles.length > 0 || pastedImages.length > 0 || !!codeContext) && !isGenerating
 
   return (
-    <div className="border-t border-border bg-surface-2 px-4 py-3">
-      <div className="mx-auto max-w-4xl">
+    <div className="border-t border-border/50 bg-surface-1">
+      <div className="mx-auto max-w-4xl px-4 pt-2">
         {codeContext && (
           <div className="mb-2 flex items-center gap-1.5">
             <button
@@ -412,7 +412,7 @@ export function InputBar(): JSX.Element {
           </div>
         )}
 
-        <div className="relative rounded-2xl bg-surface-2/80 border border-accent/20 shadow-[0_0_0_1px_rgba(99,102,241,0.1),0_0_20px_rgba(99,102,241,0.06)] transition-all duration-200 focus-within:border-accent/40 focus-within:shadow-[0_0_0_1px_rgba(99,102,241,0.3),0_0_30px_rgba(99,102,241,0.1)]">
+        <div className="relative bg-surface-0 border border-border/40 rounded-xl transition-all duration-200 focus-within:border-accent/30">
           <AnimatePresence>
             {showSlash && (
               <SlashCommandMenu
@@ -500,9 +500,9 @@ export function InputBar(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className="mt-1.5 px-1 text-xs text-text-muted flex justify-between">
-          <span>Enter send · Shift+Enter newline · / commands · @file · ⌘K palette</span>
-          {isGenerating && <span className="text-accent">Generating…</span>}
+        <div className="mt-1 px-1 pb-1 text-xs text-text-muted/40 flex justify-between">
+          <span>Enter ↵ · / commands · @ files</span>
+          {isGenerating && <span className="text-accent/70">Generating…</span>}
         </div>
       </div>
     </div>
