@@ -99,6 +99,10 @@ export function SettingsPanel(): JSX.Element | null {
     setProtectedGlobs(draft.protectedGlobs.split('\n').map((g) => g.trim()).filter(Boolean))
     setTheme(draft.theme)
     setPermissionMode(draft.permissionMode)
+    // Ensure the final config (with ALL fields updated) reaches main.
+    // Individual setters each call syncConfigToMain, but the last one might
+    // race. An explicit final sync guarantees correctness.
+    useAppStore.getState().syncConfigToMain()
     useToastStore.getState().addToast({ type: 'success', message: 'Settings saved' })
   }
 
