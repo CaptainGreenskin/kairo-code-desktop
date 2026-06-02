@@ -38,6 +38,23 @@ const SKIP_DIRS = new Set([
 ])
 const MAX_FILES = 4000
 const MAX_BYTES = 400_000
+const SCAN_TIMEOUT_MS = 15_000
+
+/** Detect monorepo and return the relevant sub-package root if applicable. */
+async function detectMonorepoRoot(workspaceRoot: string): Promise<string> {
+  try {
+    const pkgPath = nodePath.join(workspaceRoot, 'package.json')
+    const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf-8')) as Record<string, unknown>
+    // If this is a monorepo root (has workspaces), check if cwd is inside a sub-package
+    if (Array.isArray(pkg.workspaces)) {
+      // Already at the monorepo root — don't scan all packages, just common dirs
+      return workspaceRoot
+    }
+  } catch {
+    // no package.json — not a JS/TS project, scan as-is
+  }
+  return workspaceRoot
+}
 
 interface CachedFile {
   mtimeMs: number
@@ -71,8 +88,11 @@ export async function scanCodeMapWithStats(
   let reused = 0
   let read = 0
 
+  const deadline = Date.now() + SCAN_TIMEOUT_MS
+  let batchCount = 0
+
   const walk = async (dir: string): Promise<void> => {
-    if (total >= MAX_FILES) return
+    if (total >= MAX_FILES || Date.now() > deadline) return
     let entries
     try {
       entries = await fs.readdir(dir, { withFileTypes: true })
@@ -80,8 +100,10 @@ export async function scanCodeMapWithStats(
       return
     }
     for (const e of entries) {
-      if (total >= MAX_FILES) return
+      if (total >= MAX_FILES || Date.now() > deadline) return
       if (SKIP_DIRS.has(e.name)) continue
+      // Skip hidden dirs (dotfiles like .docker, .terraform, etc.)
+      if (e.name.startsWith('.') && e.isDirectory()) continue
       const full = nodePath.join(dir, e.name)
       if (e.isDirectory()) {
         await walk(full)
@@ -113,6 +135,12 @@ export async function scanCodeMapWithStats(
         } catch {
           // skip unreadable file
         }
+
+        // Yield to event loop every 50 files so the main process stays responsive.
+        batchCount++
+        if (batchCount % 50 === 0) {
+          await new Promise((r) => setTimeout(r, 0))
+        }
       }
     }
   }
@@ -134,7 +162,13 @@ export async function scanCodeMapWithStats(
   const map = buildCodeMapFromFacts(facts)
   return {
     map,
-    stats: { total, reused, read, removed, durationMs: Date.now() - started, cached: reused > 0 }
+    stats: {
+      total, reused, read, removed,
+      durationMs: Date.now() - started,
+      cached: reused > 0,
+      truncated: total >= MAX_FILES,
+      timedOut: Date.now() > deadline
+    }
   }
 }
 

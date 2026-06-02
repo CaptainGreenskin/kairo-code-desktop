@@ -379,6 +379,10 @@ export interface CodeMapScanStats {
   removed: number
   durationMs: number
   cached: boolean
+  /** Scan was stopped early because MAX_FILES was reached. */
+  truncated?: boolean
+  /** Scan was stopped early because the 15s timeout was reached. */
+  timedOut?: boolean
 }
 
 export interface AgentConfig {
