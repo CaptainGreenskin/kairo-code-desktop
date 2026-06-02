@@ -79,6 +79,22 @@ function createWindow(): BrowserWindow {
   return mainWindow
 }
 
+// Single instance lock — prevent "No handler registered" errors when the user
+// opens the app while it's already running. The second instance quits and the
+// existing window is focused instead.
+const gotLock = app.requestSingleInstanceLock()
+if (!gotLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    const win = BrowserWindow.getAllWindows()[0]
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+}
+
 app.whenReady().then(() => {
   // Set CSP for production builds. We allow:
   //  - 'self' for scripts so eval/inline scripts are blocked.

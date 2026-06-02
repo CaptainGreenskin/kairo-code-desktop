@@ -20,11 +20,18 @@ export function WelcomeScreen(): JSX.Element {
   const [files, setFiles] = useState<string[]>([])
 
   // Scan the project on mount (independent of Code Map panel state).
+  // Retries once after 2s in case the IPC handler isn't ready yet.
   useEffect(() => {
-    const ws = workspacePath ?? undefined
-    void window.kairoAPI?.getCodeMap?.(ws)
-      .then((r) => { if (r?.ok && r.map) setMap(r.map as CodeMap) })
-      .catch(() => {})
+    let cancelled = false
+    const scan = (): void => {
+      const ws = workspacePath ?? undefined
+      void window.kairoAPI?.getCodeMap?.(ws)
+        .then((r) => { if (!cancelled && r?.ok && r.map) setMap(r.map as CodeMap) })
+        .catch(() => {})
+    }
+    scan()
+    const retry = setTimeout(scan, 2000)
+    return () => { cancelled = true; clearTimeout(retry) }
   }, [workspacePath])
 
   useEffect(() => {

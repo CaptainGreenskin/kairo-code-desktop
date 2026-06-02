@@ -175,6 +175,15 @@ export default function App(): JSX.Element {
     [persistCurrent, setActiveSession]
   )
 
+  // ── Mount: check if API is configured (env vars or saved settings)
+  useEffect(() => {
+    if (!setupDone) {
+      void window.kairoAPI?.getConfigStatus?.()
+        .then((r) => { if (r?.hasModel) useAppStore.getState().setSetupDone(true) })
+        .catch(() => {})
+    }
+  }, [setupDone])
+
   // ── Mount: load sessions, ensure an active one, subscribe to permissions
   useEffect(() => {
     let cancelled = false
