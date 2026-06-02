@@ -124,6 +124,13 @@ export function CrewRunBlock({ crew }: { crew: CrewRunView }): JSX.Element {
         )
       })()}
 
+      {/* Change Story — human-readable narrative of what changed */}
+      {crew.phase === 'done' && crew.story && (
+        <div className="mx-4 my-2 p-3 rounded-xl bg-accent/5 border border-accent/15 text-sm text-text-primary leading-relaxed">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{crew.story}</ReactMarkdown>
+        </div>
+      )}
+
       {/* Comprehension Gate + Change Lens (done) */}
       {crew.phase === 'done' && crew.lens && (
         <>

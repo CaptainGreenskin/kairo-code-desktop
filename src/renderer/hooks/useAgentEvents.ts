@@ -13,6 +13,8 @@ import type { PendingDiff } from '../stores/chat-store'
 import { maybeTriggerPendingDiff } from '../lib/diff-trigger'
 import { useToastStore } from '../stores/toast-store'
 import { planTurnEnd } from '../../shared/turn-end-policy'
+
+let lastComprehensionBump: number | null = null
 import { shouldResume } from '../../shared/nightwatch-session'
 import { personalDrift } from '../../shared/personal-drift'
 import { loadBriefing } from '../lib/briefing-loader'
@@ -217,6 +219,17 @@ export function useAgentEvents(): void {
               // block, so delegated work is observable in the conversation.
               if (event.parentToolCallId && event.type.startsWith('subagent')) {
                 store.getState().applySubagentActivity(event)
+              }
+              // Implicit comprehension: using the agent = engaging with the code.
+              // Debounced bump of lastSeen (every 5 min) so the health score
+              // naturally improves through normal interaction, not manual clicks.
+              if (event.type === 'tool-end' && (event.toolName === 'read_file' || event.toolName === 'grep' || event.toolName === 'list_directory') && !event.isError) {
+                const now = Date.now()
+                if (!lastComprehensionBump || now - lastComprehensionBump > 5 * 60 * 1000) {
+                  lastComprehensionBump = now
+                  const ws = useAppStore.getState().workspacePath ?? undefined
+                  void window.kairoAPI?.markSeen?.(now, ws)?.catch(() => {})
+                }
               }
             })
           ]

@@ -152,6 +152,7 @@ interface ChatState {
   setCrewPlan: (crewId: string, plan: CrewPlan) => void
   /** Attach the Change Lens to a finished crew message. */
   setCrewLens: (crewId: string, lens: ChangeLens) => void
+  setCrewStory: (crewId: string, story: string) => void
   /** Set the modules the human expects this run to touch (plan gate). */
   setCrewExpected: (crewId: string, modules: string[]) => void
   /** Remove a crew message (e.g. the user cancels at the plan gate). */
@@ -448,6 +449,13 @@ export const useChatStore = create<ChatState>((set, get) => ({
     set((s) => ({
       messages: s.messages.map((m) =>
         m.crew && m.crew.crewId === crewId ? { ...m, crew: { ...m.crew, lens } } : m
+      )
+    }))
+  },
+  setCrewStory: (crewId: string, story: string) => {
+    set((s) => ({
+      messages: s.messages.map((m) =>
+        m.crew && m.crew.crewId === crewId ? { ...m, crew: { ...m.crew, story } } : m
       )
     }))
   },

@@ -51,6 +51,8 @@ export interface CrewRunView {
   lens?: ChangeLens | null
   reason?: 'completed' | 'aborted' | 'error' | null
   error?: string
+  /** Human-readable change story (generated after completion). */
+  story?: string
   /** Modules the human expected this run to touch (set at the plan gate). */
   expectedModules?: string[]
 }

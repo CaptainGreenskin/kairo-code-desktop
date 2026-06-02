@@ -77,6 +77,26 @@ export function ToolCallBlock({ toolCall }: ToolCallBlockProps): JSX.Element {
         </span>
       </button>
 
+      {/* Live subagent progress — visible even when collapsed */}
+      {!toolCall.isExpanded && toolCall.subagentSteps && toolCall.subagentSteps.length > 0 && toolCall.subagentDone && (
+        <div className="px-3 pb-1.5 text-xs text-success flex items-center gap-1">
+          <span>✓</span>
+          <span>{toolCall.subagentSteps.length} steps completed</span>
+        </div>
+      )}
+      {!toolCall.isExpanded && toolCall.subagentSteps && toolCall.subagentSteps.length > 0 && !toolCall.subagentDone && (() => {
+        const lastStep = toolCall.subagentSteps[toolCall.subagentSteps.length - 1]!
+        const isRunning = !lastStep.endedAt
+        return (
+          <div className="px-3 pb-1.5 text-xs text-text-muted flex items-center gap-1.5 overflow-hidden">
+            {isRunning && <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />}
+            <span className="font-mono truncate">
+              {isRunning ? `${lastStep.name}…` : `✓ ${lastStep.name}`}
+            </span>
+          </div>
+        )
+      })()}
+
       {pendingDiff && (
         <div className="px-3 pb-2">
           <DiffPreview

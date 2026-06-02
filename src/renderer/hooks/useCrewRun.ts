@@ -6,6 +6,7 @@
  */
 
 import { useAppStore } from '../stores/app-store'
+import { buildChangeStoryFallback } from '../../shared/change-story'
 import { useChatStore } from '../stores/chat-store'
 import { useCrewRosterStore } from '../stores/crew-roster-store'
 import { useCrewStore } from '../stores/crew-store'
@@ -100,6 +101,9 @@ export function useCrewRun(): CrewRunControls {
           useChatStore.getState().setCrewLens(crewId, res.lens)
           recordChange(view.task, res.lens)
           recordWhy(view.task, res.lens.filesChanged)
+          // Generate a human-readable change story (template fallback if no model)
+          const story = buildChangeStoryFallback({ task: view.task, lens: res.lens })
+          useChatStore.getState().setCrewStory(crewId, story)
         }
         if (!res.ok) fail(crewId, res.error ?? 'Crew failed')
       })
