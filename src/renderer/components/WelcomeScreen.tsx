@@ -19,13 +19,13 @@ export function WelcomeScreen(): JSX.Element {
   const [commits, setCommits] = useState<Array<{ author: string; at: number; files: string[]; subject: string }>>([])
   const [files, setFiles] = useState<string[]>([])
 
-  // Scan the project on mount (independent of Code Map panel state).
-  // Retries once after 2s in case the IPC handler isn't ready yet.
+  // Scan the project on mount — only if a workspace is explicitly set.
+  // Without a workspace, don't scan (cwd could be / or ~, causing infinite scan).
   useEffect(() => {
+    if (!workspacePath) return
     let cancelled = false
     const scan = (): void => {
-      const ws = workspacePath ?? undefined
-      void window.kairoAPI?.getCodeMap?.(ws)
+      void window.kairoAPI?.getCodeMap?.(workspacePath)
         .then((r) => { if (!cancelled && r?.ok && r.map) setMap(r.map as CodeMap) })
         .catch(() => {})
     }
@@ -83,21 +83,21 @@ export function WelcomeScreen(): JSX.Element {
   if (!briefing) {
     return (
       <div className="h-full min-h-[320px] flex flex-col items-center justify-center text-center px-6">
-        <div className="text-5xl mb-4 text-accent select-none">&#10022;</div>
+        <div className="text-5xl mb-4 text-accent select-none">✦</div>
         <h2 className="text-2xl font-semibold text-text-primary mb-1">Kairo Code</h2>
-        <p className="text-sm text-text-muted mt-2 mb-4">
+        <p className="text-sm text-text-muted mt-2 mb-5">
           The coding tool that makes sure you understand what AI builds for you.
         </p>
-        {map ? (
-          <p className="text-sm text-text-muted animate-pulse">正在分析项目…</p>
+        {workspacePath && !map ? (
+          <p className="text-sm text-text-muted animate-pulse">正在分析 {workspacePath.split('/').pop()}…</p>
         ) : (
-          <Button variant="primary" onClick={handleOpenFolder}>Open Folder</Button>
+          <div className="space-y-3">
+            <Button variant="primary" onClick={handleOpenFolder} className="px-6">
+              📂 打开项目文件夹
+            </Button>
+            <p className="text-xs text-text-muted">选择一个代码目录，开始探索</p>
+          </div>
         )}
-        <div className="mt-6 text-xs text-text-muted space-x-4">
-          <span>&#8984;K palette</span>
-          <span>&#8984;N new chat</span>
-          <span>&#8984;O open folder</span>
-        </div>
       </div>
     )
   }
