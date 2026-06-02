@@ -143,6 +143,54 @@ body {
   -webkit-app-region: no-drag;
 }
 
+/* ── Thinking block (reasoning models like GLM-5.1, DeepSeek) ──────── */
+.markdown-body think {
+  display: block;
+  border-left: 2px solid var(--color-accent);
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: var(--color-surface-2);
+  border-radius: 0 8px 8px 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.markdown-body think::before {
+  content: '💭 思考过程';
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+
+/* ── Markdown prose styling ────────────────────────────────────────────── */
+.markdown-body pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.markdown-body pre code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--font-size-xs);
+}
+.markdown-body th, .markdown-body td {
+  border: 1px solid var(--color-border);
+  padding: 6px 10px;
+  text-align: left;
+}
+.markdown-body th {
+  background: var(--color-surface-2);
+  font-weight: 600;
+}
+
 /* ── shiki code blocks ─────────────────────────────────────────────────── */
 .shiki-host pre.shiki {
   margin: 0;
