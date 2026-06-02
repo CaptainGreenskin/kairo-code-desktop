@@ -255,28 +255,28 @@ export function Sidebar({ onNewChat, onSelectSession }: SidebarProps): JSX.Eleme
         </div>
       )}
 
-      {/* Workspace folder */}
-      <button
-        type="button"
-        onClick={handleOpenFolder}
-        title={workspacePath ?? 'Choose workspace folder'}
-        className="flex items-center gap-2 mx-3 mb-2 px-2 py-1.5 rounded-md text-left bg-surface-2 hover:bg-surface-3 border border-border text-sm text-text-secondary transition-colors min-w-0"
-      >
-        <FolderIcon />
-        <span className="truncate flex-1 font-mono">
-          {workspacePath ? shortenPath(workspacePath) : 'Open folder...'}
-        </span>
-      </button>
-
-      {/* Settings */}
-      <button
-        type="button"
-        onClick={toggleSettings}
-        className="flex items-center gap-2 mx-3 mb-3 px-2 py-1.5 rounded-md text-left text-text-secondary hover:text-text-primary hover:bg-surface-2 text-[12.5px] transition-colors"
-      >
-        <GearIcon />
-        <span>Settings</span>
-      </button>
+      {/* Bottom toolbar */}
+      <div className="flex items-center gap-1 px-3 py-2 border-t border-border/50">
+        <button
+          type="button"
+          onClick={handleOpenFolder}
+          title={workspacePath ? shortenPath(workspacePath) : 'Open folder'}
+          className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs text-text-muted hover:text-text-primary hover:bg-surface-2 transition-all duration-150 flex-1 min-w-0"
+        >
+          <FolderIcon />
+          <span className="truncate font-mono">
+            {workspacePath ? workspacePath.split('/').pop() : 'Open folder'}
+          </span>
+        </button>
+        <button
+          type="button"
+          onClick={toggleSettings}
+          title="Settings"
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-2 transition-all duration-150"
+        >
+          <GearIcon />
+        </button>
+      </div>
 
       {/* Context menu */}
       {contextMenu && (
