@@ -15,14 +15,12 @@ const PROVIDERS = [
   {
     id: 'openai' as Provider,
     name: 'GLM / OpenAI',
-    desc: 'GLM-5.1, DeepSeek, Qwen, OpenAI 及所有兼容端点',
-    icon: '🤖'
+    desc: 'GLM-5.1, DeepSeek, Qwen, OpenAI 及所有兼容端点'
   },
   {
     id: 'anthropic' as Provider,
     name: 'Anthropic',
-    desc: 'Claude Opus / Sonnet / Haiku',
-    icon: '✦'
+    desc: 'Claude Opus / Sonnet / Haiku'
   }
 ]
 
@@ -120,8 +118,7 @@ export function SetupWizard(): JSX.Element {
                         : 'border-border bg-surface-2/60 hover:border-accent/30'
                     }`}
                   >
-                    <div className="text-2xl mb-2">{p.icon}</div>
-                    <div className="text-sm font-medium text-text-primary">{p.name}</div>
+                    <div className="text-sm font-semibold text-text-primary">{p.name}</div>
                     <div className="text-xs text-text-muted mt-0.5">{p.desc}</div>
                   </button>
                 ))}

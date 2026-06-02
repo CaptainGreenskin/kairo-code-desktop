@@ -20,7 +20,7 @@ test.beforeAll(async () => {
   app = await electron.launch({
     args: [ROOT, '--no-sandbox', `--user-data-dir=${userData}`],
     cwd: ROOT,
-    env: { ...process.env, NODE_ENV: 'production' }
+    env: { ...process.env, NODE_ENV: 'production', OPENAI_API_KEY: 'test-e2e' }
   })
   page = await app.firstWindow()
   await page.waitForLoadState('domcontentloaded')

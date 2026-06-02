@@ -251,7 +251,7 @@ export const useAppStore = create<AppState>((set, get) => {
     theme: initial.theme,
     permissionMode: initial.permissionMode,
     workspacePath: initial.workspacePath ?? null,
-    setupDone: !!(initial.apiKey || initial.anthropicApiKey || process.env.OPENAI_API_KEY || process.env.ANTHROPIC_API_KEY),
+    setupDone: !!(initial.apiKey || initial.anthropicApiKey || (typeof process !== 'undefined' && (process.env?.OPENAI_API_KEY || process.env?.ANTHROPIC_API_KEY))),
     setSetupDone: (done: boolean) => set({ setupDone: done }),
     serviceRoots: initial.serviceRoots ?? [],
     pluginManifests: [],

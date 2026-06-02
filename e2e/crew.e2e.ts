@@ -24,7 +24,7 @@ test.beforeAll(async () => {
     // First arg = app path (Electron reads package.json "main" → out/main/index.js).
     args: [ROOT, '--no-sandbox', `--user-data-dir=${userData}`],
     cwd: ROOT,
-    env: { ...process.env, NODE_ENV: 'production' }
+    env: { ...process.env, NODE_ENV: 'production', OPENAI_API_KEY: 'test-e2e' }
   })
   page = await app.firstWindow()
   await page.waitForLoadState('domcontentloaded')
@@ -208,7 +208,7 @@ test.skip('git backfill: a real repo surfaces non-crew commits in the dossier (d
   const repoApp = await electron.launch({
     args: [ROOT, '--no-sandbox', `--user-data-dir=${gitUd}`],
     cwd: repo,
-    env: { ...process.env, NODE_ENV: 'production' }
+    env: { ...process.env, NODE_ENV: 'production', OPENAI_API_KEY: 'test-e2e' }
   })
   try {
     const rp = await repoApp.firstWindow()
