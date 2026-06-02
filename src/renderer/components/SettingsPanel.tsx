@@ -99,10 +99,16 @@ export function SettingsPanel(): JSX.Element | null {
     setProtectedGlobs(draft.protectedGlobs.split('\n').map((g) => g.trim()).filter(Boolean))
     setTheme(draft.theme)
     setPermissionMode(draft.permissionMode)
-    // Ensure the final config (with ALL fields updated) reaches main.
-    // Individual setters each call syncConfigToMain, but the last one might
-    // race. An explicit final sync guarantees correctness.
-    useAppStore.getState().syncConfigToMain()
+    // Direct IPC push — bypasses the store's async sync to guarantee the
+    // complete config reaches main immediately.
+    void window.kairoAPI?.updateConfig({
+      model: draft.model.trim() || fallbackModel,
+      provider: draft.provider,
+      ...(draft.apiKey ? { apiKey: draft.apiKey } : {}),
+      ...(draft.baseUrl ? { baseUrl: draft.baseUrl } : {}),
+      ...(draft.anthropicApiKey ? { anthropicApiKey: draft.anthropicApiKey } : {}),
+      ...(draft.anthropicBaseUrl ? { anthropicBaseUrl: draft.anthropicBaseUrl } : {})
+    })
     useToastStore.getState().addToast({ type: 'success', message: 'Settings saved' })
   }
 
@@ -216,7 +222,7 @@ export function SettingsPanel(): JSX.Element | null {
             subtitle={
               draft.provider === 'anthropic'
                 ? 'Anthropic API key. Leave Base URL blank unless using a proxy/gateway.'
-                : 'OpenAI-compatible endpoint. Leave Base URL blank for the default endpoint.'
+                : 'OpenAI-compatible endpoint. GLM 模型留空自动检测，其他填 Base URL。'
             }
           >
             <label className="block">
@@ -261,7 +267,7 @@ export function SettingsPanel(): JSX.Element | null {
                 placeholder={
                   draft.provider === 'anthropic'
                     ? 'https://api.anthropic.com'
-                    : 'https://api.openai.com/v1'
+                    : 'GLM 留空自动检测 · 其他填写端点 URL'
                 }
                 spellCheck={false}
                 autoComplete="off"
